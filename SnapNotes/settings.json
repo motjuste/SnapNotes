@@ -1,0 +1,37 @@
+{
+  "name": "SnapNotes",
+  "version": "0.0",
+  "count": 0,
+  "categories": [
+    {
+      "id": "000",
+      "name": "Receipts",
+      "order": 0
+    },
+    {
+      "id": "001",
+      "name": "Business Cards",
+      "order": 1
+    },
+    {
+      "id": "002",
+      "name": "Class Notes",
+      "order": 2
+    },
+    {
+      "id": "003",
+      "name": "Posters",
+      "order": 3
+    },
+    {
+      "id": "004",
+      "name": "Groceries",
+      "order": 4
+    },
+    {
+      "id": "005",
+      "name": "Cats",
+      "order": 5
+    }
+  ]
+}

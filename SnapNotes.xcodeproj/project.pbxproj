@@ -13,6 +13,14 @@
 		200694601B27787700573CF9 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2006945F1B27787700573CF9 /* Images.xcassets */; };
 		200694631B27787700573CF9 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 200694611B27787700573CF9 /* LaunchScreen.xib */; };
 		2006946F1B27787700573CF9 /* SnapNotesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2006946E1B27787700573CF9 /* SnapNotesTests.swift */; };
+		2006947B1B28931F00573CF9 /* settings.json in Resources */ = {isa = PBXBuildFile; fileRef = 2006947A1B28931F00573CF9 /* settings.json */; };
+		2006947C1B28931F00573CF9 /* settings.json in Resources */ = {isa = PBXBuildFile; fileRef = 2006947A1B28931F00573CF9 /* settings.json */; };
+		2006947E1B28939C00573CF9 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2006947D1B28939C00573CF9 /* SwiftyJSON.swift */; };
+		2006947F1B28939C00573CF9 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2006947D1B28939C00573CF9 /* SwiftyJSON.swift */; };
+		200694811B289BAB00573CF9 /* Categories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200694801B289BAB00573CF9 /* Categories.swift */; };
+		200694821B289BAB00573CF9 /* Categories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200694801B289BAB00573CF9 /* Categories.swift */; };
+		200694841B289C8100573CF9 /* SnapNotesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200694831B289C8100573CF9 /* SnapNotesManager.swift */; };
+		200694851B289C8100573CF9 /* SnapNotesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200694831B289C8100573CF9 /* SnapNotesManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +44,10 @@
 		200694681B27787700573CF9 /* SnapNotesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SnapNotesTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2006946D1B27787700573CF9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2006946E1B27787700573CF9 /* SnapNotesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapNotesTests.swift; sourceTree = "<group>"; };
+		2006947A1B28931F00573CF9 /* settings.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = settings.json; sourceTree = "<group>"; };
+		2006947D1B28939C00573CF9 /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
+		200694801B289BAB00573CF9 /* Categories.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Categories.swift; sourceTree = "<group>"; };
+		200694831B289C8100573CF9 /* SnapNotesManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapNotesManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,12 +89,15 @@
 		200694551B27787700573CF9 /* SnapNotes */ = {
 			isa = PBXGroup;
 			children = (
+				2006947D1B28939C00573CF9 /* SwiftyJSON.swift */,
 				200694581B27787700573CF9 /* AppDelegate.swift */,
 				2006945A1B27787700573CF9 /* ViewController.swift */,
 				2006945C1B27787700573CF9 /* Main.storyboard */,
 				2006945F1B27787700573CF9 /* Images.xcassets */,
 				200694611B27787700573CF9 /* LaunchScreen.xib */,
 				200694561B27787700573CF9 /* Supporting Files */,
+				200694801B289BAB00573CF9 /* Categories.swift */,
+				200694831B289C8100573CF9 /* SnapNotesManager.swift */,
 			);
 			path = SnapNotes;
 			sourceTree = "<group>";
@@ -91,6 +106,7 @@
 			isa = PBXGroup;
 			children = (
 				200694571B27787700573CF9 /* Info.plist */,
+				2006947A1B28931F00573CF9 /* settings.json */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -161,6 +177,7 @@
 				TargetAttributes = {
 					200694521B27787700573CF9 = {
 						CreatedOnToolsVersion = 6.3.2;
+						DevelopmentTeam = W88773838E;
 					};
 					200694671B27787700573CF9 = {
 						CreatedOnToolsVersion = 6.3.2;
@@ -194,6 +211,7 @@
 			files = (
 				2006945E1B27787700573CF9 /* Main.storyboard in Resources */,
 				200694631B27787700573CF9 /* LaunchScreen.xib in Resources */,
+				2006947B1B28931F00573CF9 /* settings.json in Resources */,
 				200694601B27787700573CF9 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -202,6 +220,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2006947C1B28931F00573CF9 /* settings.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -212,6 +231,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2006947E1B28939C00573CF9 /* SwiftyJSON.swift in Sources */,
+				200694841B289C8100573CF9 /* SnapNotesManager.swift in Sources */,
+				200694811B289BAB00573CF9 /* Categories.swift in Sources */,
 				2006945B1B27787700573CF9 /* ViewController.swift in Sources */,
 				200694591B27787700573CF9 /* AppDelegate.swift in Sources */,
 			);
@@ -222,6 +244,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				2006946F1B27787700573CF9 /* SnapNotesTests.swift in Sources */,
+				2006947F1B28939C00573CF9 /* SwiftyJSON.swift in Sources */,
+				200694821B289BAB00573CF9 /* Categories.swift in Sources */,
+				200694851B289C8100573CF9 /* SnapNotesManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -342,9 +367,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = SnapNotes/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -352,9 +380,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = SnapNotes/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};
