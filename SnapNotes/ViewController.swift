@@ -10,6 +10,8 @@ import UIKit
 
 class ViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
     
+    var categoriesList: [Categories] = []
+    
     @IBOutlet weak var cameraContainerView: UIView!
     @IBOutlet weak var categoriesCollectionView: UICollectionView!
     
@@ -19,6 +21,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         SnapNotesManager.loadSettings()
+        categoriesList = SnapNotesManager.getCategories()
         
     }
 
@@ -31,13 +34,13 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     // MARK: CategoriesCollectionView methods
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return SnapNotesManager.categoriesList.count
+        return categoriesList.count
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let categoryCell = collectionView.dequeueReusableCellWithReuseIdentifier("CategoriesCell", forIndexPath: indexPath) as! CategoriesCollectionViewCell
         
-        let category: Categories = SnapNotesManager.categoriesList[indexPath.row]
+        let category: Categories = categoriesList[indexPath.row]
         categoryCell.categoriesLabel.text = category.name
         categoryCell.categoryID = category.id
         
@@ -46,18 +49,46 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     }
     
     // MARK: Testing
-    func collectionView(collectionView: UICollectionView, performAction action: Selector, forItemAtIndexPath indexPath: NSIndexPath, withSender sender: AnyObject!) {
-        let category: Categories = SnapNotesManager.categoriesList[indexPath.row]
+//    func collectionView(collectionView: UICollectionView, performAction action: Selector, forItemAtIndexPath indexPath: NSIndexPath, withSender sender: AnyObject!) {
+//        let category: Categories = categoriesList[indexPath.row]
+//        
+//        let timeInterval = NSTimeIntervalSince1970
+//        let categoryID = category.id
+//        
+//        let tempLabelText = "\(timeInterval)_\(categoryID)"
+//        
+//        tempLabel.text = tempLabelText
+//        
+//    }
+    
+//    func collectionView(collectionView: UICollectionView, performAction action: Selector, forItemAtIndexPath indexPath: NSIndexPath, withSender sender: AnyObject!) {
+//        let category: Categories = categoriesList[indexPath.row]
+//        
+//        let timeInterval = NSTimeIntervalSince1970
+//        let categoryID = category.id
+//        
+//        let tempLabelText = "\(timeInterval)_\(categoryID)"
+//        
+//        tempLabel.text = tempLabelText
+//    }
+    
+    func collectionView(collectionView: UICollectionView, shouldSelectItemAtIndexPath indexPath: NSIndexPath) -> Bool {
+        let category: Categories = categoriesList[indexPath.row]
         
-        let timeInterval = NSTimeIntervalSince1970
+        let timeInterval = NSDate().timeIntervalSince1970
+//        let timeInterval = getTimeStampAsString()
         let categoryID = category.id
         
         let tempLabelText = "\(timeInterval)_\(categoryID)"
         
         tempLabel.text = tempLabelText
         
-        
+        return false
     }
-
+    
+    func getTimeStampAsString() -> String {
+        return String(stringInterpolationSegment: NSDate().timeIntervalSince1970)
+    }
+    
 }
 

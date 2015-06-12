@@ -22,36 +22,25 @@
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sdr-OB-6DM">
                                         <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="164" id="d6I-KC-pPp"/>
-                                        </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
-                                        <variation key="default">
-                                            <mask key="constraints">
-                                                <exclude reference="d6I-KC-pPp"/>
-                                            </mask>
-                                        </variation>
-                                        <variation key="heightClass=regular-widthClass=compact">
-                                            <mask key="constraints">
-                                                <include reference="d6I-KC-pPp"/>
-                                            </mask>
-                                        </variation>
                                     </label>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstItem="Sdr-OB-6DM" firstAttribute="top" secondItem="O3B-VE-d3Y" secondAttribute="top" constant="339" id="8xw-dr-muQ"/>
-                                    <constraint firstItem="Sdr-OB-6DM" firstAttribute="centerX" secondItem="O3B-VE-d3Y" secondAttribute="centerX" id="sqP-dU-35r"/>
+                                    <constraint firstItem="Sdr-OB-6DM" firstAttribute="leading" secondItem="O3B-VE-d3Y" secondAttribute="leadingMargin" id="08Z-1S-Ld8"/>
+                                    <constraint firstItem="Sdr-OB-6DM" firstAttribute="trailing" secondItem="O3B-VE-d3Y" secondAttribute="trailingMargin" id="48Z-60-Mx9"/>
+                                    <constraint firstItem="Sdr-OB-6DM" firstAttribute="top" secondItem="O3B-VE-d3Y" secondAttribute="top" constant="339" id="Wcq-qq-qn3"/>
                                 </constraints>
                                 <variation key="default">
                                     <mask key="subviews">
                                         <exclude reference="Sdr-OB-6DM"/>
                                     </mask>
                                     <mask key="constraints">
-                                        <exclude reference="8xw-dr-muQ"/>
-                                        <exclude reference="sqP-dU-35r"/>
+                                        <exclude reference="08Z-1S-Ld8"/>
+                                        <exclude reference="48Z-60-Mx9"/>
+                                        <exclude reference="Wcq-qq-qn3"/>
                                     </mask>
                                 </variation>
                                 <variation key="heightClass=regular-widthClass=compact">
@@ -59,8 +48,9 @@
                                         <include reference="Sdr-OB-6DM"/>
                                     </mask>
                                     <mask key="constraints">
-                                        <include reference="8xw-dr-muQ"/>
-                                        <include reference="sqP-dU-35r"/>
+                                        <include reference="08Z-1S-Ld8"/>
+                                        <include reference="48Z-60-Mx9"/>
+                                        <include reference="Wcq-qq-qn3"/>
                                     </mask>
                                 </variation>
                             </view>
