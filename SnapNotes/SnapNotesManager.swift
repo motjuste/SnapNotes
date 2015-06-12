@@ -63,6 +63,6 @@ class SnapNotesManager {
     
     // Notes manager functionality
     static func getCategories() -> [Categories] {
-        return categoriesList
+        return self.categoriesList
     }
 }

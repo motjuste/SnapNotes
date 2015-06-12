@@ -4,7 +4,7 @@
   "count": 0,
   "categories": [
     {
-      "id": "000",
+      "id": "006",
       "name": "Receipts",
       "order": 0
     },
@@ -32,6 +32,11 @@
       "id": "005",
       "name": "Cats",
       "order": 5
+    },
+    {
+      "id": "000",
+      "name": "Uncategorized",
+      "order": 6
     }
   ]
 }

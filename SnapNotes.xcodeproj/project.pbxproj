@@ -21,6 +21,8 @@
 		200694821B289BAB00573CF9 /* Categories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200694801B289BAB00573CF9 /* Categories.swift */; };
 		200694841B289C8100573CF9 /* SnapNotesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200694831B289C8100573CF9 /* SnapNotesManager.swift */; };
 		200694851B289C8100573CF9 /* SnapNotesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200694831B289C8100573CF9 /* SnapNotesManager.swift */; };
+		20DE63BB1B2B0883007AA0D2 /* CategoriesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20DE63BA1B2B0883007AA0D2 /* CategoriesCollectionViewCell.swift */; };
+		20DE63BC1B2B0883007AA0D2 /* CategoriesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20DE63BA1B2B0883007AA0D2 /* CategoriesCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +50,7 @@
 		2006947D1B28939C00573CF9 /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
 		200694801B289BAB00573CF9 /* Categories.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Categories.swift; sourceTree = "<group>"; };
 		200694831B289C8100573CF9 /* SnapNotesManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapNotesManager.swift; sourceTree = "<group>"; };
+		20DE63BA1B2B0883007AA0D2 /* CategoriesCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoriesCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,6 +92,7 @@
 		200694551B27787700573CF9 /* SnapNotes */ = {
 			isa = PBXGroup;
 			children = (
+				20DE63BA1B2B0883007AA0D2 /* CategoriesCollectionViewCell.swift */,
 				2006947D1B28939C00573CF9 /* SwiftyJSON.swift */,
 				200694581B27787700573CF9 /* AppDelegate.swift */,
 				2006945A1B27787700573CF9 /* ViewController.swift */,
@@ -231,6 +235,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				20DE63BB1B2B0883007AA0D2 /* CategoriesCollectionViewCell.swift in Sources */,
 				2006947E1B28939C00573CF9 /* SwiftyJSON.swift in Sources */,
 				200694841B289C8100573CF9 /* SnapNotesManager.swift in Sources */,
 				200694811B289BAB00573CF9 /* Categories.swift in Sources */,
@@ -247,6 +252,7 @@
 				2006947F1B28939C00573CF9 /* SwiftyJSON.swift in Sources */,
 				200694821B289BAB00573CF9 /* Categories.swift in Sources */,
 				200694851B289C8100573CF9 /* SnapNotesManager.swift in Sources */,
+				20DE63BC1B2B0883007AA0D2 /* CategoriesCollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -373,6 +379,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -386,6 +393,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -442,6 +450,7 @@
 				200694741B27787700573CF9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		200694751B27787700573CF9 /* Build configuration list for PBXNativeTarget "SnapNotesTests" */ = {
 			isa = XCConfigurationList;
@@ -450,6 +459,7 @@
 				200694771B27787700573CF9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
