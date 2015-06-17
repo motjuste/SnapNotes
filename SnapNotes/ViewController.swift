@@ -16,6 +16,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     @IBOutlet weak var categoriesCollectionView: UICollectionView!
     
     @IBOutlet weak var tempLabel: UILabel!
+    @IBOutlet weak var tempLabel2: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,46 +49,55 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         
     }
     
-    // MARK: Testing
-//    func collectionView(collectionView: UICollectionView, performAction action: Selector, forItemAtIndexPath indexPath: NSIndexPath, withSender sender: AnyObject!) {
-//        let category: Categories = categoriesList[indexPath.row]
-//        
-//        let timeInterval = NSTimeIntervalSince1970
-//        let categoryID = category.id
-//        
-//        let tempLabelText = "\(timeInterval)_\(categoryID)"
-//        
-//        tempLabel.text = tempLabelText
-//        
-//    }
-    
-//    func collectionView(collectionView: UICollectionView, performAction action: Selector, forItemAtIndexPath indexPath: NSIndexPath, withSender sender: AnyObject!) {
-//        let category: Categories = categoriesList[indexPath.row]
-//        
-//        let timeInterval = NSTimeIntervalSince1970
-//        let categoryID = category.id
-//        
-//        let tempLabelText = "\(timeInterval)_\(categoryID)"
-//        
-//        tempLabel.text = tempLabelText
-//    }
+    // MARK: Tapped Category + name generation testing
     
     func collectionView(collectionView: UICollectionView, shouldSelectItemAtIndexPath indexPath: NSIndexPath) -> Bool {
         let category: Categories = categoriesList[indexPath.row]
         
         let timeInterval = NSDate().timeIntervalSince1970
-//        let timeInterval = getTimeStampAsString()
         let categoryID = category.id
         
         let tempLabelText = "\(timeInterval)_\(categoryID)"
         
+        var date: String = ""
+        var cat: String = ""
+        
+        (date, cat) = getDateFromTimeStamp(tempLabelText)
+        
         tempLabel.text = tempLabelText
+        tempLabel2.text = date + " " + cat
         
         return false
     }
     
-    func getTimeStampAsString() -> String {
-        return String(stringInterpolationSegment: NSDate().timeIntervalSince1970)
+    func getDateFromTimeStamp(timestamp: String) -> (date: String, category: String) {
+        let timestampSplitArray: [String] = timestamp.componentsSeparatedByString("_")
+        
+        let timeinterval: Double = (timestampSplitArray[0] as NSString).doubleValue
+        let categoryID = timestampSplitArray[1]
+        
+        // get Date in pretty string
+        let date_ = NSDate(timeIntervalSince1970: timeinterval)
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.S"
+        
+        let date = dateFormatter.stringFromDate(date_)
+        
+        
+        // get name of category
+        let categories: [Categories] = categoriesList.filter() {$0.id == categoryID}  // using closures
+        
+        if categories.count == 1 {
+            return (date, categories[0].name)
+        } else if categories.count == 0 {
+            println("ERROR: Category not found")
+        } else {
+            // too many matches
+            println("ERROR: What is happening")
+        }
+        
+        return (date, "ERROR")
+        
     }
     
 }

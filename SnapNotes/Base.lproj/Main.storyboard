@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -26,18 +27,31 @@
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S1A-eV-fmz">
+                                        <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="Sdr-OB-6DM" firstAttribute="leading" secondItem="O3B-VE-d3Y" secondAttribute="leadingMargin" id="08Z-1S-Ld8"/>
                                     <constraint firstItem="Sdr-OB-6DM" firstAttribute="trailing" secondItem="O3B-VE-d3Y" secondAttribute="trailingMargin" id="48Z-60-Mx9"/>
+                                    <constraint firstItem="S1A-eV-fmz" firstAttribute="top" secondItem="Sdr-OB-6DM" secondAttribute="bottom" constant="8" symbolic="YES" id="7Bf-XA-TzV"/>
+                                    <constraint firstItem="S1A-eV-fmz" firstAttribute="leading" secondItem="Sdr-OB-6DM" secondAttribute="leading" id="Sds-wC-3ek"/>
                                     <constraint firstItem="Sdr-OB-6DM" firstAttribute="top" secondItem="O3B-VE-d3Y" secondAttribute="top" constant="339" id="Wcq-qq-qn3"/>
+                                    <constraint firstItem="S1A-eV-fmz" firstAttribute="trailing" secondItem="Sdr-OB-6DM" secondAttribute="trailing" id="tKD-Ml-Jlj"/>
                                 </constraints>
                                 <variation key="default">
                                     <mask key="subviews">
                                         <exclude reference="Sdr-OB-6DM"/>
+                                        <exclude reference="S1A-eV-fmz"/>
                                     </mask>
                                     <mask key="constraints">
+                                        <exclude reference="7Bf-XA-TzV"/>
+                                        <exclude reference="Sds-wC-3ek"/>
+                                        <exclude reference="tKD-Ml-Jlj"/>
                                         <exclude reference="08Z-1S-Ld8"/>
                                         <exclude reference="48Z-60-Mx9"/>
                                         <exclude reference="Wcq-qq-qn3"/>
@@ -46,8 +60,12 @@
                                 <variation key="heightClass=regular-widthClass=compact">
                                     <mask key="subviews">
                                         <include reference="Sdr-OB-6DM"/>
+                                        <include reference="S1A-eV-fmz"/>
                                     </mask>
                                     <mask key="constraints">
+                                        <include reference="7Bf-XA-TzV"/>
+                                        <include reference="Sds-wC-3ek"/>
+                                        <include reference="tKD-Ml-Jlj"/>
                                         <include reference="08Z-1S-Ld8"/>
                                         <include reference="48Z-60-Mx9"/>
                                         <include reference="Wcq-qq-qn3"/>
@@ -182,6 +200,7 @@
                         <outlet property="cameraContainerView" destination="O3B-VE-d3Y" id="26v-w1-gQN"/>
                         <outlet property="categoriesCollectionView" destination="4u2-Zx-LJ5" id="Bdf-SE-wBc"/>
                         <outlet property="tempLabel" destination="Sdr-OB-6DM" id="fxR-6M-4IK"/>
+                        <outlet property="tempLabel2" destination="S1A-eV-fmz" id="A1z-90-qeP"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
