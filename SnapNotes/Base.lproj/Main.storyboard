@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="OcR-TF-uRV">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
@@ -205,7 +205,70 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="378" y="309"/>
+            <point key="canvasLocation" x="-24" y="274.5"/>
+        </scene>
+        <!--NoteFS Page View Controller-->
+        <scene sceneID="E6Z-yc-Rds">
+            <objects>
+                <pageViewController storyboardIdentifier="NoteFSPageViewController" autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="OcR-TF-uRV" customClass="NoteFSPageViewController" customModule="SnapNotes" customModuleProvider="target" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="j69-SE-UI7" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="670.5" y="-436.5"/>
+        </scene>
+        <!--NoteFS Content View Controller-->
+        <scene sceneID="CrP-qf-Z6k">
+            <objects>
+                <viewController storyboardIdentifier="NoteFSContentViewController" id="7YC-lb-512" customClass="NoteFSContentViewController" customModule="SnapNotes" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="1aJ-c1-Uz7"/>
+                        <viewControllerLayoutGuide type="bottom" id="bF9-iH-DPj"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="5YP-L7-1Gr">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="oDV-3v-2sa">
+                                <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="oDV-3v-2sa" secondAttribute="trailing" id="U8p-8Y-sOP"/>
+                            <constraint firstItem="oDV-3v-2sa" firstAttribute="bottom" secondItem="bF9-iH-DPj" secondAttribute="top" id="VWZ-Rw-ugQ"/>
+                            <constraint firstItem="oDV-3v-2sa" firstAttribute="top" secondItem="5YP-L7-1Gr" secondAttribute="top" id="WGu-Ts-A3d"/>
+                            <constraint firstItem="oDV-3v-2sa" firstAttribute="leading" secondItem="5YP-L7-1Gr" secondAttribute="leading" id="sHI-pq-7E9"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="subviews">
+                                <exclude reference="oDV-3v-2sa"/>
+                            </mask>
+                            <mask key="constraints">
+                                <exclude reference="U8p-8Y-sOP"/>
+                                <exclude reference="VWZ-Rw-ugQ"/>
+                                <exclude reference="WGu-Ts-A3d"/>
+                                <exclude reference="sHI-pq-7E9"/>
+                            </mask>
+                        </variation>
+                        <variation key="heightClass=regular-widthClass=compact">
+                            <mask key="subviews">
+                                <include reference="oDV-3v-2sa"/>
+                            </mask>
+                            <mask key="constraints">
+                                <include reference="U8p-8Y-sOP"/>
+                                <include reference="VWZ-Rw-ugQ"/>
+                                <include reference="WGu-Ts-A3d"/>
+                                <include reference="sHI-pq-7E9"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <connections>
+                        <outlet property="NoteImageView" destination="oDV-3v-2sa" id="lnu-bd-f7V"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ppv-Fm-yPr" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="781.5" y="274.5"/>
         </scene>
     </scenes>
 </document>

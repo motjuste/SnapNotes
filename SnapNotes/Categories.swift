@@ -12,12 +12,12 @@ class Categories {
     let id: String
     let name: String
     let order: Int
-    var notesList: [Note] = [] {
-        didSet {
-            // TODO: Move this to NotesManager
-            notesList.sort{ $0.date!.greaterThan($1.date!) }
-        }
-    }
+    var notesList: [Note] = [] //{
+//        didSet {
+//            // TODO: Move this to NotesManager
+//            notesList.sort{ $0.date!.greaterThan($1.date!) }
+//        }
+//    }
     
     init(id: String, name:String, order: Int) {
         self.id = id

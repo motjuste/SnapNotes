@@ -25,6 +25,12 @@
 		2053E67E1B319BF700E9740C /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2053E67C1B319BF700E9740C /* Note.swift */; };
 		2053E6831B31A58800E9740C /* NSDateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2053E6821B31A58800E9740C /* NSDateExtension.swift */; };
 		2053E6841B31A58800E9740C /* NSDateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2053E6821B31A58800E9740C /* NSDateExtension.swift */; };
+		2053E6881B31AF6D00E9740C /* NoteFSContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2053E6871B31AF6D00E9740C /* NoteFSContentViewController.swift */; };
+		2053E6891B31AF6D00E9740C /* NoteFSContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2053E6871B31AF6D00E9740C /* NoteFSContentViewController.swift */; };
+		2053E68B1B31AF8300E9740C /* NoteFSPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2053E68A1B31AF8300E9740C /* NoteFSPageViewController.swift */; };
+		2053E68C1B31AF8300E9740C /* NoteFSPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2053E68A1B31AF8300E9740C /* NoteFSPageViewController.swift */; };
+		2053E6921B31BFC200E9740C /* TempNoteImages in Resources */ = {isa = PBXBuildFile; fileRef = 2053E6911B31BFC200E9740C /* TempNoteImages */; };
+		2053E6931B31BFC200E9740C /* TempNoteImages in Resources */ = {isa = PBXBuildFile; fileRef = 2053E6911B31BFC200E9740C /* TempNoteImages */; };
 		20DE63BB1B2B0883007AA0D2 /* CategoriesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20DE63BA1B2B0883007AA0D2 /* CategoriesCollectionViewCell.swift */; };
 		20DE63BC1B2B0883007AA0D2 /* CategoriesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20DE63BA1B2B0883007AA0D2 /* CategoriesCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
@@ -56,6 +62,9 @@
 		200694831B289C8100573CF9 /* SnapNotesManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapNotesManager.swift; sourceTree = "<group>"; };
 		2053E67C1B319BF700E9740C /* Note.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Note.swift; sourceTree = "<group>"; };
 		2053E6821B31A58800E9740C /* NSDateExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSDateExtension.swift; sourceTree = "<group>"; };
+		2053E6871B31AF6D00E9740C /* NoteFSContentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteFSContentViewController.swift; sourceTree = "<group>"; };
+		2053E68A1B31AF8300E9740C /* NoteFSPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteFSPageViewController.swift; sourceTree = "<group>"; };
+		2053E6911B31BFC200E9740C /* TempNoteImages */ = {isa = PBXFileReference; lastKnownFileType = folder; path = TempNoteImages; sourceTree = "<group>"; };
 		20DE63BA1B2B0883007AA0D2 /* CategoriesCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoriesCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -98,6 +107,7 @@
 		200694551B27787700573CF9 /* SnapNotes */ = {
 			isa = PBXGroup;
 			children = (
+				2053E6861B31AF2C00E9740C /* NoteFS */,
 				2053E6821B31A58800E9740C /* NSDateExtension.swift */,
 				20DE63BA1B2B0883007AA0D2 /* CategoriesCollectionViewCell.swift */,
 				2006947D1B28939C00573CF9 /* SwiftyJSON.swift */,
@@ -138,6 +148,16 @@
 				2006946D1B27787700573CF9 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		2053E6861B31AF2C00E9740C /* NoteFS */ = {
+			isa = PBXGroup;
+			children = (
+				2053E6911B31BFC200E9740C /* TempNoteImages */,
+				2053E68A1B31AF8300E9740C /* NoteFSPageViewController.swift */,
+				2053E6871B31AF6D00E9740C /* NoteFSContentViewController.swift */,
+			);
+			name = NoteFS;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -221,6 +241,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2053E6921B31BFC200E9740C /* TempNoteImages in Resources */,
 				2006945E1B27787700573CF9 /* Main.storyboard in Resources */,
 				200694631B27787700573CF9 /* LaunchScreen.xib in Resources */,
 				2006947B1B28931F00573CF9 /* settings.json in Resources */,
@@ -232,6 +253,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2053E6931B31BFC200E9740C /* TempNoteImages in Resources */,
 				2006947C1B28931F00573CF9 /* settings.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -243,9 +265,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2053E68B1B31AF8300E9740C /* NoteFSPageViewController.swift in Sources */,
 				20DE63BB1B2B0883007AA0D2 /* CategoriesCollectionViewCell.swift in Sources */,
 				2006947E1B28939C00573CF9 /* SwiftyJSON.swift in Sources */,
 				2053E67D1B319BF700E9740C /* Note.swift in Sources */,
+				2053E6881B31AF6D00E9740C /* NoteFSContentViewController.swift in Sources */,
 				200694841B289C8100573CF9 /* SnapNotesManager.swift in Sources */,
 				2053E6831B31A58800E9740C /* NSDateExtension.swift in Sources */,
 				200694811B289BAB00573CF9 /* Categories.swift in Sources */,
@@ -258,6 +282,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2053E68C1B31AF8300E9740C /* NoteFSPageViewController.swift in Sources */,
 				2006946F1B27787700573CF9 /* SnapNotesTests.swift in Sources */,
 				2006947F1B28939C00573CF9 /* SwiftyJSON.swift in Sources */,
 				2053E6841B31A58800E9740C /* NSDateExtension.swift in Sources */,
@@ -265,6 +290,7 @@
 				200694851B289C8100573CF9 /* SnapNotesManager.swift in Sources */,
 				20DE63BC1B2B0883007AA0D2 /* CategoriesCollectionViewCell.swift in Sources */,
 				2053E67E1B319BF700E9740C /* Note.swift in Sources */,
+				2053E6891B31AF6D00E9740C /* NoteFSContentViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

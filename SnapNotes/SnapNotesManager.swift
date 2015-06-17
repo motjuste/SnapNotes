@@ -51,6 +51,8 @@ class SnapNotesManager {
             // TODO: handle error when loading settings.json
             println("some Error: SnapNoteManager.loadSettings")
         }
+        
+//        println("Settings Loaded")
     }
     
     static func updateSettings() {
@@ -64,5 +66,19 @@ class SnapNotesManager {
     // Notes manager functionality
     static func getCategories() -> [Categories] {
         return self.categoriesList
+    }
+    
+    static func getCategoryByID(categoryID: String) -> Categories? {
+        let categories: [Categories] = categoriesList.filter() {$0.id == categoryID}
+        if categories.count == 1 {
+            return categories[0]
+        } else if categories.count == 0 {
+            println("ERROR: Category not found")
+        } else {
+            // too many matches
+            println("ERROR: What is happening")
+        }
+        return nil
+
     }
 }
