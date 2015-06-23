@@ -21,7 +21,10 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        SnapNotesManager.loadSettings()
+        
+        println("ViewController.viewDidLoad()")
+        
+//        SnapNotesManager.loadSettings()
         categoriesList = SnapNotesManager.getCategories()
         
     }

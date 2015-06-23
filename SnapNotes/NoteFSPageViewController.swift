@@ -15,7 +15,10 @@ class NoteFSPageViewController: UIPageViewController, UIPageViewControllerDataSo
     private let path = NSBundle.mainBundle().resourcePath! + "/TempNoteImages/"
     
     override func viewDidLoad() {
-        SnapNotesManager.loadSettings()
+        
+        println("NoteFSPageViewController.ViewDidLoad()")
+        
+//        SnapNotesManager.loadSettings()
         category = SnapNotesManager.getCategoryByID("005")!
         // MARK: get temp image names
         let noteImageNamesList = NSFileManager.defaultManager().contentsOfDirectoryAtPath(path, error: nil)
