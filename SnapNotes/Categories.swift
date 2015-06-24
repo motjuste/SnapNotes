@@ -12,24 +12,24 @@ class Categories {
     let id: String
     let name: String
     let order: Int
-    var notesList: [Note] = [] //{
-//        didSet {
-//            // TODO: Move this to NotesManager
-//            notesList.sort{ $0.date!.greaterThan($1.date!) }
-//        }
-//    }
-    
+//    var notesList: [Note] = [] //{
+////        didSet {
+////            // TODO: Move this to NotesManager
+////            notesList.sort{ $0.date!.greaterThan($1.date!) }
+////        }
+////    }
+//    
     init(id: String, name:String, order: Int) {
         self.id = id
         self.name = name
         self.order = order
     }
-    
-    func addNote(newNote: Note) {
-        notesList.append(newNote)
-    }
-    
-    func deleteNote(selectedNoteIndex: Int) {
-        notesList.removeAtIndex(selectedNoteIndex)
-    }
+//
+//    func addNote(newNote: Note) {
+//        notesList.append(newNote)
+//    }
+//    
+//    func deleteNote(selectedNoteIndex: Int) {
+//        notesList.removeAtIndex(selectedNoteIndex)
+//    }
 }

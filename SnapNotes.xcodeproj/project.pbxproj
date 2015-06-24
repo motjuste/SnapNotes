@@ -21,6 +21,8 @@
 		200694821B289BAB00573CF9 /* Categories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200694801B289BAB00573CF9 /* Categories.swift */; };
 		200694841B289C8100573CF9 /* SnapNotesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200694831B289C8100573CF9 /* SnapNotesManager.swift */; };
 		200694851B289C8100573CF9 /* SnapNotesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200694831B289C8100573CF9 /* SnapNotesManager.swift */; };
+		20314F2B1B39700700875271 /* NoteFSMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20314F2A1B39700700875271 /* NoteFSMainViewController.swift */; };
+		20314F2C1B39700700875271 /* NoteFSMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20314F2A1B39700700875271 /* NoteFSMainViewController.swift */; };
 		2053E67D1B319BF700E9740C /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2053E67C1B319BF700E9740C /* Note.swift */; };
 		2053E67E1B319BF700E9740C /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2053E67C1B319BF700E9740C /* Note.swift */; };
 		2053E6831B31A58800E9740C /* NSDateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2053E6821B31A58800E9740C /* NSDateExtension.swift */; };
@@ -60,6 +62,7 @@
 		2006947D1B28939C00573CF9 /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
 		200694801B289BAB00573CF9 /* Categories.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Categories.swift; sourceTree = "<group>"; };
 		200694831B289C8100573CF9 /* SnapNotesManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapNotesManager.swift; sourceTree = "<group>"; };
+		20314F2A1B39700700875271 /* NoteFSMainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteFSMainViewController.swift; sourceTree = "<group>"; };
 		2053E67C1B319BF700E9740C /* Note.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Note.swift; sourceTree = "<group>"; };
 		2053E6821B31A58800E9740C /* NSDateExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSDateExtension.swift; sourceTree = "<group>"; };
 		2053E6871B31AF6D00E9740C /* NoteFSContentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteFSContentViewController.swift; sourceTree = "<group>"; };
@@ -156,6 +159,7 @@
 				2053E6911B31BFC200E9740C /* TempNoteImages */,
 				2053E68A1B31AF8300E9740C /* NoteFSPageViewController.swift */,
 				2053E6871B31AF6D00E9740C /* NoteFSContentViewController.swift */,
+				20314F2A1B39700700875271 /* NoteFSMainViewController.swift */,
 			);
 			name = NoteFS;
 			sourceTree = "<group>";
@@ -275,6 +279,7 @@
 				200694811B289BAB00573CF9 /* Categories.swift in Sources */,
 				2006945B1B27787700573CF9 /* ViewController.swift in Sources */,
 				200694591B27787700573CF9 /* AppDelegate.swift in Sources */,
+				20314F2B1B39700700875271 /* NoteFSMainViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -288,6 +293,7 @@
 				2053E6841B31A58800E9740C /* NSDateExtension.swift in Sources */,
 				200694821B289BAB00573CF9 /* Categories.swift in Sources */,
 				200694851B289C8100573CF9 /* SnapNotesManager.swift in Sources */,
+				20314F2C1B39700700875271 /* NoteFSMainViewController.swift in Sources */,
 				20DE63BC1B2B0883007AA0D2 /* CategoriesCollectionViewCell.swift in Sources */,
 				2053E67E1B319BF700E9740C /* Note.swift in Sources */,
 				2053E6891B31AF6D00E9740C /* NoteFSContentViewController.swift in Sources */,

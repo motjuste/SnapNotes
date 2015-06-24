@@ -9,8 +9,15 @@
 import Foundation
 
 class SnapNotesManager {
-    static var categoriesList: [Categories] = []
-    static var count = 0
+    private static var categoriesList: [Categories] = []
+    private static var count = 0
+    private static var settingsLoaded = false
+//    private static var allNotesLoaded = false
+    
+    private static let notesPath = NSBundle.mainBundle().resourcePath!.stringByAppendingPathComponent("TempNoteImages")
+//    private static let notesPath = NSBundle.mainBundle().resourcePath! + "/TempNoteImages/"
+    private static var allNotesList: [Note]?
+    private static let noteCategorySeparatorString = "_"
     
     // MARK: playing with settings.json
     static func loadSettings() {
@@ -44,6 +51,9 @@ class SnapNotesManager {
                     
                     categoriesList.append(Categories(id: id!, name: name!, order: order!))
                 }
+                
+                self.settingsLoaded = true
+                
             } else {
                 println(jsonData["categories"].rawString())
             }
@@ -53,6 +63,10 @@ class SnapNotesManager {
         }
         
 //        println("Settings Loaded")
+    }
+    
+    static func isSettingsLoaded() -> Bool {
+        return settingsLoaded
     }
     
     static func updateSettings() {
@@ -81,4 +95,172 @@ class SnapNotesManager {
         return nil
 
     }
+    
+    // MARK: load all notes
+    
+    static func loadAllNotes() {
+        if !settingsLoaded {
+            println("SnapNotesManager.loadAllNotes : Settings were not loaded, loading now")
+            loadSettings()
+        }
+        
+        var allNotesList_ : [Note] = []
+        
+        if let imageNamesList = NSFileManager.defaultManager().contentsOfDirectoryAtPath(self.notesPath, error: nil) as? [String] {
+            for imageName in imageNamesList {
+                let categoryID = self.getCategoryIDFromImageName(imageName)
+                let imageFilePath = notesPath.stringByAppendingPathComponent(imageName)
+                
+                let note = Note(categoryID: categoryID, imageFilePath: imageFilePath)
+                allNotesList_.append(note)
+            }
+        }
+        
+        allNotesList = allNotesList_
+        
+//        self.allNotesLoaded = true
+        
+        // TODO: Handle error while reading note names
+        
+    }
+    
+    private static func getCategoryIDFromImageName(imageName: String) -> String {
+        let splittedImageName = imageName.componentsSeparatedByString(noteCategorySeparatorString)
+        let categoryID = splittedImageName[1].componentsSeparatedByString(".")[0]
+        
+        return categoryID
+    }
+    
+    // MARK: NoteFS 
+    // MARK: NoteFS : This is getting too complicated
+    
+    private static var currentCategoryID: String?
+    private static var currentNotesList: [Note]?
+    private static var currentImageIdx: Int?
+    
+    static func isCurrentNotesListLoaded() -> Bool {
+        return currentNotesList != nil
+    }
+    
+    static func loadCurrentNotesList() {
+        if allNotesList == nil {
+            println("SnapNotesManager.loadCurrentNotesList : allNotes not loaded, loading now")
+            self.loadAllNotes()
+        }
+        
+        if isEmpty(allNotesList!) {
+            self.currentNotesList = []
+        } else {
+            if self.currentCategoryID == nil {
+                self.currentNotesList = self.allNotesList
+            } else {
+                self.currentNotesList = self.allNotesList!.filter() { ($0 as Note).categoryID == self.currentCategoryID }
+            }
+            
+            if self.currentImageIdx == nil {
+                self.currentImageIdx = 0
+            }
+        }
+        
+    }
+    
+    static func getCurrentNotesListCount() -> Int {
+        return self.currentNotesList!.count
+    }
+    
+    static func getCurrentImageIdxAndPath() -> (Int, String) {
+        return (self.currentImageIdx!, self.currentNotesList![currentImageIdx!].imageFilePath!)
+    }
+    
+    static func getNextImageIdxAndPath() -> (Int, String) {
+        println(currentImageIdx!)
+        println(getCurrentNotesListCount())
+        
+        return (self.currentImageIdx! + 1, self.currentNotesList![currentImageIdx! + 1].imageFilePath!)
+    }
+    
+    static func getPreviousImageIdxAndPath() -> (Int, String) {
+        println(currentImageIdx!)
+        println(getCurrentNotesListCount())
+        
+        return (self.currentImageIdx! - 1, self.currentNotesList![currentImageIdx! - 1].imageFilePath!)
+    }
+    
+    static func setCurrentImageIdx(newCurrentImageIdx: Int) {
+        if self.currentImageIdx != nil {
+            self.currentImageIdx = newCurrentImageIdx
+        } else {
+            println("SnapNotesManager.setCurrentImageIdx : currentImageIdx is nil")
+        }
+    }
+    
+    // MARK: NoteFS : Simpler?
+    
+    static func getImageFilePathsListForCategoryID(categoryID: String?) -> [String] {
+        var imageFilePathsList: [String] = []
+        var notesListForCategoryID: [Note] = []
+        
+        
+        if (self.allNotesList != nil) {
+            if (categoryID != nil) {
+                notesListForCategoryID = allNotesList!
+            } else {
+                notesListForCategoryID = self.allNotesList!.filter() { ($0 as Note).categoryID == categoryID }
+            }
+        }
+        
+        for note in notesListForCategoryID {
+            imageFilePathsList.append(note.imageFilePath!)
+        }
+        
+        return imageFilePathsList
+        
+    }
+    
+    // MARK: - Temporary to rename all images
+    
+    static func renameAllImages() {
+        let categoryID = "005"
+        
+        if let imageNamesList = NSFileManager.defaultManager().contentsOfDirectoryAtPath(self.notesPath, error: nil) as? [String] {
+            for imageName in imageNamesList {
+                let oldFilePath = self.notesPath.stringByAppendingPathComponent(imageName)
+                let fileExtension = imageName.pathExtension
+                
+                let timeInterval = "\(NSDate().timeIntervalSince1970)"
+                var newFileName = timeInterval.stringByAppendingString("_" + categoryID)
+                newFileName = newFileName.stringByAppendingPathExtension(fileExtension)!
+                let newFilePath = self.notesPath.stringByAppendingPathComponent(newFileName)
+                
+                NSFileManager.defaultManager().moveItemAtPath(oldFilePath, toPath: newFilePath, error: nil)
+            }
+        }
+    }
+    
+    
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

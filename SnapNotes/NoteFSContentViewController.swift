@@ -12,25 +12,11 @@ class NoteFSContentViewController: UIViewController {
 
     @IBOutlet weak var NoteImageView: UIImageView!
     
-    // ???
+    // TODO: - Do I need these Both?
     var contentIndex = 0
-    
-    var imageFileName = "" {
-        didSet {
-            if let imageView = NoteImageView {
-                imageView.image = UIImage(named: imageFileName)
-            }
-        }
-    }
-    var category = ""
-    var note: Note? {
-        didSet {
-            imageFileName = note!.imageFileName
-            category = note!.categoryID!
-        }
-    }
+    var imageFilePath = ""
     
     override func viewDidLoad() {
-        NoteImageView!.image = UIImage(named: imageFileName)
+        NoteImageView!.image = UIImage(named: imageFilePath)
     }
 }

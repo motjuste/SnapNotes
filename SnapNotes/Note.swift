@@ -8,8 +8,8 @@
 
 import Foundation
 
-class Note {
-    var date: NSDate?
+struct Note {
+//    var date: NSDate?
     var categoryID: String?
-    var imageFileName: String = ""
+    var imageFilePath: String?
 }
