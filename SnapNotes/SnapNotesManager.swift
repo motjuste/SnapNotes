@@ -106,6 +106,9 @@ class SnapNotesManager {
         
         var allNotesList_ : [Note] = []
         
+        let pp = NSBundle.mainBundle().resourcePath!
+        let ll = NSFileManager.defaultManager().contentsOfDirectoryAtPath(pp, error: nil) as? [String]
+        
         if let imageNamesList = NSFileManager.defaultManager().contentsOfDirectoryAtPath(self.notesPath, error: nil) as? [String] {
             for imageName in imageNamesList {
                 let categoryID = self.getCategoryIDFromImageName(imageName)
@@ -132,7 +135,7 @@ class SnapNotesManager {
     }
     
     // MARK: NoteFS 
-    // MARK: NoteFS : This is getting too complicated
+    // MARK: NoteFS : This is getting too complicated; And doesn't work
     
     private static var currentCategoryID: String?
     private static var currentNotesList: [Note]?
@@ -202,7 +205,7 @@ class SnapNotesManager {
         
         
         if (self.allNotesList != nil) {
-            if (categoryID != nil) {
+            if (categoryID == nil) {
                 notesListForCategoryID = allNotesList!
             } else {
                 notesListForCategoryID = self.allNotesList!.filter() { ($0 as Note).categoryID == categoryID }
@@ -235,6 +238,11 @@ class SnapNotesManager {
                 NSFileManager.defaultManager().moveItemAtPath(oldFilePath, toPath: newFilePath, error: nil)
             }
         }
+        
+        if let imageNamesList_ = NSFileManager.defaultManager().contentsOfDirectoryAtPath(self.notesPath, error: nil) as? [String] {
+            println(imageNamesList_)
+        }
+
     }
     
     

@@ -15,14 +15,19 @@ class NoteFSMainViewController: UIViewController, UIPageViewControllerDataSource
     
     private var pageViewController: UIPageViewController?
     
+    var categoryID: String? {
+        didSet {
+            noteImageFilePathsList = SnapNotesManager.getImageFilePathsListForCategoryID(categoryID)
+        }
+    }
+    var noteImageFilePathsList: [String] = []
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // TODO: should be moved somewhere else
-        // TODO: currentNotesList should be moved back to nil when segue-ing
-        if !SnapNotesManager.isCurrentNotesListLoaded() {
-            SnapNotesManager.loadCurrentNotesList()
-        }
+        categoryID = nil
         
         createPageViewController()
         
@@ -35,19 +40,15 @@ class NoteFSMainViewController: UIViewController, UIPageViewControllerDataSource
     
     // MARK: - PageViewController stuff
     func createPageViewController() {
-        if SnapNotesManager.getCurrentNotesListCount() < 1 {
+        if noteImageFilePathsList.count < 1 {
             println("NoteFSMainViewController.createPageViewController : no notes to display")
             
             // TODO: - Handle empty currentNotesList
         } else {
             let noteFSPageViewController = self.storyboard!.instantiateViewControllerWithIdentifier(NoteFSPageViewControllerIdentifier) as! UIPageViewController
             noteFSPageViewController.dataSource = self
-            noteFSPageViewController.delegate = self
-            let currentImageIdxAndPath = SnapNotesManager.getNextImageIdxAndPath()
             
-            let firstContentController = getContentViewController()
-            firstContentController.contentIndex = currentImageIdxAndPath.0
-            firstContentController.imageFilePath = currentImageIdxAndPath.1
+            let firstContentController = getContentViewController(0)!
             
             noteFSPageViewController.setViewControllers([firstContentController] as [AnyObject], direction: UIPageViewControllerNavigationDirection.Forward, animated: true, completion: self.testSetViewController)
             
@@ -58,10 +59,18 @@ class NoteFSMainViewController: UIViewController, UIPageViewControllerDataSource
         }
     }
     
-    func getContentViewController() -> NoteFSContentViewController {
-        let contentViewController = self.storyboard!.instantiateViewControllerWithIdentifier(NoteFSContentViewControllerIdentifier) as! NoteFSContentViewController
+    func getContentViewController(contentIdx: Int) -> NoteFSContentViewController? {
+        if contentIdx < noteImageFilePathsList.count {
+            let contentViewController = self.storyboard!.instantiateViewControllerWithIdentifier(NoteFSContentViewControllerIdentifier) as! NoteFSContentViewController
+            
+            contentViewController.contentIndex = contentIdx
+            contentViewController.imageFilePath = noteImageFilePathsList[contentIdx]
+            
+            return contentViewController
+        } else {
+            return nil
+        }
         
-        return contentViewController
     }
     
     func testSetViewController(completion: Bool) {
@@ -72,11 +81,7 @@ class NoteFSMainViewController: UIViewController, UIPageViewControllerDataSource
         let contentViewController = viewController as! NoteFSContentViewController
         
         if contentViewController.contentIndex > 0 {
-            let prevContentViewController =  getContentViewController()
-            let previousImageIdxAndPath = SnapNotesManager.getPreviousImageIdxAndPath()
-            prevContentViewController.contentIndex = previousImageIdxAndPath.0
-            prevContentViewController.imageFilePath = previousImageIdxAndPath.1
-            
+            let prevContentViewController =  getContentViewController(contentViewController.contentIndex - 1)!
             return prevContentViewController
         } else {
             return nil
@@ -86,24 +91,13 @@ class NoteFSMainViewController: UIViewController, UIPageViewControllerDataSource
     func pageViewController(pageViewController: UIPageViewController, viewControllerAfterViewController viewController: UIViewController) -> UIViewController? {
         let contentViewController = viewController as! NoteFSContentViewController
         
-        if contentViewController.contentIndex + 1 < SnapNotesManager.getCurrentNotesListCount() {
-            let nextContentViewController =  getContentViewController()
-            let nextImageIdxAndPath = SnapNotesManager.getNextImageIdxAndPath()
-            nextContentViewController.contentIndex = nextImageIdxAndPath.0
-            nextContentViewController.imageFilePath = nextImageIdxAndPath.1
+        if contentViewController.contentIndex + 1 < noteImageFilePathsList.count {
+            let nextContentViewController =  getContentViewController(contentViewController.contentIndex + 1)!
             
             return nextContentViewController
         } else {
             return nil
         }
-    }
-    
-    func pageViewController(pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [AnyObject], transitionCompleted completed: Bool) {
-        let contentViewControllers = previousViewControllers as! [NoteFSContentViewController]
-    }
-    
-    func pageViewController(pageViewController: UIPageViewController, willTransitionToViewControllers pendingViewControllers: [AnyObject]) {
-        let contentViewControllers = pendingViewControllers as! [NoteFSContentViewController]
     }
 
     /*

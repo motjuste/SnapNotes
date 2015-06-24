@@ -20,7 +20,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         println(1)
         
         SnapNotesManager.loadSettings()
-        SnapNotesManager.renameAllImages()
+//        SnapNotesManager.renameAllImages()
+        
         SnapNotesManager.loadAllNotes()
         
         return true
