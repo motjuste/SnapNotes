@@ -12,10 +12,8 @@ class SnapNotesManager {
     private static var categoriesList: [Categories] = []
     private static var count = 0
     private static var settingsLoaded = false
-//    private static var allNotesLoaded = false
     
     private static let notesPath = NSBundle.mainBundle().resourcePath!.stringByAppendingPathComponent("TempNoteImages")
-//    private static let notesPath = NSBundle.mainBundle().resourcePath! + "/TempNoteImages/"
     private static var allNotesList: [Note]?
     private static let noteCategorySeparatorString = "_"
     
@@ -105,9 +103,6 @@ class SnapNotesManager {
         }
         
         var allNotesList_ : [Note] = []
-        
-        let pp = NSBundle.mainBundle().resourcePath!
-        let ll = NSFileManager.defaultManager().contentsOfDirectoryAtPath(pp, error: nil) as? [String]
         
         if let imageNamesList = NSFileManager.defaultManager().contentsOfDirectoryAtPath(self.notesPath, error: nil) as? [String] {
             for imageName in imageNamesList {
@@ -222,28 +217,28 @@ class SnapNotesManager {
     
     // MARK: - Temporary to rename all images
     
-    static func renameAllImages() {
-        let categoryID = "005"
-        
-        if let imageNamesList = NSFileManager.defaultManager().contentsOfDirectoryAtPath(self.notesPath, error: nil) as? [String] {
-            for imageName in imageNamesList {
-                let oldFilePath = self.notesPath.stringByAppendingPathComponent(imageName)
-                let fileExtension = imageName.pathExtension
-                
-                let timeInterval = "\(NSDate().timeIntervalSince1970)"
-                var newFileName = timeInterval.stringByAppendingString("_" + categoryID)
-                newFileName = newFileName.stringByAppendingPathExtension(fileExtension)!
-                let newFilePath = self.notesPath.stringByAppendingPathComponent(newFileName)
-                
-                NSFileManager.defaultManager().moveItemAtPath(oldFilePath, toPath: newFilePath, error: nil)
-            }
-        }
-        
-        if let imageNamesList_ = NSFileManager.defaultManager().contentsOfDirectoryAtPath(self.notesPath, error: nil) as? [String] {
-            println(imageNamesList_)
-        }
-
-    }
+//    static func renameAllImages() {
+//        let categoryID = "005"
+//        
+//        if let imageNamesList = NSFileManager.defaultManager().contentsOfDirectoryAtPath(self.notesPath, error: nil) as? [String] {
+//            for imageName in imageNamesList {
+//                let oldFilePath = self.notesPath.stringByAppendingPathComponent(imageName)
+//                let fileExtension = imageName.pathExtension
+//                
+//                let timeInterval = "\(NSDate().timeIntervalSince1970)"
+//                var newFileName = timeInterval.stringByAppendingString("_" + categoryID)
+//                newFileName = newFileName.stringByAppendingPathExtension(fileExtension)!
+//                let newFilePath = self.notesPath.stringByAppendingPathComponent(newFileName)
+//                
+//                NSFileManager.defaultManager().moveItemAtPath(oldFilePath, toPath: newFilePath, error: nil)
+//            }
+//        }
+//        
+//        if let imageNamesList_ = NSFileManager.defaultManager().contentsOfDirectoryAtPath(self.notesPath, error: nil) as? [String] {
+//            println(imageNamesList_)
+//        }
+//
+//    }
     
     
 }
