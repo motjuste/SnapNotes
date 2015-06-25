@@ -27,9 +27,12 @@ class NoteFSMainViewController: UIViewController, UIPageViewControllerDataSource
         super.viewDidLoad()
         
         // TODO: should be moved somewhere else
-        categoryID = nil
+//        categoryID = nil
         
         createPageViewController()
+        
+        navigationController?.hidesBarsOnTap = true
+        navigationController?.navigationBarHidden = false
         
     }
 
@@ -48,7 +51,15 @@ class NoteFSMainViewController: UIViewController, UIPageViewControllerDataSource
             let noteFSPageViewController = self.storyboard!.instantiateViewControllerWithIdentifier(NoteFSPageViewControllerIdentifier) as! UIPageViewController
             noteFSPageViewController.dataSource = self
             
-            let firstContentController = getContentViewController(0)!
+            var firstNoteIdx = 0
+            
+            if let currentImageIdx = SnapNotesManager.getCurrentImageIdx() {
+                firstNoteIdx = currentImageIdx
+            } else {
+                firstNoteIdx = 0
+            }
+            
+            let firstContentController = getContentViewController(firstNoteIdx)!
             
             noteFSPageViewController.setViewControllers([firstContentController] as [AnyObject], direction: UIPageViewControllerNavigationDirection.Forward, animated: true, completion: self.testSetViewController)
             
@@ -98,6 +109,19 @@ class NoteFSMainViewController: UIViewController, UIPageViewControllerDataSource
         } else {
             return nil
         }
+    }
+    
+    // MARK: - Status bar and navigation bar stuff
+    override func prefersStatusBarHidden() -> Bool {
+        return navigationController?.navigationBarHidden == true
+    }
+    
+    override func preferredStatusBarUpdateAnimation() -> UIStatusBarAnimation {
+        return UIStatusBarAnimation.Fade
+    }
+    
+    override func preferredStatusBarStyle() -> UIStatusBarStyle {
+        return UIStatusBarStyle.Default
     }
 
     /*

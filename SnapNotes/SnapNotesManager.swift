@@ -104,17 +104,45 @@ class SnapNotesManager {
         
         var allNotesList_ : [Note] = []
         
-        if let imageNamesList = NSFileManager.defaultManager().contentsOfDirectoryAtPath(self.notesPath, error: nil) as? [String] {
+//        if let imageNamesList = NSFileManager.defaultManager().contentsOfDirectoryAtPath(self.notesPath, error: nil) as? [String] {
+//            for imageName in imageNamesList {
+//                let categoryID = self.getCategoryIDFromImageName(imageName)
+//                let imageFilePath = notesPath.stringByAppendingPathComponent(imageName)
+//                
+//                let note = Note(categoryID: categoryID, imageFilePath: imageFilePath)
+//                allNotesList_.append(note)
+//            }
+//        }
+        
+//        let fileManager = NSFileManager.defaultManager()
+//        
+//        if !fileManager.fileExistsAtPath(self.saveNotesPath) {
+//            fileManager.createDirectoryAtPath(saveNotesPath, withIntermediateDirectories: true, attributes: nil, error: nil)
+//            // TODO: - Handle any errors creating directories
+//            
+//        }
+        
+//        println(NSFileManager.defaultManager().contentsOfDirectoryAtPath(NSBundle.mainBundle().resourcePath!, error: nil) as! [String])
+        
+        self.addPhotoNotesFolder()
+        
+        if let imageNamesList = NSFileManager.defaultManager().contentsOfDirectoryAtPath(self.saveNotesPath, error: nil) as? [String] {
+            
+//            println(imageNamesList)
+            
             for imageName in imageNamesList {
                 let categoryID = self.getCategoryIDFromImageName(imageName)
-                let imageFilePath = notesPath.stringByAppendingPathComponent(imageName)
+                let imageFilePath = saveNotesPath.stringByAppendingPathComponent(imageName)
                 
                 let note = Note(categoryID: categoryID, imageFilePath: imageFilePath)
                 allNotesList_.append(note)
             }
         }
         
+        println(allNotesList_)
+        
         allNotesList = allNotesList_
+        
         
 //        self.allNotesLoaded = true
         
@@ -162,6 +190,10 @@ class SnapNotesManager {
         
     }
     
+    static func getCurrentImageIdx() -> Int? {
+        return self.currentImageIdx
+    }
+    
     static func getCurrentNotesListCount() -> Int {
         return self.currentNotesList!.count
     }
@@ -185,11 +217,11 @@ class SnapNotesManager {
     }
     
     static func setCurrentImageIdx(newCurrentImageIdx: Int) {
-        if self.currentImageIdx != nil {
+//        if self.currentImageIdx != nil {
             self.currentImageIdx = newCurrentImageIdx
-        } else {
-            println("SnapNotesManager.setCurrentImageIdx : currentImageIdx is nil")
-        }
+//        } else {
+//            println("SnapNotesManager.setCurrentImageIdx : currentImageIdx is nil")
+//        }
     }
     
     // MARK: NoteFS : Simpler?
@@ -214,6 +246,44 @@ class SnapNotesManager {
         return imageFilePathsList
         
     }
+    
+    // MARK: - Save image Notes
+    
+    private static let saveNotesPath = (NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as! String).stringByAppendingPathComponent("photos")
+    // TODO: - Do better notesPath naming and stuff
+    
+    
+    static func saveDataForCategoryID(data: NSData, categoryID: String, extensionString: String) {
+        let fileManager = NSFileManager.defaultManager()
+        
+        if !fileManager.fileExistsAtPath(self.saveNotesPath) {
+            fileManager.createDirectoryAtPath(saveNotesPath, withIntermediateDirectories: true, attributes: nil, error: nil)
+            // TODO: - Handle any errors creating directories
+            
+        }
+        let timeIntervalString = "\(NSDate().timeIntervalSince1970)"
+        let fileName = (timeIntervalString.stringByAppendingString("_" + categoryID)).stringByAppendingPathExtension(extensionString)
+        let filePath = saveNotesPath.stringByAppendingPathComponent(fileName!)
+        data.writeToFile(filePath, atomically: true)
+        
+        self.loadAllNotes()
+        
+    }
+    
+    static func getAllNotesCount() -> Int? {
+        return self.allNotesList?.count
+    }
+    
+    private static func addPhotoNotesFolder() {
+        if !NSFileManager.defaultManager().fileExistsAtPath(saveNotesPath) {
+            NSFileManager.defaultManager().createDirectoryAtPath(saveNotesPath, withIntermediateDirectories: true, attributes: nil, error: nil)
+        }
+        
+        // TODO: - Handle Errors
+    }
+    
+    
+    
     
     // MARK: - Temporary to rename all images
     

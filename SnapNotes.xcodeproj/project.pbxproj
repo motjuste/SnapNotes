@@ -23,6 +23,7 @@
 		200694851B289C8100573CF9 /* SnapNotesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200694831B289C8100573CF9 /* SnapNotesManager.swift */; };
 		20314F2B1B39700700875271 /* NoteFSMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20314F2A1B39700700875271 /* NoteFSMainViewController.swift */; };
 		20314F2C1B39700700875271 /* NoteFSMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20314F2A1B39700700875271 /* NoteFSMainViewController.swift */; };
+		20314F371B3B65DD00875271 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20314F361B3B65DD00875271 /* AVFoundation.framework */; };
 		2053E67D1B319BF700E9740C /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2053E67C1B319BF700E9740C /* Note.swift */; };
 		2053E67E1B319BF700E9740C /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2053E67C1B319BF700E9740C /* Note.swift */; };
 		2053E6831B31A58800E9740C /* NSDateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2053E6821B31A58800E9740C /* NSDateExtension.swift */; };
@@ -61,6 +62,7 @@
 		200694801B289BAB00573CF9 /* Categories.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Categories.swift; sourceTree = "<group>"; };
 		200694831B289C8100573CF9 /* SnapNotesManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapNotesManager.swift; sourceTree = "<group>"; };
 		20314F2A1B39700700875271 /* NoteFSMainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteFSMainViewController.swift; sourceTree = "<group>"; };
+		20314F361B3B65DD00875271 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		2053E67C1B319BF700E9740C /* Note.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Note.swift; sourceTree = "<group>"; };
 		2053E6821B31A58800E9740C /* NSDateExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSDateExtension.swift; sourceTree = "<group>"; };
 		2053E6871B31AF6D00E9740C /* NoteFSContentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteFSContentViewController.swift; sourceTree = "<group>"; };
@@ -73,6 +75,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				20314F371B3B65DD00875271 /* AVFoundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -89,6 +92,7 @@
 		2006944A1B27787700573CF9 = {
 			isa = PBXGroup;
 			children = (
+				20314F361B3B65DD00875271 /* AVFoundation.framework */,
 				200694551B27787700573CF9 /* SnapNotes */,
 				2006946B1B27787700573CF9 /* SnapNotesTests */,
 				200694541B27787700573CF9 /* Products */,

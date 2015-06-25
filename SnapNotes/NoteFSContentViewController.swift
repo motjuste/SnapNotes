@@ -17,6 +17,6 @@ class NoteFSContentViewController: UIViewController {
     var imageFilePath = ""
     
     override func viewDidLoad() {
-        NoteImageView!.image = UIImage(named: imageFilePath)
+        NoteImageView!.image = UIImage(contentsOfFile: imageFilePath)
     }
 }
