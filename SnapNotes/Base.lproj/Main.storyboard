@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="2zM-ke-5ke">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="u3e-Bd-wsz">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
@@ -273,7 +273,7 @@
                 <pageViewController storyboardIdentifier="NoteFSPageViewController" autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="OcR-TF-uRV" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="j69-SE-UI7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2044.5" y="-393"/>
+            <point key="canvasLocation" x="1518" y="1413"/>
         </scene>
         <!--NoteFS Content View Controller-->
         <scene sceneID="CrP-qf-Z6k">
@@ -328,7 +328,64 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ppv-Fm-yPr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2962.5" y="241.5"/>
+            <point key="canvasLocation" x="2257.5" y="1413"/>
+        </scene>
+        <!--Main View Controller-->
+        <scene sceneID="SOw-IN-Des">
+            <objects>
+                <viewController id="u3e-Bd-wsz" customClass="MainViewController" customModule="SnapNotes" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="RRu-bB-kSO"/>
+                        <viewControllerLayoutGuide type="bottom" id="AwF-HS-16X"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="GBU-80-Z5k">
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6jY-Pp-NQ3">
+                                <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                <connections>
+                                    <segue destination="mcn-SH-KWw" kind="embed" id="gHD-eQ-8x5"/>
+                                </connections>
+                            </containerView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="6jY-Pp-NQ3" firstAttribute="leading" secondItem="GBU-80-Z5k" secondAttribute="leading" id="2I2-h7-yLz"/>
+                            <constraint firstItem="6jY-Pp-NQ3" firstAttribute="top" secondItem="GBU-80-Z5k" secondAttribute="top" id="E3J-Vw-fTs"/>
+                            <constraint firstAttribute="trailing" secondItem="6jY-Pp-NQ3" secondAttribute="trailing" id="WFP-K4-1Uy"/>
+                            <constraint firstItem="AwF-HS-16X" firstAttribute="top" secondItem="6jY-Pp-NQ3" secondAttribute="bottom" constant="100" id="xHQ-nm-VP0"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="subviews">
+                                <exclude reference="6jY-Pp-NQ3"/>
+                            </mask>
+                            <mask key="constraints">
+                                <exclude reference="2I2-h7-yLz"/>
+                                <exclude reference="E3J-Vw-fTs"/>
+                                <exclude reference="WFP-K4-1Uy"/>
+                                <exclude reference="xHQ-nm-VP0"/>
+                            </mask>
+                        </variation>
+                        <variation key="heightClass=regular-widthClass=compact">
+                            <mask key="subviews">
+                                <include reference="6jY-Pp-NQ3"/>
+                            </mask>
+                            <mask key="constraints">
+                                <include reference="2I2-h7-yLz"/>
+                                <include reference="E3J-Vw-fTs"/>
+                                <include reference="WFP-K4-1Uy"/>
+                                <include reference="xHQ-nm-VP0"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <connections>
+                        <outlet property="cameraContainerView" destination="6jY-Pp-NQ3" id="e7I-Pd-eal"/>
+                        <outlet property="cameraContainerViewVerticalConstraint" destination="xHQ-nm-VP0" id="ihd-Js-OrI"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fcG-39-YVR" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-289.5" y="-427.5"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="GAT-I0-MGP">
@@ -347,6 +404,61 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wQ0-Ij-dzR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-213" y="754.5"/>
+        </scene>
+        <!--Camera View Controller-->
+        <scene sceneID="rbm-4u-nOt">
+            <objects>
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="mcn-SH-KWw" customClass="CameraViewController" customModule="SnapNotes" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="gii-6X-D59"/>
+                        <viewControllerLayoutGuide type="bottom" id="ABt-xG-D4O"/>
+                    </layoutGuides>
+                    <view key="view" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="fvn-Le-8fb">
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="H9f-Nx-6q9" userLabel="CameraView">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="H9f-Nx-6q9" secondAttribute="trailing" id="Aaz-2n-c9t"/>
+                            <constraint firstItem="H9f-Nx-6q9" firstAttribute="leading" secondItem="fvn-Le-8fb" secondAttribute="leading" id="gzj-mg-e3n"/>
+                            <constraint firstItem="ABt-xG-D4O" firstAttribute="top" secondItem="H9f-Nx-6q9" secondAttribute="bottom" id="s5a-5L-r1l"/>
+                            <constraint firstItem="H9f-Nx-6q9" firstAttribute="top" secondItem="gii-6X-D59" secondAttribute="bottom" id="sAH-XL-gJk"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="subviews">
+                                <exclude reference="H9f-Nx-6q9"/>
+                            </mask>
+                            <mask key="constraints">
+                                <exclude reference="Aaz-2n-c9t"/>
+                                <exclude reference="gzj-mg-e3n"/>
+                                <exclude reference="sAH-XL-gJk"/>
+                                <exclude reference="s5a-5L-r1l"/>
+                            </mask>
+                        </variation>
+                        <variation key="heightClass=regular-widthClass=compact">
+                            <mask key="subviews">
+                                <include reference="H9f-Nx-6q9"/>
+                            </mask>
+                            <mask key="constraints">
+                                <include reference="Aaz-2n-c9t"/>
+                                <include reference="gzj-mg-e3n"/>
+                                <include reference="sAH-XL-gJk"/>
+                                <include reference="s5a-5L-r1l"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <toolbarItems/>
+                    <connections>
+                        <outlet property="cameraView" destination="H9f-Nx-6q9" id="1oM-rQ-0Z3"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="RGb-RM-iVl" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="696" y="-457.5"/>
         </scene>
     </scenes>
 </document>
