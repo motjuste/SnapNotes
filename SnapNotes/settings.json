@@ -6,12 +6,12 @@
     {
       "id": "006",
       "name": "Receipts",
-      "order": 0
+      "order": 1
     },
     {
       "id": "001",
       "name": "Business Cards",
-      "order": 1
+      "order": 0
     },
     {
       "id": "002",

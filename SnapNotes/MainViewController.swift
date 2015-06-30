@@ -11,11 +11,14 @@ import UIKit
 let categoryNamesHeight:CGFloat = 100
 
 class MainViewController: UIViewController {
-
+    
+    // CameraContainerView
     @IBOutlet weak var cameraContainerView: UIView!
     @IBOutlet weak var cameraContainerViewVerticalConstraint: NSLayoutConstraint!
+    // TODO: - May be if height constraint is changed, the view will appear to shift up
     
-    var cameraContainerViewBounds: CGRect!
+    // CategoryNamesContainerView
+    @IBOutlet weak var CategoryNamesContainerView: UIView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,16 +33,10 @@ class MainViewController: UIViewController {
     
     override func viewWillAppear(animated: Bool) {
         
-//        let parentViewBounds = self.view.bounds
-//        cameraContainerViewBounds = CGRect(x: 0, y: 0,
-//            width: parentViewBounds.width,
-//            height: parentViewBounds.height - categoryNamesHeight)
-        
         updateCameraViewBounds()
     }
     
     func updateCameraViewBounds() {
-//        cameraContainerView.bounds = cameraContainerViewBounds
         cameraContainerViewVerticalConstraint.constant = categoryNamesHeight
     }
 

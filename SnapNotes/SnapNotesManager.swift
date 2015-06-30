@@ -50,6 +50,8 @@ class SnapNotesManager {
                     categoriesList.append(Categories(id: id!, name: name!, order: order!))
                 }
                 
+                categoriesList.sort() { ($0 as Categories).order < ($1 as Categories).order }
+                
                 self.settingsLoaded = true
                 
             } else {
