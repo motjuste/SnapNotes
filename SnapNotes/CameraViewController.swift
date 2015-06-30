@@ -32,8 +32,8 @@ class CameraViewController: UIViewController {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-        navigationController?.hidesBarsOnTap = false
-        navigationController?.navigationBarHidden = true
+//        navigationController?.hidesBarsOnTap = false
+//        navigationController?.navigationBarHidden = true
         
         
         if captureSession != nil {
@@ -74,25 +74,46 @@ class CameraViewController: UIViewController {
         previewLayer!.frame = cameraView.bounds
     }
     
-    func getImageToSave() -> UIImage? {
-        var image: UIImage?
+    override func viewWillDisappear(animated: Bool) {
+        self.captureSession!.stopRunning()
+    }
+    
+    func getImageDataToSave() -> NSData? {
+        var imageData: NSData?
         
-        if let videoConnection = stillImageOutput!.connectionWithMediaType(AVMediaTypeVideo) {
+        if let videoConnection = self.stillImageOutput!.connectionWithMediaType(AVMediaTypeVideo) {
             videoConnection.videoOrientation = AVCaptureVideoOrientation.Portrait
-            stillImageOutput?.captureStillImageAsynchronouslyFromConnection(videoConnection, completionHandler: {(sampleBuffer, error) in
-                if (sampleBuffer != nil) {
-                    var imageData = AVCaptureStillImageOutput.jpegStillImageNSDataRepresentation(sampleBuffer)
-                    var dataProvider = CGDataProviderCreateWithCFData(imageData)
-                    var cgImageRef = CGImageCreateWithJPEGDataProvider(dataProvider, nil, true, kCGRenderingIntentDefault)
-                    
-                    image = UIImage(CGImage: cgImageRef, scale: 1.0, orientation: UIImageOrientation.Right)
+            self.stillImageOutput!.captureStillImageAsynchronouslyFromConnection(videoConnection, completionHandler: {
+                (sampleBuffer: CMSampleBuffer!, error) in
+//                if (sampleBuffer != nil) {
+                    imageData = AVCaptureStillImageOutput.jpegStillImageNSDataRepresentation(sampleBuffer)
+//                    var dataProvider = CGDataProviderCreateWithCFData(imageData)
+//                    var cgImageRef = CGImageCreateWithJPEGDataProvider(dataProvider, nil, true, kCGRenderingIntentDefault)
+//                    
+//                    image = UIImage(CGImage: cgImageRef, scale: 1.0, orientation: UIImageOrientation.Right)
+//                } else {
+//                    println(error)
+//                }
+            })
+            
+        }
+        return imageData
+    }
+    
+    func saveImageForCategoryID(categoryID: String) {
+        if let videoConnection = self.stillImageOutput!.connectionWithMediaType(AVMediaTypeVideo) {
+            videoConnection.videoOrientation = AVCaptureVideoOrientation.Portrait
+            self.stillImageOutput!.captureStillImageAsynchronouslyFromConnection(videoConnection, completionHandler: {
+                (sampleBuffer: CMSampleBuffer!, error) in
+                    if (sampleBuffer != nil) {
+                        var imageData = AVCaptureStillImageOutput.jpegStillImageNSDataRepresentation(sampleBuffer)
+                        SnapNotesManager.saveDataForCategoryID(imageData, categoryID: categoryID, extensionString: "jpg")
                 }
             })
             
         }
-        return image
+
     }
-    
     
     
 

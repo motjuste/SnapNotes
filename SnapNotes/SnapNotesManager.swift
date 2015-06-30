@@ -141,7 +141,7 @@ class SnapNotesManager {
             }
         }
         
-        println(allNotesList_)
+//        println(allNotesList_)
         
         allNotesList = allNotesList_
         

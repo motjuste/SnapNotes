@@ -82,9 +82,14 @@ class MainViewController: UIViewController {
     
     // MARK: - Save Image
     func saveImageForCategoryID(categoryID: String) {
-        if let image = camerViewController?.getImageToSave() {
-            SnapNotesManager.saveDataForCategoryID(UIImageJPEGRepresentation(image, 0.75), categoryID: categoryID, extensionString: "jpg")
-        }
+        
+//        let cam = self.childViewControllers.first as? CameraViewController
+//        
+//        let imageData = cam!.getImageDataToSave()
+//        SnapNotesManager.saveDataForCategoryID(imageData!, categoryID: categoryID, extensionString: "jpg")
+        
+        camerViewController?.saveImageForCategoryID(categoryID)
+        
     }
     
     func changeImageNotesCategory(newCategoryID: String) {

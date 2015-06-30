@@ -35,8 +35,15 @@ class ImageNotesCollectionViewController: UICollectionViewController {
 //        self.collectionView!.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: imageNoteCellReuseIdentifier)
 
         // Do any additional setup after loading the view.
+        
+//        let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: Selector("handlePan:"))
+//        self.collectionView?.addGestureRecognizer(panGestureRecognizer)
+        
+        let collectionViewPanGestureRecognizer = self.collectionView?.panGestureRecognizer
+        let point = collectionViewPanGestureRecognizer?.locationInView(self.collectionView)
+        println(point)
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -79,6 +86,12 @@ class ImageNotesCollectionViewController: UICollectionViewController {
         cell.imageView.image = UIImage(contentsOfFile: notesImageFilePathList[indexPath.item])
     
         return cell
+    }
+    
+    func handlePan(sender: UIPanGestureRecognizer) {
+        let point: CGPoint = sender.locationInView(self.collectionView)
+        
+        println(point)
     }
 
     // MARK: UICollectionViewDelegate
