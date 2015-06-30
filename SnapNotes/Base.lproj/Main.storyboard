@@ -459,6 +459,7 @@
                         <outlet property="CategoryNamesContainerView" destination="myZ-AH-uBZ" id="mkz-SU-aED"/>
                         <outlet property="cameraContainerView" destination="6jY-Pp-NQ3" id="e7I-Pd-eal"/>
                         <outlet property="cameraContainerViewVerticalConstraint" destination="xHQ-nm-VP0" id="ihd-Js-OrI"/>
+                        <outlet property="changeViewModeButton" destination="Tgy-Zb-cBm" id="snA-7T-OAq"/>
                         <outlet property="imageNotesContainerView" destination="8AX-aJ-yRi" id="05c-yc-YDS"/>
                     </connections>
                 </viewController>
@@ -472,6 +473,7 @@
                 <collectionViewController storyboardIdentifier="CategoryNamesViewController" id="BL6-RD-8qd" customClass="CategoryNamesCollectionViewController" customModule="SnapNotes" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" id="tQ6-T3-mtV">
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="1" minimumInteritemSpacing="1" id="0ov-cL-eIS">
                             <size key="itemSize" width="99" height="99"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -488,7 +490,7 @@
                                     <subviews>
                                         <button contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" reversesTitleShadowWhenHighlighted="YES" showsTouchWhenHighlighted="YES" adjustsImageWhenDisabled="NO" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="ZkC-gv-xgo">
                                             <rect key="frame" x="-23" y="-15" width="46" height="30"/>
-                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                             <state key="normal" title="Category Name"/>
                                         </button>
                                     </subviews>

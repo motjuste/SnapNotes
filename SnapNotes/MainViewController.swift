@@ -19,10 +19,21 @@ class MainViewController: UIViewController {
         case showImageNotesController = "embeddedSegueToImageNotesCollectionViewController"
     }
     
+    @IBOutlet weak var changeViewModeButton: UIButton!
+    
     @IBAction func changeViewMode(sender: AnyObject) {
         SnapNotesManager.toggleSnapViewMode()
+        
+        switch SnapNotesManager.currentSnapViewMode {
+        case .takePicture :
+            changeViewModeButton.setTitle("View Notes", forState: .Normal)
+        case .viewNotes :
+            changeViewModeButton.setTitle("Camera", forState: .Normal)
+        }
+        
         imageNotesCollectionViewController?.categoryID = categoryNamesCollectionViewController?.categoriesList.first?.id
         updateAllContainerViews()
+        
     }
     
     // CameraContainerView
