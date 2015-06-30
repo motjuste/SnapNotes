@@ -70,7 +70,12 @@ class CategoryNamesCollectionViewController: UICollectionViewController {
         
         let parentVC = self.parentViewController as! MainViewController
         
-        parentVC.saveImageForCategoryID(categoryID)
+        switch SnapNotesManager.currentSnapViewMode {
+        case .takePicture :
+            parentVC.saveImageForCategoryID(categoryID)
+        case .viewNotes :
+            parentVC.changeImageNotesCategory(categoryID)
+        }
     }
 
     // MARK: UICollectionViewDelegate

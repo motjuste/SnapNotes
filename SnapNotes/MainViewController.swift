@@ -22,7 +22,6 @@ class MainViewController: UIViewController {
     @IBAction func changeViewMode(sender: AnyObject) {
         SnapNotesManager.toggleSnapViewMode()
         imageNotesCollectionViewController?.categoryID = categoryNamesCollectionViewController?.categoriesList.first?.id
-        imageNotesCollectionViewController?.categoryID = "000"
         updateAllContainerViews()
     }
     
@@ -45,7 +44,7 @@ class MainViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-//        self.presentedViewController
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -78,7 +77,7 @@ class MainViewController: UIViewController {
                 self.view.layoutIfNeeded()
             }, completion: nil)
         }
-        imageNotesCollectionViewController!.collectionView!.reloadData()
+        imageNotesCollectionViewController?.collectionView?.reloadData()
     }
     
     // MARK: - Save Image
@@ -86,8 +85,11 @@ class MainViewController: UIViewController {
         if let image = camerViewController?.getImageToSave() {
             SnapNotesManager.saveDataForCategoryID(UIImageJPEGRepresentation(image, 0.75), categoryID: categoryID, extensionString: "jpg")
         }
-        
-        
+    }
+    
+    func changeImageNotesCategory(newCategoryID: String) {
+        imageNotesCollectionViewController?.categoryID = newCategoryID
+        imageNotesCollectionViewController?.collectionView?.reloadData()
     }
 
     // MARK: - Navigation
