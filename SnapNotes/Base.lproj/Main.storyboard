@@ -333,7 +333,7 @@
         <!--Main View Controller-->
         <scene sceneID="SOw-IN-Des">
             <objects>
-                <viewController id="u3e-Bd-wsz" customClass="MainViewController" customModule="SnapNotes" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MainViewController" id="u3e-Bd-wsz" customClass="MainViewController" customModule="SnapNotes" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="RRu-bB-kSO"/>
                         <viewControllerLayoutGuide type="bottom" id="AwF-HS-16X"/>
@@ -344,7 +344,7 @@
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6jY-Pp-NQ3" userLabel="CameraContainerView">
                                 <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
                                 <connections>
-                                    <segue destination="mcn-SH-KWw" kind="embed" id="gHD-eQ-8x5"/>
+                                    <segue destination="mcn-SH-KWw" kind="embed" identifier="embeddedSegueToCameraViewController" id="gHD-eQ-8x5"/>
                                 </connections>
                             </containerView>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="myZ-AH-uBZ" userLabel="CategoryNameContainerView">
@@ -363,29 +363,44 @@
                                     </mask>
                                 </variation>
                                 <connections>
-                                    <segue destination="BL6-RD-8qd" kind="embed" id="L13-iu-H6Q"/>
+                                    <segue destination="BL6-RD-8qd" kind="embed" identifier="embeddedSegueToCategoryNamesCollectionViewController" id="L13-iu-H6Q"/>
                                 </connections>
                             </containerView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tgy-Zb-cBm">
+                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                <state key="normal" title="View Notes">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="6jY-Pp-NQ3" firstAttribute="leading" secondItem="GBU-80-Z5k" secondAttribute="leading" id="2I2-h7-yLz"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Tgy-Zb-cBm" secondAttribute="trailing" constant="289" id="DZn-jI-FAi"/>
                             <constraint firstItem="6jY-Pp-NQ3" firstAttribute="top" secondItem="GBU-80-Z5k" secondAttribute="top" id="E3J-Vw-fTs"/>
+                            <constraint firstItem="Tgy-Zb-cBm" firstAttribute="top" secondItem="RRu-bB-kSO" secondAttribute="bottom" id="VFv-XK-gp5"/>
                             <constraint firstAttribute="trailing" secondItem="6jY-Pp-NQ3" secondAttribute="trailing" id="WFP-K4-1Uy"/>
                             <constraint firstItem="myZ-AH-uBZ" firstAttribute="leading" secondItem="GBU-80-Z5k" secondAttribute="leading" id="aU6-KC-GQ2"/>
                             <constraint firstAttribute="trailing" secondItem="myZ-AH-uBZ" secondAttribute="trailing" id="g5m-dd-QEQ"/>
                             <constraint firstItem="myZ-AH-uBZ" firstAttribute="top" secondItem="6jY-Pp-NQ3" secondAttribute="bottom" id="rpj-bF-Xkp"/>
+                            <constraint firstItem="Tgy-Zb-cBm" firstAttribute="top" secondItem="RRu-bB-kSO" secondAttribute="bottom" id="udj-mD-K10"/>
+                            <constraint firstItem="Tgy-Zb-cBm" firstAttribute="leading" secondItem="GBU-80-Z5k" secondAttribute="leadingMargin" id="vNr-ko-ZNM"/>
                             <constraint firstItem="AwF-HS-16X" firstAttribute="top" secondItem="6jY-Pp-NQ3" secondAttribute="bottom" constant="100" id="xHQ-nm-VP0"/>
                         </constraints>
                         <variation key="default">
                             <mask key="subviews">
                                 <exclude reference="6jY-Pp-NQ3"/>
                                 <exclude reference="myZ-AH-uBZ"/>
+                                <exclude reference="Tgy-Zb-cBm"/>
                             </mask>
                             <mask key="constraints">
                                 <exclude reference="2I2-h7-yLz"/>
                                 <exclude reference="E3J-Vw-fTs"/>
                                 <exclude reference="WFP-K4-1Uy"/>
+                                <exclude reference="DZn-jI-FAi"/>
+                                <exclude reference="VFv-XK-gp5"/>
+                                <exclude reference="udj-mD-K10"/>
+                                <exclude reference="vNr-ko-ZNM"/>
                                 <exclude reference="aU6-KC-GQ2"/>
                                 <exclude reference="g5m-dd-QEQ"/>
                                 <exclude reference="rpj-bF-Xkp"/>
@@ -396,11 +411,16 @@
                             <mask key="subviews">
                                 <include reference="6jY-Pp-NQ3"/>
                                 <include reference="myZ-AH-uBZ"/>
+                                <include reference="Tgy-Zb-cBm"/>
                             </mask>
                             <mask key="constraints">
                                 <include reference="2I2-h7-yLz"/>
                                 <include reference="E3J-Vw-fTs"/>
                                 <include reference="WFP-K4-1Uy"/>
+                                <exclude reference="DZn-jI-FAi"/>
+                                <include reference="VFv-XK-gp5"/>
+                                <exclude reference="udj-mD-K10"/>
+                                <include reference="vNr-ko-ZNM"/>
                                 <include reference="aU6-KC-GQ2"/>
                                 <include reference="g5m-dd-QEQ"/>
                                 <include reference="rpj-bF-Xkp"/>
@@ -421,7 +441,7 @@
         <!--Category Names Collection View Controller-->
         <scene sceneID="rNc-H6-MJT">
             <objects>
-                <collectionViewController id="BL6-RD-8qd" customClass="CategoryNamesCollectionViewController" customModule="SnapNotes" customModuleProvider="target" sceneMemberID="viewController">
+                <collectionViewController storyboardIdentifier="CategoryNamesViewController" id="BL6-RD-8qd" customClass="CategoryNamesCollectionViewController" customModule="SnapNotes" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" id="tQ6-T3-mtV">
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="1" minimumInteritemSpacing="1" id="0ov-cL-eIS">
@@ -511,7 +531,7 @@
         <!--Camera View Controller-->
         <scene sceneID="rbm-4u-nOt">
             <objects>
-                <viewController automaticallyAdjustsScrollViewInsets="NO" id="mcn-SH-KWw" customClass="CameraViewController" customModule="SnapNotes" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CameraViewController" automaticallyAdjustsScrollViewInsets="NO" id="mcn-SH-KWw" customClass="CameraViewController" customModule="SnapNotes" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="gii-6X-D59"/>
                         <viewControllerLayoutGuide type="bottom" id="ABt-xG-D4O"/>

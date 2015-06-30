@@ -22,7 +22,7 @@ class CategoryNamesCollectionViewController: UICollectionViewController {
 
         // Register cell classes
 //        self.collectionView!.registerClass(CategoryNameCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
-        // !!!: - Why the Fuck is this thing fucking up stuff!!?
+        // !!! - Why the Fuck is this thing fucking up stuff!!?
 
         // Do any additional setup after loading the view.
     }
@@ -67,7 +67,10 @@ class CategoryNamesCollectionViewController: UICollectionViewController {
     
     func savePhotoForCategoryID(sender: UIButton) {
         let categoryID: String = sender.layer.valueForKey("categoryID") as! String
-        println(categoryID)
+        
+        let parentVC = self.parentViewController as! MainViewController
+        
+        parentVC.saveImageForCategoryID(categoryID)
     }
 
     // MARK: UICollectionViewDelegate
