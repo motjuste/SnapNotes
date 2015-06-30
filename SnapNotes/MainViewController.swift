@@ -8,24 +8,38 @@
 
 import UIKit
 
-let categoryNamesHeight:CGFloat = 100
+let categoryNamesHeight: CGFloat = 100
+let minCameraContainerHeight: CGFloat = 50
 
 class MainViewController: UIViewController {
     
     enum embeddedSegueIdentifiers: String {
         case showCameraController = "embeddedSegueToCameraViewController"
         case showCategoryNamesController = "embeddedSegueToCategoryNamesCollectionViewController"
+        case showImageNotesController = "embeddedSegueToImageNotesCollectionViewController"
+    }
+    
+    @IBAction func changeViewMode(sender: AnyObject) {
+        SnapNotesManager.toggleSnapViewMode()
+        imageNotesCollectionViewController?.categoryID = categoryNamesCollectionViewController?.categoriesList.first?.id
+        imageNotesCollectionViewController?.categoryID = "000"
+        updateAllContainerViews()
     }
     
     // CameraContainerView
     @IBOutlet weak var cameraContainerView: UIView!
     @IBOutlet weak var cameraContainerViewVerticalConstraint: NSLayoutConstraint!
     // TODO: - May be if height constraint is changed, the view will appear to shift up
+    var maxCameraContainerViewVerticalConstraintConstant: CGFloat?
     var camerViewController: CameraViewController?
     
     // CategoryNamesContainerView
     @IBOutlet weak var CategoryNamesContainerView: UIView!
     var categoryNamesCollectionViewController: CategoryNamesCollectionViewController?
+    
+    // ImageNotesContainerView
+    @IBOutlet weak var imageNotesContainerView: UIView!
+    var imageNotesCollectionViewController: ImageNotesCollectionViewController?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,12 +54,31 @@ class MainViewController: UIViewController {
     }
     
     override func viewWillAppear(animated: Bool) {
+//        navigationController?.hidesBarsOnTap = false
+//        navigationController?.navigationBarHidden = true
         
-        updateCameraViewBounds()
+        maxCameraContainerViewVerticalConstraintConstant = self.view.bounds.height - minCameraContainerHeight
+        updateAllContainerViews()
+        
+        
     }
     
-    func updateCameraViewBounds() {
-        cameraContainerViewVerticalConstraint.constant = categoryNamesHeight
+    
+    // Update the Container Views
+    func updateAllContainerViews() {
+        switch SnapNotesManager.currentSnapViewMode {
+        case .takePicture:
+            UIView.animateWithDuration(0.2, delay: 0.0, options: .CurveEaseOut, animations: {
+                self.cameraContainerViewVerticalConstraint.constant = categoryNamesHeight
+                self.view.layoutIfNeeded()
+            }, completion: nil)
+        case .viewNotes:
+            UIView.animateWithDuration(0.45, delay: 0.0, options: .CurveEaseOut, animations: {
+                self.cameraContainerViewVerticalConstraint.constant = self.maxCameraContainerViewVerticalConstraintConstant!
+                self.view.layoutIfNeeded()
+            }, completion: nil)
+        }
+        imageNotesCollectionViewController!.collectionView!.reloadData()
     }
     
     // MARK: - Save Image
@@ -66,13 +99,31 @@ class MainViewController: UIViewController {
         
         if let segueIdentifier = embeddedSegueIdentifiers(rawValue: segue.identifier!) {
             switch segueIdentifier {
-            case embeddedSegueIdentifiers.showCameraController:
+            case .showCameraController:
                 camerViewController = segue.destinationViewController as? CameraViewController
-            case embeddedSegueIdentifiers.showCategoryNamesController:
+            case .showCategoryNamesController:
                 categoryNamesCollectionViewController = segue.destinationViewController as? CategoryNamesCollectionViewController
+            case .showImageNotesController:
+                imageNotesCollectionViewController = segue.destinationViewController as? ImageNotesCollectionViewController
+//                switch SnapNotesManager.currentSnapViewMode {
+//                case .takePicture:
+//                    break
+//                    // TODO: Wut M8 ?
+//                case .viewNotes:
+//                    imageNotesCollectionViewController?.categoryID = categoryNamesCollectionViewController?.categoriesList.first?.id
+//                }
             }
         }
         
+    }
+    
+    // MARK: - Status bar and navigation bar stuff
+    override func prefersStatusBarHidden() -> Bool {
+        return true
+    }
+    
+    override func preferredStatusBarUpdateAnimation() -> UIStatusBarAnimation {
+        return UIStatusBarAnimation.Fade
     }
 
 

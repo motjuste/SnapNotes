@@ -25,6 +25,8 @@
 		20173CA91B41FAC500E9348A /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20173CA81B41FAC500E9348A /* CameraViewController.swift */; };
 		20173CAB1B42057200E9348A /* CategoryNamesCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20173CAA1B42057200E9348A /* CategoryNamesCollectionViewController.swift */; };
 		20173CAD1B4205EB00E9348A /* CategoryNameCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20173CAC1B4205EB00E9348A /* CategoryNameCollectionViewCell.swift */; };
+		20173CAF1B424C8800E9348A /* ImageNoteCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20173CAE1B424C8800E9348A /* ImageNoteCollectionViewCell.swift */; };
+		20173CB11B424C9F00E9348A /* ImageNotesCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20173CB01B424C9F00E9348A /* ImageNotesCollectionViewController.swift */; };
 		20314F2B1B39700700875271 /* NoteFSMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20314F2A1B39700700875271 /* NoteFSMainViewController.swift */; };
 		20314F2C1B39700700875271 /* NoteFSMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20314F2A1B39700700875271 /* NoteFSMainViewController.swift */; };
 		20314F371B3B65DD00875271 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20314F361B3B65DD00875271 /* AVFoundation.framework */; };
@@ -67,6 +69,8 @@
 		20173CA81B41FAC500E9348A /* CameraViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
 		20173CAA1B42057200E9348A /* CategoryNamesCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryNamesCollectionViewController.swift; sourceTree = "<group>"; };
 		20173CAC1B4205EB00E9348A /* CategoryNameCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryNameCollectionViewCell.swift; sourceTree = "<group>"; };
+		20173CAE1B424C8800E9348A /* ImageNoteCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageNoteCollectionViewCell.swift; sourceTree = "<group>"; };
+		20173CB01B424C9F00E9348A /* ImageNotesCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageNotesCollectionViewController.swift; sourceTree = "<group>"; };
 		20314F2A1B39700700875271 /* NoteFSMainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteFSMainViewController.swift; sourceTree = "<group>"; };
 		20314F361B3B65DD00875271 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		2053E67C1B319BF700E9740C /* Note.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Note.swift; sourceTree = "<group>"; };
@@ -167,6 +171,8 @@
 				20173CA81B41FAC500E9348A /* CameraViewController.swift */,
 				20173CAA1B42057200E9348A /* CategoryNamesCollectionViewController.swift */,
 				20173CAC1B4205EB00E9348A /* CategoryNameCollectionViewCell.swift */,
+				20173CAE1B424C8800E9348A /* ImageNoteCollectionViewCell.swift */,
+				20173CB01B424C9F00E9348A /* ImageNotesCollectionViewController.swift */,
 			);
 			name = SnapView;
 			sourceTree = "<group>";
@@ -291,7 +297,9 @@
 				2053E6881B31AF6D00E9740C /* NoteFSContentViewController.swift in Sources */,
 				20173CA91B41FAC500E9348A /* CameraViewController.swift in Sources */,
 				200694841B289C8100573CF9 /* SnapNotesManager.swift in Sources */,
+				20173CAF1B424C8800E9348A /* ImageNoteCollectionViewCell.swift in Sources */,
 				2053E6831B31A58800E9740C /* NSDateExtension.swift in Sources */,
+				20173CB11B424C9F00E9348A /* ImageNotesCollectionViewController.swift in Sources */,
 				200694811B289BAB00573CF9 /* Categories.swift in Sources */,
 				2006945B1B27787700573CF9 /* ViewController.swift in Sources */,
 				20173CAB1B42057200E9348A /* CategoryNamesCollectionViewController.swift in Sources */,
