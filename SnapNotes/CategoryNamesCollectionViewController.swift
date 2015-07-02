@@ -59,8 +59,16 @@ class CategoryNamesCollectionViewController: UICollectionViewController {
         let category: Categories = categoriesList[indexPath.item]
         
         cell.categoryNameButton?.layer.setValue(category.id, forKey: "categoryID")
+        cell.categoryNameButton?.layer.setValue(cell.categoryNameButton?.tintColor, forKey: "highlightedColor")
+        cell.categoryNameButton?.layer.setValue(UIColor.groupTableViewBackgroundColor(), forKey: "normalColor")
         cell.categoryNameButton?.addTarget(self, action: "savePhotoForCategoryID:", forControlEvents: .TouchUpInside)
         cell.categoryNameButton?.setTitle(category.name, forState: .Normal)
+        cell.categoryNameButton?.setTitleColor(cell.categoryNameButton.tintColor, forState: .Normal)
+        cell.categoryNameButton?.setTitleColor(UIColor.whiteColor(), forState: .Highlighted)
+        
+        cell.categoryNameButton?.addTarget(self, action: "highlightButton:", forControlEvents: UIControlEvents.TouchDown)
+        cell.categoryNameButton?.addTarget(self, action: "unHightlightButton:", forControlEvents: UIControlEvents.TouchUpInside)
+        cell.categoryNameButton?.addTarget(self, action: "buttonDragged:", forControlEvents: UIControlEvents.TouchDragExit)
     
         return cell
     }
@@ -76,6 +84,24 @@ class CategoryNamesCollectionViewController: UICollectionViewController {
         case .viewNotes :
             parentVC.changeImageNotesCategory(categoryID)
         }
+    }
+    
+    func highlightButton(sender: UIButton) {
+        let highlightColor = sender.layer.valueForKey("highlightedColor") as! UIColor
+        sender.backgroundColor = highlightColor
+    }
+    
+    func unHightlightButton(sender: UIButton) {
+        let unHighlightColor = sender.layer.valueForKey("normalColor") as! UIColor
+        sender.backgroundColor = unHighlightColor
+    }
+    
+    func buttonDragged(sender: UIButton) {
+        SnapNotesManager.setCurrentCategoryID(sender.layer.valueForKey("categoryID") as! String)
+        let unHighlightColor = sender.layer.valueForKey("normalColor") as! UIColor
+        sender.backgroundColor = unHighlightColor
+        let parentVC = self.parentViewController as! MainViewController
+        parentVC.changeViewMode(nil)
     }
 
     // MARK: UICollectionViewDelegate

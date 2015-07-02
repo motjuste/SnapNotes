@@ -23,7 +23,7 @@ class MainViewController: UIViewController {
     
     @IBOutlet weak var changeViewModeButton: UIButton!
     
-    @IBAction func changeViewMode(sender: AnyObject) {
+    @IBAction func changeViewMode(sender: AnyObject?) {
         SnapNotesManager.toggleSnapViewMode()
         
         switch SnapNotesManager.currentSnapViewMode {
@@ -33,8 +33,13 @@ class MainViewController: UIViewController {
             changeViewModeButton.setTitle("Camera", forState: .Normal)
         }
         
-        imageNotesCollectionViewController?.categoryID = categoryNamesCollectionViewController?.categoriesList.first?.id
+        if let categoryToDisplay = SnapNotesManager.getCurrentCategoryID() {
+            imageNotesCollectionViewController?.categoryID = categoryToDisplay
+        } else {
+            imageNotesCollectionViewController?.categoryID = categoryNamesCollectionViewController?.categoriesList.first?.id
+        }
         updateAllContainerViews()
+        
         
     }
     
@@ -95,7 +100,7 @@ class MainViewController: UIViewController {
         case .viewNotes:
             lastPhotoButton.hidden = true
             
-            UIView.animateWithDuration(0.35, delay: 0.0, options: .CurveEaseOut, animations: {
+            UIView.animateWithDuration(0.2, delay: 0.0, options: .CurveEaseOut, animations: {
                 self.cameraContainerViewHeightConstraint.constant = minCameraContainerHeight
                 self.view.layoutIfNeeded()
             }, completion: nil)

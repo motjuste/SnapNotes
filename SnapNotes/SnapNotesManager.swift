@@ -192,6 +192,14 @@ class SnapNotesManager {
         
     }
     
+    static func getCurrentCategoryID() -> String? {
+        return self.currentCategoryID
+    }
+    
+    static func setCurrentCategoryID(newCategoryID: String) {
+        self.currentCategoryID = newCategoryID
+    }
+    
     static func getCurrentImageIdx() -> Int? {
         return self.currentImageIdx
     }
