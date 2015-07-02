@@ -100,13 +100,16 @@ class MainViewController: UIViewController {
         case .viewNotes:
             lastPhotoButton.hidden = true
             
-            UIView.animateWithDuration(0.2, delay: 0.0, options: .CurveEaseOut, animations: {
+            UIView.animateWithDuration(0.2, delay: 0.0, options: UIViewAnimationOptions.CurveEaseOut, animations: {
                 self.cameraContainerViewHeightConstraint.constant = minCameraContainerHeight
                 self.view.layoutIfNeeded()
-            }, completion: nil)
+                }, completion: (reloadNotesCollectionData))
             
         }
         
+    }
+    
+    func reloadNotesCollectionData(Bool) {
         imageNotesCollectionViewController?.collectionView?.reloadData()
     }
     
