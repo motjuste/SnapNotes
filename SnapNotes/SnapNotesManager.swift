@@ -10,6 +10,30 @@ import Foundation
 import AVFoundation
 import UIKit
 
+
+
+// MARK: - Useful data structures
+
+struct Note {
+//    var date: NSDate?
+    var categoryID: String?
+    var imageFilePath: String?
+    var thumbnailFilePath: String?
+}
+
+class Categories {
+    let id: String
+    var name: String
+    var order: Int
+    
+    init(id: String, name:String, order: Int) {
+        self.id = id
+        self.name = name
+        self.order = order
+    }
+}
+
+
 class SnapNotesManager {
     private static var categoriesList: [Categories] = []
     private static var count = 0
