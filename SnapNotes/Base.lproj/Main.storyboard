@@ -339,6 +339,7 @@
                         <viewControllerLayoutGuide type="bottom" id="AwF-HS-16X"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="GBU-80-Z5k">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6jY-Pp-NQ3" userLabel="CameraContainerView">
@@ -408,21 +409,21 @@
                                 <exclude reference="8AX-aJ-yRi"/>
                             </mask>
                             <mask key="constraints">
-                                <exclude reference="2I2-h7-yLz"/>
-                                <exclude reference="E3J-Vw-fTs"/>
-                                <exclude reference="WFP-K4-1Uy"/>
+                                <exclude reference="fIF-TZ-dvM"/>
+                                <exclude reference="xHQ-nm-VP0"/>
                                 <exclude reference="DZn-jI-FAi"/>
                                 <exclude reference="US3-8k-Hkt"/>
                                 <exclude reference="udj-mD-K10"/>
                                 <exclude reference="vNr-ko-ZNM"/>
-                                <exclude reference="aU6-KC-GQ2"/>
-                                <exclude reference="g5m-dd-QEQ"/>
-                                <exclude reference="rpj-bF-Xkp"/>
+                                <exclude reference="2I2-h7-yLz"/>
+                                <exclude reference="E3J-Vw-fTs"/>
+                                <exclude reference="WFP-K4-1Uy"/>
                                 <exclude reference="8hs-he-vgx"/>
                                 <exclude reference="XzG-Dq-Emg"/>
                                 <exclude reference="n8N-ip-6v2"/>
-                                <exclude reference="fIF-TZ-dvM"/>
-                                <exclude reference="xHQ-nm-VP0"/>
+                                <exclude reference="aU6-KC-GQ2"/>
+                                <exclude reference="g5m-dd-QEQ"/>
+                                <exclude reference="rpj-bF-Xkp"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
@@ -433,21 +434,21 @@
                                 <include reference="8AX-aJ-yRi"/>
                             </mask>
                             <mask key="constraints">
-                                <include reference="2I2-h7-yLz"/>
-                                <include reference="E3J-Vw-fTs"/>
-                                <include reference="WFP-K4-1Uy"/>
+                                <include reference="fIF-TZ-dvM"/>
+                                <include reference="xHQ-nm-VP0"/>
                                 <exclude reference="DZn-jI-FAi"/>
                                 <include reference="US3-8k-Hkt"/>
                                 <exclude reference="udj-mD-K10"/>
                                 <include reference="vNr-ko-ZNM"/>
-                                <include reference="aU6-KC-GQ2"/>
-                                <include reference="g5m-dd-QEQ"/>
-                                <include reference="rpj-bF-Xkp"/>
+                                <include reference="2I2-h7-yLz"/>
+                                <include reference="E3J-Vw-fTs"/>
+                                <include reference="WFP-K4-1Uy"/>
                                 <include reference="8hs-he-vgx"/>
                                 <include reference="XzG-Dq-Emg"/>
                                 <include reference="n8N-ip-6v2"/>
-                                <include reference="fIF-TZ-dvM"/>
-                                <include reference="xHQ-nm-VP0"/>
+                                <include reference="aU6-KC-GQ2"/>
+                                <include reference="g5m-dd-QEQ"/>
+                                <include reference="rpj-bF-Xkp"/>
                             </mask>
                         </variation>
                     </view>
@@ -472,6 +473,7 @@
             <objects>
                 <collectionViewController storyboardIdentifier="CategoryNamesViewController" id="BL6-RD-8qd" customClass="CategoryNamesCollectionViewController" customModule="SnapNotes" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" id="tQ6-T3-mtV">
+                        <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="1" minimumInteritemSpacing="1" id="0ov-cL-eIS">
@@ -490,7 +492,7 @@
                                     <subviews>
                                         <button contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" reversesTitleShadowWhenHighlighted="YES" showsTouchWhenHighlighted="YES" adjustsImageWhenDisabled="NO" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="ZkC-gv-xgo">
                                             <rect key="frame" x="-23" y="-15" width="46" height="30"/>
-                                            <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                            <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803926" alpha="1" colorSpace="calibratedRGB"/>
                                             <state key="normal" title="Category Name"/>
                                         </button>
                                     </subviews>
@@ -545,6 +547,7 @@
             <objects>
                 <collectionViewController id="h0M-Am-dU7" customClass="ImageNotesCollectionViewController" customModule="SnapNotes" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" dataMode="prototypes" id="oIS-S6-9Jh">
+                        <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="1" minimumInteritemSpacing="1" id="yek-yc-egL">
@@ -637,6 +640,7 @@
                         <viewControllerLayoutGuide type="bottom" id="ABt-xG-D4O"/>
                     </layoutGuides>
                     <view key="view" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="fvn-Le-8fb">
+                        <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="H9f-Nx-6q9" userLabel="CameraView">
@@ -656,10 +660,10 @@
                                 <exclude reference="H9f-Nx-6q9"/>
                             </mask>
                             <mask key="constraints">
+                                <exclude reference="s5a-5L-r1l"/>
                                 <exclude reference="Aaz-2n-c9t"/>
                                 <exclude reference="gzj-mg-e3n"/>
                                 <exclude reference="sAH-XL-gJk"/>
-                                <exclude reference="s5a-5L-r1l"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
@@ -667,10 +671,10 @@
                                 <include reference="H9f-Nx-6q9"/>
                             </mask>
                             <mask key="constraints">
+                                <include reference="s5a-5L-r1l"/>
                                 <include reference="Aaz-2n-c9t"/>
                                 <include reference="gzj-mg-e3n"/>
                                 <include reference="sAH-XL-gJk"/>
-                                <include reference="s5a-5L-r1l"/>
                             </mask>
                         </variation>
                     </view>
