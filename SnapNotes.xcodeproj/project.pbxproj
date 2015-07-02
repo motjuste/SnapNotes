@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		200694591B27787700573CF9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200694581B27787700573CF9 /* AppDelegate.swift */; };
-		2006945B1B27787700573CF9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2006945A1B27787700573CF9 /* ViewController.swift */; };
 		2006945E1B27787700573CF9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2006945C1B27787700573CF9 /* Main.storyboard */; };
 		200694601B27787700573CF9 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2006945F1B27787700573CF9 /* Images.xcassets */; };
 		200694631B27787700573CF9 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 200694611B27787700573CF9 /* LaunchScreen.xib */; };
@@ -54,7 +53,6 @@
 		200694531B27787700573CF9 /* SnapNotes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SnapNotes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		200694571B27787700573CF9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		200694581B27787700573CF9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		2006945A1B27787700573CF9 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		2006945D1B27787700573CF9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		2006945F1B27787700573CF9 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		200694621B27787700573CF9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
@@ -126,7 +124,6 @@
 				20DE63BA1B2B0883007AA0D2 /* CategoriesCollectionViewCell.swift */,
 				2006947D1B28939C00573CF9 /* SwiftyJSON.swift */,
 				200694581B27787700573CF9 /* AppDelegate.swift */,
-				2006945A1B27787700573CF9 /* ViewController.swift */,
 				2006945C1B27787700573CF9 /* Main.storyboard */,
 				2006945F1B27787700573CF9 /* Images.xcassets */,
 				200694611B27787700573CF9 /* LaunchScreen.xib */,
@@ -301,7 +298,6 @@
 				2053E6831B31A58800E9740C /* NSDateExtension.swift in Sources */,
 				20173CB11B424C9F00E9348A /* ImageNotesCollectionViewController.swift in Sources */,
 				200694811B289BAB00573CF9 /* Categories.swift in Sources */,
-				2006945B1B27787700573CF9 /* ViewController.swift in Sources */,
 				20173CAB1B42057200E9348A /* CategoryNamesCollectionViewController.swift in Sources */,
 				200694591B27787700573CF9 /* AppDelegate.swift in Sources */,
 				20314F2B1B39700700875271 /* NoteFSMainViewController.swift in Sources */,
