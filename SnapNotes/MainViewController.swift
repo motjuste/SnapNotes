@@ -18,6 +18,7 @@ class MainViewController: UIViewController {
         case showCameraController = "embeddedSegueToCameraViewController"
         case showCategoryNamesController = "embeddedSegueToCategoryNamesCollectionViewController"
         case showImageNotesController = "embeddedSegueToImageNotesCollectionViewController"
+        case showLastPhoto = "segueToLastPhoto"
     }
     
     @IBOutlet weak var changeViewModeButton: UIButton!
@@ -50,6 +51,10 @@ class MainViewController: UIViewController {
     @IBOutlet weak var imageNotesContainerView: UIView!
     var imageNotesCollectionViewController: ImageNotesCollectionViewController?
     
+    // LastPhotoButton
+    
+    @IBOutlet weak var lastPhotoButton: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -81,16 +86,22 @@ class MainViewController: UIViewController {
     func updateAllContainerViews() {
         switch SnapNotesManager.currentSnapViewMode {
         case .takePicture:
+            
             UIView.animateWithDuration(0.2, delay: 0.0, options: .CurveEaseOut, animations: {
                 self.cameraContainerViewHeightConstraint.constant = maxCameraContainerHeight
                 self.view.layoutIfNeeded()
             }, completion: nil)
+            
         case .viewNotes:
+            lastPhotoButton.hidden = true
+            
             UIView.animateWithDuration(0.35, delay: 0.0, options: .CurveEaseOut, animations: {
                 self.cameraContainerViewHeightConstraint.constant = minCameraContainerHeight
                 self.view.layoutIfNeeded()
             }, completion: nil)
+            
         }
+        
         imageNotesCollectionViewController?.collectionView?.reloadData()
     }
     
@@ -103,6 +114,7 @@ class MainViewController: UIViewController {
 //        SnapNotesManager.saveDataForCategoryID(imageData!, categoryID: categoryID, extensionString: "jpg")
         
         camerViewController?.saveImageForCategoryID(categoryID)
+        lastPhotoButton.hidden = false
         
     }
     
@@ -133,6 +145,11 @@ class MainViewController: UIViewController {
 //                case .viewNotes:
 //                    imageNotesCollectionViewController?.categoryID = categoryNamesCollectionViewController?.categoriesList.first?.id
 //                }
+            case .showLastPhoto:
+                let noteFSViewController = segue.destinationViewController as! NoteFSMainViewController
+                noteFSViewController.categoryID = nil
+                SnapNotesManager.setCurrentImageIdx(SnapNotesManager.getAllNotesCount()! - 1)
+                // TODO: - Handle for no notes / optionals
             }
         }
         
