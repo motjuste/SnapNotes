@@ -17,6 +17,8 @@ class CameraViewController: UIViewController {
     var stillImageOutput: AVCaptureStillImageOutput?
     var previewLayer: AVCaptureVideoPreviewLayer?
     
+    var previewLayerBoundsSet = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -71,7 +73,11 @@ class CameraViewController: UIViewController {
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        previewLayer!.frame = cameraView.bounds
+        if !previewLayerBoundsSet {
+            // set frame of preview layer only once
+            previewLayer!.frame = cameraView.bounds
+            previewLayerBoundsSet = true
+        }
     }
     
     override func viewWillDisappear(animated: Bool) {
@@ -106,14 +112,19 @@ class CameraViewController: UIViewController {
             self.stillImageOutput!.captureStillImageAsynchronouslyFromConnection(videoConnection, completionHandler: {
                 (sampleBuffer: CMSampleBuffer!, error) in
                     if (sampleBuffer != nil) {
+                        self.captureSession!.stopRunning()
                         var imageData = AVCaptureStillImageOutput.jpegStillImageNSDataRepresentation(sampleBuffer)
                         SnapNotesManager.saveDataForCategoryID(imageData, categoryID: categoryID, extensionString: "jpg")
+                        self.captureSession!.startRunning()
                 }
             })
             
         }
 
     }
+    
+    
+    
     
     
 

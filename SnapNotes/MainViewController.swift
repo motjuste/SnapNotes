@@ -10,6 +10,7 @@ import UIKit
 
 let categoryNamesHeight: CGFloat = 100
 let minCameraContainerHeight: CGFloat = 50
+var maxCameraContainerHeight: CGFloat = 800 // will be set based on bounds of cameraContainer
 
 class MainViewController: UIViewController {
     
@@ -38,10 +39,8 @@ class MainViewController: UIViewController {
     
     // CameraContainerView
     @IBOutlet weak var cameraContainerView: UIView!
-    @IBOutlet weak var cameraContainerViewVerticalConstraint: NSLayoutConstraint!
-    // TODO: - May be if height constraint is changed, the view will appear to shift up
-    var maxCameraContainerViewVerticalConstraintConstant: CGFloat?
     var camerViewController: CameraViewController?
+    @IBOutlet weak var cameraContainerViewHeightConstraint: NSLayoutConstraint!
     
     // CategoryNamesContainerView
     @IBOutlet weak var CategoryNamesContainerView: UIView!
@@ -64,10 +63,14 @@ class MainViewController: UIViewController {
     }
     
     override func viewWillAppear(animated: Bool) {
-//        navigationController?.hidesBarsOnTap = false
-//        navigationController?.navigationBarHidden = true
         
-        maxCameraContainerViewVerticalConstraintConstant = self.view.bounds.height - minCameraContainerHeight
+        super.viewWillAppear(true)
+        
+        navigationController?.hidesBarsOnTap = false
+        navigationController?.navigationBarHidden = true
+        
+        maxCameraContainerHeight = self.view.bounds.height - categoryNamesHeight
+        
         updateAllContainerViews()
         
         
@@ -79,12 +82,12 @@ class MainViewController: UIViewController {
         switch SnapNotesManager.currentSnapViewMode {
         case .takePicture:
             UIView.animateWithDuration(0.2, delay: 0.0, options: .CurveEaseOut, animations: {
-                self.cameraContainerViewVerticalConstraint.constant = categoryNamesHeight
+                self.cameraContainerViewHeightConstraint.constant = maxCameraContainerHeight
                 self.view.layoutIfNeeded()
             }, completion: nil)
         case .viewNotes:
-            UIView.animateWithDuration(0.45, delay: 0.0, options: .CurveEaseOut, animations: {
-                self.cameraContainerViewVerticalConstraint.constant = self.maxCameraContainerViewVerticalConstraintConstant!
+            UIView.animateWithDuration(0.35, delay: 0.0, options: .CurveEaseOut, animations: {
+                self.cameraContainerViewHeightConstraint.constant = minCameraContainerHeight
                 self.view.layoutIfNeeded()
             }, completion: nil)
         }
@@ -137,7 +140,7 @@ class MainViewController: UIViewController {
     
     // MARK: - Status bar and navigation bar stuff
     override func prefersStatusBarHidden() -> Bool {
-        return true
+        return navigationController?.navigationBarHidden == true
     }
     
     override func preferredStatusBarUpdateAnimation() -> UIStatusBarAnimation {

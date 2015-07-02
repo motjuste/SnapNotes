@@ -25,6 +25,10 @@ class ImageNotesCollectionViewController: UICollectionViewController {
     
     var notesImageFilePathList: [String] = []
     
+    enum segueIdentifiers: String {
+        case showImageNoteInFS = "segueToShowSelectedImageInFS"
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -39,9 +43,9 @@ class ImageNotesCollectionViewController: UICollectionViewController {
 //        let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: Selector("handlePan:"))
 //        self.collectionView?.addGestureRecognizer(panGestureRecognizer)
         
-        let collectionViewPanGestureRecognizer = self.collectionView?.panGestureRecognizer
-        let point = collectionViewPanGestureRecognizer?.locationInView(self.collectionView)
-        println(point)
+//        let collectionViewPanGestureRecognizer = self.collectionView?.panGestureRecognizer
+//        let point = collectionViewPanGestureRecognizer?.locationInView(self.collectionView)
+//        println(point)
     }
     
     override func didReceiveMemoryWarning() {
@@ -49,15 +53,24 @@ class ImageNotesCollectionViewController: UICollectionViewController {
         // Dispose of any resources that can be recreated.
     }
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
+        if let segueID = segueIdentifiers(rawValue: segue.identifier!) {
+            switch segueID {
+            case .showImageNoteInFS :
+                let selectedNoteInFSViewController = segue.destinationViewController as! NoteFSMainViewController
+                let selectedImageCellIdx: NSIndexPath = self.collectionView!.indexPathForCell(sender as! ImageNoteCollectionViewCell)!
+                
+                selectedNoteInFSViewController.categoryID = self.categoryID
+                SnapNotesManager.setCurrentImageIdx(selectedImageCellIdx.item)
+                // TODO: - Handle when there will be segments in the gallery view
+                
+            }
+        }
     }
-    */
 
     // MARK: UICollectionViewDataSource
 
@@ -93,6 +106,10 @@ class ImageNotesCollectionViewController: UICollectionViewController {
         
         println(point)
     }
+    
+    
+    
+    
 
     // MARK: UICollectionViewDelegate
 
