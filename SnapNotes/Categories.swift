@@ -10,8 +10,8 @@ import Foundation
 
 class Categories {
     let id: String
-    let name: String
-    let order: Int
+    var name: String
+    var order: Int
 //    var notesList: [Note] = [] //{
 ////        didSet {
 ////            // TODO: Move this to NotesManager

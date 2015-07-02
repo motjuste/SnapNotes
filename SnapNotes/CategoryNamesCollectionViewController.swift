@@ -66,8 +66,8 @@ class CategoryNamesCollectionViewController: UICollectionViewController {
         cell.categoryNameButton?.setTitleColor(cell.categoryNameButton.tintColor, forState: .Normal)
         cell.categoryNameButton?.setTitleColor(UIColor.whiteColor(), forState: .Highlighted)
         
-        cell.categoryNameButton?.addTarget(self, action: "highlightButton:", forControlEvents: UIControlEvents.TouchDown)
-        cell.categoryNameButton?.addTarget(self, action: "unHightlightButton:", forControlEvents: UIControlEvents.TouchUpInside)
+//        cell.categoryNameButton?.addTarget(self, action: "highlightButton:", forControlEvents: UIControlEvents.TouchDown)
+//        cell.categoryNameButton?.addTarget(self, action: "unHightlightButton:", forControlEvents: UIControlEvents.TouchUpInside)
         cell.categoryNameButton?.addTarget(self, action: "buttonDragged:", forControlEvents: UIControlEvents.TouchDragExit)
     
         return cell

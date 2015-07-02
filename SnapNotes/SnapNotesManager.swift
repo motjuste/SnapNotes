@@ -7,11 +7,14 @@
 //
 
 import Foundation
+import AVFoundation
+import UIKit
 
 class SnapNotesManager {
     private static var categoriesList: [Categories] = []
     private static var count = 0
     private static var settingsLoaded = false
+    private static var maxCategoryID: String?
     
     private static let notesPath = NSBundle.mainBundle().resourcePath!.stringByAppendingPathComponent("TempNoteImages")
     private static var allNotesList: [Note]?
@@ -48,6 +51,9 @@ class SnapNotesManager {
                     let order: Int? = cat["order"].int
                     
                     categoriesList.append(Categories(id: id!, name: name!, order: order!))
+                    if id > maxCategoryID {
+                        maxCategoryID = id
+                    }
                 }
                 
                 categoriesList.sort() { ($0 as Categories).order < ($1 as Categories).order }
@@ -135,8 +141,9 @@ class SnapNotesManager {
             for imageName in imageNamesList {
                 let categoryID = self.getCategoryIDFromImageName(imageName)
                 let imageFilePath = saveNotesPath.stringByAppendingPathComponent(imageName)
+                let thumbnailFilePath = thumbnailPath.stringByAppendingPathComponent(imageName)
                 
-                let note = Note(categoryID: categoryID, imageFilePath: imageFilePath)
+                let note = Note(categoryID: categoryID, imageFilePath: imageFilePath, thumbnailFilePath: thumbnailFilePath)
                 allNotesList_.append(note)
             }
         }
@@ -257,9 +264,32 @@ class SnapNotesManager {
         
     }
     
+    static func getThumbnailFilePathsListForCategoryID(categoryID: String?) -> [String] {
+        var imageFilePathsList: [String] = []
+        var notesListForCategoryID: [Note] = []
+        
+        
+        if (self.allNotesList != nil) {
+            if (categoryID == nil) {
+                notesListForCategoryID = allNotesList!
+            } else {
+                notesListForCategoryID = self.allNotesList!.filter() { ($0 as Note).categoryID == categoryID }
+            }
+        }
+        
+        for note in notesListForCategoryID {
+            imageFilePathsList.append(note.thumbnailFilePath!)
+        }
+        
+        return imageFilePathsList
+        
+    }
+
+    
     // MARK: - Save image Notes
     
     private static let saveNotesPath = (NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as! String).stringByAppendingPathComponent("photos")
+    private static let thumbnailPath = (NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as! String).stringByAppendingPathComponent("thumbnails")
     // TODO: - Do better notesPath naming and stuff
     
     
@@ -280,6 +310,42 @@ class SnapNotesManager {
         
     }
     
+    static func saveDataForCategoryID(sampleBuffer: CMSampleBuffer, categoryID: String) {
+        let fileManager = NSFileManager.defaultManager()
+        
+//        if !fileManager.fileExistsAtPath(self.saveNotesPath) {
+//            fileManager.createDirectoryAtPath(saveNotesPath, withIntermediateDirectories: true, attributes: nil, error: nil)
+//            // TODO: - Handle any errors creating directories
+//            
+//        }
+        
+        
+        let timeIntervalString = "\(NSDate().timeIntervalSince1970)"
+        let fileName = timeIntervalString.stringByAppendingString("_" + categoryID)
+        let filePath = saveNotesPath.stringByAppendingPathComponent(fileName).stringByAppendingPathExtension("jpg")
+        let thumbnPath = thumbnailPath.stringByAppendingPathComponent(fileName).stringByAppendingPathExtension("jpg")
+        var imageData = AVCaptureStillImageOutput.jpegStillImageNSDataRepresentation(sampleBuffer)
+        var dataProvider = CGDataProviderCreateWithCFData(imageData)
+        var cgImageRef = CGImageCreateWithJPEGDataProvider(dataProvider, nil, true, kCGRenderingIntentDefault)
+        
+        var image = UIImage(CGImage: cgImageRef, scale: 0.5, orientation: UIImageOrientation.Right)
+        var thumb = UIImage(CGImage: cgImageRef, scale: 0.01, orientation: UIImageOrientation.Right)
+        
+        let data = UIImageJPEGRepresentation(image, 0.5)
+        // TODO: - better quality??
+        let thumbData = UIImageJPEGRepresentation(thumb, 0.0)
+        
+        println(image?.size)
+        println(thumb?.size)
+        
+        data.writeToFile(filePath!, atomically: true)
+        thumbData.writeToFile(thumbnPath!, atomically: true)
+        
+        self.loadAllNotes()
+        
+    }
+
+    
     static func getAllNotesCount() -> Int? {
         return self.allNotesList?.count
     }
@@ -288,6 +354,10 @@ class SnapNotesManager {
         if !NSFileManager.defaultManager().fileExistsAtPath(saveNotesPath) {
             NSFileManager.defaultManager().createDirectoryAtPath(saveNotesPath, withIntermediateDirectories: true, attributes: nil, error: nil)
         }
+        if !NSFileManager.defaultManager().fileExistsAtPath(thumbnailPath) {
+            NSFileManager.defaultManager().createDirectoryAtPath(thumbnailPath, withIntermediateDirectories: true, attributes: nil, error: nil)
+        }
+
         
         // TODO: - Handle Errors
     }
@@ -311,8 +381,24 @@ class SnapNotesManager {
         self.currentSnapViewMode = currentSnapViewMode.toggleMode()
     }
     
+    static func reorderAndSaveCategoriesList(newCategoriesList: [Categories]) {
+        for i in 0...newCategoriesList.count-1 {
+            newCategoriesList[i].order = i
+        }
+        
+        if newCategoriesList.count == categoriesList.count {
+            categoriesList = newCategoriesList
+        } else {
+            println("SnapNotesManager.reorderAnsSaveCategoriesList : count mismatch")
+        }
+    }
     
-    
+    static func createNewCategoryWithName(newCategoryName: String) {
+//        let newCategory = Categories(id: , name: newCategoryName, order: 0)
+        println("Will Add New Category \(newCategoryName)")
+        // TODO: - 
+        
+    }
     
     // MARK: - Temporary to rename all images
     

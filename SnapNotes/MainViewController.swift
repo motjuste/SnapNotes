@@ -81,6 +81,11 @@ class MainViewController: UIViewController {
         
         maxCameraContainerHeight = self.view.bounds.height - categoryNamesHeight
         
+        if categoryNamesCollectionViewController != nil {
+            categoryNamesCollectionViewController?.categoriesList = SnapNotesManager.getCategories()
+            categoryNamesCollectionViewController?.collectionView?.reloadData()
+        }
+        
         updateAllContainerViews()
         
         
@@ -91,6 +96,9 @@ class MainViewController: UIViewController {
     func updateAllContainerViews() {
         switch SnapNotesManager.currentSnapViewMode {
         case .takePicture:
+            if camerViewController != nil {
+                camerViewController?.captureSession?.startRunning()
+            }
             
             UIView.animateWithDuration(0.2, delay: 0.0, options: .CurveEaseOut, animations: {
                 self.cameraContainerViewHeightConstraint.constant = maxCameraContainerHeight
@@ -99,6 +107,7 @@ class MainViewController: UIViewController {
             
         case .viewNotes:
             lastPhotoButton.hidden = true
+            camerViewController?.captureSession?.stopRunning()
             
             UIView.animateWithDuration(0.2, delay: 0.0, options: UIViewAnimationOptions.CurveEaseOut, animations: {
                 self.cameraContainerViewHeightConstraint.constant = minCameraContainerHeight

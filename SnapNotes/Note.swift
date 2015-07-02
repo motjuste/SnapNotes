@@ -12,4 +12,5 @@ struct Note {
 //    var date: NSDate?
     var categoryID: String?
     var imageFilePath: String?
+    var thumbnailFilePath: String?
 }

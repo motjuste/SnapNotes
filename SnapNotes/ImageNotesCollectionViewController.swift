@@ -17,13 +17,16 @@ class ImageNotesCollectionViewController: UICollectionViewController {
             switch SnapNotesManager.currentSnapViewMode {
             case .takePicture :
                 notesImageFilePathList = []
+                notesThumbsFilePathList = []
             case .viewNotes :
                 notesImageFilePathList = SnapNotesManager.getImageFilePathsListForCategoryID(categoryID)
+                notesThumbsFilePathList = SnapNotesManager.getThumbnailFilePathsListForCategoryID(categoryID)
             }
         }
     }
     
     var notesImageFilePathList: [String] = []
+    var notesThumbsFilePathList: [String] = []
     
     enum segueIdentifiers: String {
         case showImageNoteInFS = "segueToShowSelectedImageInFS"
@@ -96,7 +99,8 @@ class ImageNotesCollectionViewController: UICollectionViewController {
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(imageNoteCellReuseIdentifier, forIndexPath: indexPath) as! ImageNoteCollectionViewCell
         
-        cell.imageView.image = UIImage(contentsOfFile: notesImageFilePathList[indexPath.item])
+//        println(notesThumbsFilePathList[indexPath.item])
+        cell.imageView.image = UIImage(contentsOfFile: notesThumbsFilePathList[indexPath.item])
     
         return cell
     }
