@@ -1,17 +1,17 @@
 import Foundation
 
 extension NSDate {
-//    var calendar: NSCalendar {
-//        return NSCalendar(identifier: NSGregorianCalendar)!
-//    }
-//    
-//    func after(value: Int, calendarUnit:NSCalendarUnit) -> NSDate{
-//        return calendar.dateByAddingUnit(calendarUnit, value: value, toDate: self, options: NSCalendarOptions(0))!
-//    }
-//
-//    func minus(date: NSDate) -> NSDateComponents{
-//        return calendar.components(NSCalendarUnit.MinuteCalendarUnit, fromDate: self, toDate: date, options: NSCalendarOptions(0))
-//    }
+    var calendar: NSCalendar {
+        return NSCalendar(identifier: NSGregorianCalendar)!
+    }
+    
+    func after(value: Int, calendarUnit:NSCalendarUnit) -> NSDate{
+        return calendar.dateByAddingUnit(calendarUnit, value: value, toDate: self, options: NSCalendarOptions(0))!
+    }
+
+    func minus(date: NSDate) -> NSDateComponents{
+        return calendar.components(NSCalendarUnit.MinuteCalendarUnit, fromDate: self, toDate: date, options: NSCalendarOptions(0))
+    }
     
     func equalsTo(date: NSDate) -> Bool {
         return self.compare(date) == NSComparisonResult.OrderedSame
