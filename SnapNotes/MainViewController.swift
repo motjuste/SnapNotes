@@ -33,10 +33,10 @@ class MainViewController: UIViewController {
             changeViewModeButton.setTitle("Camera", forState: .Normal)
         }
         
-        if let categoryToDisplay = SnapNotesManager.getCurrentCategoryID() {
-            imageNotesCollectionViewController?.categoryID = categoryToDisplay
-        } else {
-            imageNotesCollectionViewController?.categoryID = categoryNamesCollectionViewController?.categoriesList.first?.id
+        if SnapNotesManager.getCurrentCategoryID() == nil {
+            SnapNotesManager.setCurrentCategoryID(SnapNotesManager.getCategories().first!.id)
+
+            // TODO: - Check this please. Change if you're paginating the categoriesNamesList
         }
         updateAllContainerViews()
         
@@ -135,10 +135,10 @@ class MainViewController: UIViewController {
         
     }
     
-    func changeImageNotesCategory(newCategoryID: String) {
-        imageNotesCollectionViewController?.categoryID = newCategoryID
-        imageNotesCollectionViewController?.collectionView?.reloadData()
-    }
+//    func changeImageNotesCategory(newCategoryID: String) {
+//        imageNotesCollectionViewController?.categoryID = newCategoryID
+//        imageNotesCollectionViewController?.collectionView?.reloadData()
+//    }
 
     // MARK: - Navigation
 
@@ -164,7 +164,7 @@ class MainViewController: UIViewController {
 //                }
             case .showLastPhoto:
                 let noteFSViewController = segue.destinationViewController as! NoteFSMainViewController
-                noteFSViewController.categoryID = nil
+                SnapNotesManager.setCurrentCategoryID(nil)
                 SnapNotesManager.setCurrentImageIdx(SnapNotesManager.getAllNotesCount() - 1)
                 // TODO: - Handle for no notes / optionals
             }

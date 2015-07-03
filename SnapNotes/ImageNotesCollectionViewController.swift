@@ -12,21 +12,8 @@ let imageNoteCellReuseIdentifier = "ImageNoteCell"
 
 class ImageNotesCollectionViewController: UICollectionViewController {
     
-    var categoryID: String? {
-        didSet {
-            switch SnapNotesManager.currentSnapViewMode {
-            case .takePicture :
-                notesImageFilePathList = []
-                notesThumbsFilePathList = []
-            case .viewNotes :
-                notesImageFilePathList = SnapNotesManager.getImageFilePathsListForCategoryID(categoryID)
-                notesThumbsFilePathList = SnapNotesManager.getThumbnailFilePathsListForCategoryID(categoryID)
-            }
-        }
-    }
-    
-    var notesImageFilePathList: [String] = []
-    var notesThumbsFilePathList: [String] = []
+    var notesImageFilePathList: [String] = SnapNotesManager.getImageFilePathsListForCurrentCategoryID()
+    var notesThumbsFilePathList: [String] = SnapNotesManager.getThumbsFilePathsListForCurrentCategoryID()
     
     enum segueIdentifiers: String {
         case showImageNoteInFS = "segueToShowSelectedImageInFS"
@@ -67,7 +54,9 @@ class ImageNotesCollectionViewController: UICollectionViewController {
                 let selectedNoteInFSViewController = segue.destinationViewController as! NoteFSMainViewController
                 let selectedImageCellIdx: NSIndexPath = self.collectionView!.indexPathForCell(sender as! ImageNoteCollectionViewCell)!
                 
-                selectedNoteInFSViewController.categoryID = self.categoryID
+//                selectedNoteInFSViewController.categoryID = self.categoryID
+//                SnapNotesManager.setCurrentCategoryID(self.categoryID!)
+                
                 SnapNotesManager.setCurrentImageIdx(selectedImageCellIdx.item)
                 // TODO: - Handle when there will be segments in the gallery view
                 

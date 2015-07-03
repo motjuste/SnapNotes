@@ -15,12 +15,9 @@ class NoteFSMainViewController: UIViewController, UIPageViewControllerDataSource
     
     private var pageViewController: UIPageViewController?
     
-    var categoryID: String? {
-        didSet {
-            noteImageFilePathsList = SnapNotesManager.getImageFilePathsListForCategoryID(categoryID)
-        }
-    }
-    var noteImageFilePathsList: [String] = []
+//    var categoryID = SnapNotesManager.getCurrentCategoryID()
+    
+    var noteImageFilePathsList: [String] = SnapNotesManager.getImageFilePathsListForCurrentCategoryID()
     
     
     override func viewDidLoad() {

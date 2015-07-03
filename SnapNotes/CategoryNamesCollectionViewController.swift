@@ -82,7 +82,8 @@ class CategoryNamesCollectionViewController: UICollectionViewController {
         case .takePicture :
             parentVC.saveImageForCategoryID(categoryID)
         case .viewNotes :
-            parentVC.changeImageNotesCategory(categoryID)
+//            parentVC.changeImageNotesCategory(categoryID)
+            SnapNotesManager.setCurrentCategoryID(categoryID)
         }
     }
     
@@ -97,42 +98,10 @@ class CategoryNamesCollectionViewController: UICollectionViewController {
     }
     
     func buttonDragged(sender: UIButton) {
-        SnapNotesManager.setCurrentCategoryID(sender.layer.valueForKey("categoryID") as! String)
+        SnapNotesManager.setCurrentCategoryID(sender.layer.valueForKey("categoryID") as? String)
         let unHighlightColor = sender.layer.valueForKey("normalColor") as! UIColor
         sender.backgroundColor = unHighlightColor
         let parentVC = self.parentViewController as! MainViewController
         parentVC.changeViewMode(nil)
     }
-
-    // MARK: UICollectionViewDelegate
-
-    /*
-    // Uncomment this method to specify if the specified item should be highlighted during tracking
-    override func collectionView(collectionView: UICollectionView, shouldHighlightItemAtIndexPath indexPath: NSIndexPath) -> Bool {
-        return true
-    }
-    */
-
-    /*
-    // Uncomment this method to specify if the specified item should be selected
-    override func collectionView(collectionView: UICollectionView, shouldSelectItemAtIndexPath indexPath: NSIndexPath) -> Bool {
-        return true
-    }
-    */
-
-    /*
-    // Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
-    override func collectionView(collectionView: UICollectionView, shouldShowMenuForItemAtIndexPath indexPath: NSIndexPath) -> Bool {
-        return false
-    }
-
-    override func collectionView(collectionView: UICollectionView, canPerformAction action: Selector, forItemAtIndexPath indexPath: NSIndexPath, withSender sender: AnyObject?) -> Bool {
-        return false
-    }
-
-    override func collectionView(collectionView: UICollectionView, performAction action: Selector, forItemAtIndexPath indexPath: NSIndexPath, withSender sender: AnyObject?) {
-    
-    }
-    */
-
 }
