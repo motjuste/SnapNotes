@@ -31,7 +31,7 @@
         <!--Page View Controller-->
         <scene sceneID="E6Z-yc-Rds">
             <objects>
-                <pageViewController storyboardIdentifier="NoteFSPageViewController" autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="OcR-TF-uRV" sceneMemberID="viewController"/>
+                <pageViewController storyboardIdentifier="NoteFSPageViewController" autoresizesArchivedViewToFullSize="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="OcR-TF-uRV" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="j69-SE-UI7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1866" y="327.75"/>
@@ -39,7 +39,7 @@
         <!--NoteFS Content View Controller-->
         <scene sceneID="CrP-qf-Z6k">
             <objects>
-                <viewController storyboardIdentifier="NoteFSContentViewController" extendedLayoutIncludesOpaqueBars="YES" id="7YC-lb-512" customClass="NoteFSContentViewController" customModule="SnapNotes" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="NoteFSContentViewController" extendedLayoutIncludesOpaqueBars="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="7YC-lb-512" customClass="NoteFSContentViewController" customModule="SnapNotes" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="1aJ-c1-Uz7"/>
                         <viewControllerLayoutGuide type="bottom" id="bF9-iH-DPj"/>
@@ -367,7 +367,7 @@
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Fr6-op-OJN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1623" y="-342"/>
+            <point key="canvasLocation" x="1623" y="-340"/>
         </scene>
         <!--Image Notes Collection View Controller-->
         <scene sceneID="C7W-cP-JYA">
@@ -439,7 +439,7 @@
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Eb-cg-LJg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1623" y="-184.5"/>
+            <point key="canvasLocation" x="1623" y="-165"/>
         </scene>
         <!--Camera View Controller-->
         <scene sceneID="rbm-4u-nOt">
@@ -534,7 +534,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Tbb-P9-4hX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2499" y="-427.5"/>
+            <point key="canvasLocation" x="2581" y="-548"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="2tC-ZY-Cpg">

@@ -133,8 +133,8 @@ class SnapNotesManager {
     
     // MARK: - Load All Notes
     
-    private static let pathToNoteImages = pathToDocumentsFolder.stringByAppendingPathExtension("photos")!
-    private static let pathToNoteThumbs = pathToDocumentsFolder.stringByAppendingPathExtension("thumbs")!
+    private static let pathToNoteImages = pathToDocumentsFolder.stringByAppendingPathComponent("photos")
+    private static let pathToNoteThumbs = pathToDocumentsFolder.stringByAppendingPathComponent("thumbs")
     private static var allNotesList: [Note] = []
     private static var allNotesListLoaded = false
     private static let noteCategorySeparatorString = "_"
@@ -187,7 +187,7 @@ class SnapNotesManager {
     
     
     
-    // MARK: - NoteFS
+    // MARK: - NoteFS and Notes Preview
     
     private static var currentCategoryID: String?
     private static var currentNotesList: [Note]?
@@ -297,7 +297,10 @@ class SnapNotesManager {
         let fileName = timeIntervalString.stringByAppendingString("_" + categoryID)
         let filePath = self.pathToNoteImages.stringByAppendingPathComponent(fileName).stringByAppendingPathExtension("jpg")
         let thumbnPath = self.pathToNoteThumbs.stringByAppendingPathComponent(fileName).stringByAppendingPathExtension("jpg")
+        
         var imageData = AVCaptureStillImageOutput.jpegStillImageNSDataRepresentation(sampleBuffer)
+        // TODO: put this in the background
+
 //        var dataProvider = CGDataProviderCreateWithCFData(imageData)
 //        var cgImageRef = CGImageCreateWithJPEGDataProvider(dataProvider, nil, true, kCGRenderingIntentDefault)
         
@@ -319,22 +322,22 @@ class SnapNotesManager {
 //            }
         
         let image = UIImage(data: imageData)
-        let data = UIImageJPEGRepresentation(image, 0.9)
+        imageData = nil
         
-        let thumbSize = CGSizeApplyAffineTransform(image!.size, CGAffineTransformMakeScale(0.10, 0.10))
-        UIGraphicsBeginImageContextWithOptions(thumbSize, true, 0.0)
-        image?.drawInRect(CGRect(origin: CGPointZero, size: thumbSize))
-        let thumb = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
+        dispatch_async(dispatch_get_global_queue(QOS_CLASS_UTILITY, 0), {
+            let data = UIImageJPEGRepresentation(image, 0.75)
+            data.writeToFile(filePath!, atomically: true)
+            })
         
-        let thumbData = UIImageJPEGRepresentation(thumb, 0.8)
-        
-        
-//        println(image?.size)
-//        println(thumb?.size)
-        
-        data.writeToFile(filePath!, atomically: true)
-        thumbData.writeToFile(thumbnPath!, atomically: true)
+        dispatch_async(dispatch_get_global_queue(QOS_CLASS_UTILITY, 0), {
+            let thumbSize = CGSizeApplyAffineTransform(image!.size, CGAffineTransformMakeScale(0.10, 0.10))
+            UIGraphicsBeginImageContextWithOptions(thumbSize, true, 0.0)
+            image?.drawInRect(CGRect(origin: CGPointZero, size: thumbSize))
+            let thumb = UIGraphicsGetImageFromCurrentImageContext()
+            UIGraphicsEndImageContext()
+            let thumbData = UIImageJPEGRepresentation(thumb, 0.8)
+            thumbData.writeToFile(thumbnPath!, atomically: true)
+            })
         
         let newNote = Note(date: NSDate(timeIntervalSince1970: timeIntervalSince1970), categoryID: categoryID, imageFilePath: filePath!, thumbnailFilePath: thumbnPath!)
         
@@ -384,7 +387,7 @@ class SnapNotesManager {
     static func createNewCategoryWithName(newCategoryName: String) {
 //        let newCategory = Categories(id: , name: newCategoryName, order: 0)
         println("Will Add New Category \(newCategoryName)")
-        // TODO: - 
+        // TODO: - create new category
         
     }
     
