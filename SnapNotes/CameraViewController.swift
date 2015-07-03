@@ -84,28 +84,6 @@ class CameraViewController: UIViewController {
         self.captureSession!.stopRunning()
     }
     
-    func getImageDataToSave() -> NSData? {
-        var imageData: NSData?
-        
-        if let videoConnection = self.stillImageOutput!.connectionWithMediaType(AVMediaTypeVideo) {
-            videoConnection.videoOrientation = AVCaptureVideoOrientation.Portrait
-            self.stillImageOutput!.captureStillImageAsynchronouslyFromConnection(videoConnection, completionHandler: {
-                (sampleBuffer: CMSampleBuffer!, error) in
-//                if (sampleBuffer != nil) {
-                    imageData = AVCaptureStillImageOutput.jpegStillImageNSDataRepresentation(sampleBuffer)
-//                    var dataProvider = CGDataProviderCreateWithCFData(imageData)
-//                    var cgImageRef = CGImageCreateWithJPEGDataProvider(dataProvider, nil, true, kCGRenderingIntentDefault)
-//                    
-//                    image = UIImage(CGImage: cgImageRef, scale: 1.0, orientation: UIImageOrientation.Right)
-//                } else {
-//                    println(error)
-//                }
-            })
-            
-        }
-        return imageData
-    }
-    
     func saveImageForCategoryID(categoryID: String) {
         if let videoConnection = self.stillImageOutput!.connectionWithMediaType(AVMediaTypeVideo) {
             videoConnection.videoOrientation = AVCaptureVideoOrientation.Portrait
@@ -113,8 +91,6 @@ class CameraViewController: UIViewController {
                 (sampleBuffer: CMSampleBuffer!, error) in
                     if (sampleBuffer != nil) {
                         self.captureSession!.stopRunning()
-//                        var imageData = AVCaptureStillImageOutput.jpegStillImageNSDataRepresentation(sampleBuffer)
-//                        SnapNotesManager.saveDataForCategoryID(imageData, categoryID: categoryID, extensionString: "jpg")
                         SnapNotesManager.saveDataForCategoryID(sampleBuffer, categoryID: categoryID)
                         self.captureSession!.startRunning()
                 }
@@ -123,20 +99,5 @@ class CameraViewController: UIViewController {
         }
 
     }
-    
-    
-    
-    
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
