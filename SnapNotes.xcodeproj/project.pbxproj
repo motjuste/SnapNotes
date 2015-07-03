@@ -31,6 +31,7 @@
 		2053E6841B31A58800E9740C /* NSDateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2053E6821B31A58800E9740C /* NSDateExtension.swift */; };
 		2053E6881B31AF6D00E9740C /* NoteFSContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2053E6871B31AF6D00E9740C /* NoteFSContentViewController.swift */; };
 		2053E6891B31AF6D00E9740C /* NoteFSContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2053E6871B31AF6D00E9740C /* NoteFSContentViewController.swift */; };
+		20EF56F01B4616ED000CBE0C /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20EF56EF1B4616ED000CBE0C /* SettingsTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,6 +67,7 @@
 		20314F361B3B65DD00875271 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		2053E6821B31A58800E9740C /* NSDateExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSDateExtension.swift; sourceTree = "<group>"; };
 		2053E6871B31AF6D00E9740C /* NoteFSContentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteFSContentViewController.swift; sourceTree = "<group>"; };
+		20EF56EF1B4616ED000CBE0C /* SettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -151,6 +153,7 @@
 		20173CA11B41F9BF00E9348A /* SnapView */ = {
 			isa = PBXGroup;
 			children = (
+				20EF56EF1B4616ED000CBE0C /* SettingsTableViewController.swift */,
 				20173CA61B41FA1200E9348A /* MainViewController.swift */,
 				20173CA81B41FAC500E9348A /* CameraViewController.swift */,
 				20173CAA1B42057200E9348A /* CategoryNamesCollectionViewController.swift */,
@@ -283,6 +286,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				20173CA71B41FA1200E9348A /* MainViewController.swift in Sources */,
+				20EF56F01B4616ED000CBE0C /* SettingsTableViewController.swift in Sources */,
 				2006947E1B28939C00573CF9 /* SwiftyJSON.swift in Sources */,
 				20173CAD1B4205EB00E9348A /* CategoryNameCollectionViewCell.swift in Sources */,
 				2053E6881B31AF6D00E9740C /* NoteFSContentViewController.swift in Sources */,

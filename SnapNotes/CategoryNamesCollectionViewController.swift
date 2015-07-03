@@ -12,7 +12,7 @@ let reuseIdentifier = "CategoryNameCell"
 
 class CategoryNamesCollectionViewController: UICollectionViewController {
     
-    var categoriesList: [Categories] = SnapNotesManager.getCategories()
+    var categoriesList: [Category] = SnapNotesManager.getCategories()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,7 +56,7 @@ class CategoryNamesCollectionViewController: UICollectionViewController {
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as! CategoryNameCollectionViewCell
         
-        let category: Categories = categoriesList[indexPath.item]
+        let category: Category = categoriesList[indexPath.item]
         
         cell.categoryNameButton?.layer.setValue(category.id, forKey: "categoryID")
         cell.categoryNameButton?.layer.setValue(cell.categoryNameButton?.tintColor, forKey: "highlightedColor")

@@ -14,7 +14,7 @@ let uncategorizedID = "000"
 
 class SettingsTableViewController: UITableViewController {
     
-    var categoriesList: [Categories] = SnapNotesManager.getCategories()
+    var categoriesList: [Category] = SnapNotesManager.getCategories()
 //    var newCategoryName: String?
     
     override func viewDidLoad() {

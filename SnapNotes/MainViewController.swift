@@ -165,7 +165,7 @@ class MainViewController: UIViewController {
             case .showLastPhoto:
                 let noteFSViewController = segue.destinationViewController as! NoteFSMainViewController
                 noteFSViewController.categoryID = nil
-                SnapNotesManager.setCurrentImageIdx(SnapNotesManager.getAllNotesCount()! - 1)
+                SnapNotesManager.setCurrentImageIdx(SnapNotesManager.getAllNotesCount() - 1)
                 // TODO: - Handle for no notes / optionals
             }
         }

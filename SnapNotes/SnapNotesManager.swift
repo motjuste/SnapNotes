@@ -21,7 +21,7 @@ struct Note {
     var thumbnailFilePath: String?
 }
 
-class Categories {
+class Category {
     let id: String
     var name: String
     var order: Int
@@ -34,38 +34,61 @@ class Categories {
 }
 
 
+// MARK: - The SnapNotesManager Singleton
+
 class SnapNotesManager {
-    private static var categoriesList: [Categories] = []
+    
+    // MARK: - Utility constants and methods
+    
+    private static let pathToDocumentsFolder = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as! String
+    private static let fileManager = NSFileManager.defaultManager()
+    
+    private static func checkAndAddMissingFolderAtPath(filePath: String, addIfMissing: Bool?) -> Bool {
+        let fileExists = self.fileManager.fileExistsAtPath(filePath)
+        if addIfMissing != nil {
+            if addIfMissing! {
+                fileManager.createDirectoryAtPath(saveNotesPath, withIntermediateDirectories: true, attributes: nil, error: nil)
+                return true
+            }
+        }
+        return fileExists
+    }
+    
+    private static func getNewCategoryID() -> String {
+        let currentMax = self.maxCategoryID.toInt()! + 1
+        self.maxCategoryID = "\(currentMax/100)\(currentMax/10)\(currentMax)"
+        // !!!- : limited to 999 - 5? categories
+        return self.maxCategoryID
+        
+    }
+    
+    // MARK: - Loading Settings
+    
+    private static let pathToSettings = pathToDocumentsFolder.stringByAppendingPathComponent("settings.json")
+    private static let bundlePathToSettings = NSBundle.mainBundle().pathForResource("settings", ofType: "json")
+    private static var categoriesList: [Category] = []
     private static var count = 0
     private static var settingsLoaded = false
-    private static var maxCategoryID: String?
+    private static var maxCategoryID = "000"
     
-    private static let notesPath = NSBundle.mainBundle().resourcePath!.stringByAppendingPathComponent("TempNoteImages")
-    private static var allNotesList: [Note]?
-    private static let noteCategorySeparatorString = "_"
-    
-    // MARK: playing with settings.json
     static func loadSettings() {
         
-//        dispatch_async_f(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
-//            // Background Thread
-//            
-//        }) // TODO: multithreading while importing data ??
+        // check if settings.json is in the documents folder, else load from bundle
+        if !self.checkAndAddMissingFolderAtPath(pathToSettings, addIfMissing: false) {
+            var writeError: NSError?
+            fileManager.copyItemAtPath(self.bundlePathToSettings!, toPath: self.pathToSettings, error: &writeError)
+            // TODO: - Handle write error
+        }
         
-        let filePath = NSBundle.mainBundle().pathForResource("settings", ofType: "json")
         var readError: NSError?
-        
-        
-        if let rawData = NSData(contentsOfFile: filePath!, options: NSDataReadingOptions.DataReadingUncached, error: &readError) {
-            
-            // load data
+        if let rawData = NSData(contentsOfFile: self.pathToSettings, options: NSDataReadingOptions.DataReadingUncached, error: &readError) {
             let jsonData = JSON(data: rawData)
             
-            // import
             if let jcount = jsonData["count"].int {
-                count = jcount
+                self.count = jcount
             } else {
-                println(jsonData["count"].rawString())
+                // This may mean an error in reading from the json
+//                println(jsonData["count"].rawString())
             }
             
             if let catsArray = jsonData["categories"].array {
@@ -74,114 +97,42 @@ class SnapNotesManager {
                     let name: String? = cat["name"].string
                     let order: Int? = cat["order"].int
                     
-                    categoriesList.append(Categories(id: id!, name: name!, order: order!))
-                    if id > maxCategoryID {
-                        maxCategoryID = id
+                    categoriesList.append(Category(id: id!, name: name!, order: order!))
+                    if id! >= self.maxCategoryID {
+                        self.maxCategoryID = id!
                     }
                 }
                 
-                categoriesList.sort() { ($0 as Categories).order < ($1 as Categories).order }
+                // sorting the categories list based on category.id
+                categoriesList.sort() { ($0 as Category).order < ($1 as Category).order }
                 
                 self.settingsLoaded = true
                 
             } else {
-                println(jsonData["categories"].rawString())
+//                println(jsonData["categories"].rawString())
             }
         } else {
             // TODO: handle error when loading settings.json
-            println("some Error: SnapNoteManager.loadSettings")
+//            println("some Error: SnapNoteManager.loadSettings")
         }
-        
-//        println("Settings Loaded")
     }
     
     static func isSettingsLoaded() -> Bool {
-        return settingsLoaded
+        return self.settingsLoaded
     }
     
-    static func updateSettings() {
-        // TODO: Update the settings.json
-    }
-    
-    static func recoverSettings() {
-        // TODO: Recover the settings.json in case of error
-    }
-    
-    // Notes manager functionality
-    static func getCategories() -> [Categories] {
+    static func getCategories() -> [Category] {
         return self.categoriesList
     }
     
-    static func getCategoryByID(categoryID: String) -> Categories? {
-        let categories: [Categories] = categoriesList.filter() {$0.id == categoryID}
-        if categories.count == 1 {
-            return categories[0]
-        } else if categories.count == 0 {
-            println("ERROR: Category not found")
-        } else {
-            // too many matches
-            println("ERROR: What is happening")
-        }
-        return nil
-
-    }
+    // MARK: Load All Notes
     
-    // MARK: load all notes
+    private static let pathToNoteImages = pathToDocumentsFolder.stringByAppendingPathExtension("photos")!
+    private static let pathToNoteThumbs = pathToDocumentsFolder.stringByAppendingPathExtension("thumbs")!
+    private static var allNotesList: [Note] = []
+    private static var allNotesListLoaded = false
+    private static let noteCategorySeparatorString = "_"
     
-    static func loadAllNotes() {
-        if !settingsLoaded {
-            println("SnapNotesManager.loadAllNotes : Settings were not loaded, loading now")
-            loadSettings()
-        }
-        
-        var allNotesList_ : [Note] = []
-        
-//        if let imageNamesList = NSFileManager.defaultManager().contentsOfDirectoryAtPath(self.notesPath, error: nil) as? [String] {
-//            for imageName in imageNamesList {
-//                let categoryID = self.getCategoryIDFromImageName(imageName)
-//                let imageFilePath = notesPath.stringByAppendingPathComponent(imageName)
-//                
-//                let note = Note(categoryID: categoryID, imageFilePath: imageFilePath)
-//                allNotesList_.append(note)
-//            }
-//        }
-        
-//        let fileManager = NSFileManager.defaultManager()
-//        
-//        if !fileManager.fileExistsAtPath(self.saveNotesPath) {
-//            fileManager.createDirectoryAtPath(saveNotesPath, withIntermediateDirectories: true, attributes: nil, error: nil)
-//            // TODO: - Handle any errors creating directories
-//            
-//        }
-        
-//        println(NSFileManager.defaultManager().contentsOfDirectoryAtPath(NSBundle.mainBundle().resourcePath!, error: nil) as! [String])
-        
-        self.addPhotoNotesFolder()
-        
-        if let imageNamesList = NSFileManager.defaultManager().contentsOfDirectoryAtPath(self.saveNotesPath, error: nil) as? [String] {
-            
-//            println(imageNamesList)
-            
-            for imageName in imageNamesList {
-                let categoryID = self.getCategoryIDFromImageName(imageName)
-                let imageFilePath = saveNotesPath.stringByAppendingPathComponent(imageName)
-                let thumbnailFilePath = thumbnailPath.stringByAppendingPathComponent(imageName)
-                
-                let note = Note(categoryID: categoryID, imageFilePath: imageFilePath, thumbnailFilePath: thumbnailFilePath)
-                allNotesList_.append(note)
-            }
-        }
-        
-//        println(allNotesList_)
-        
-        allNotesList = allNotesList_
-        
-        
-//        self.allNotesLoaded = true
-        
-        // TODO: Handle error while reading note names
-        
-    }
     
     private static func getCategoryIDFromImageName(imageName: String) -> String {
         let splittedImageName = imageName.componentsSeparatedByString(noteCategorySeparatorString)
@@ -190,8 +141,39 @@ class SnapNotesManager {
         return categoryID
     }
     
-    // MARK: NoteFS 
-    // MARK: NoteFS : This is getting too complicated; And doesn't work
+    static func loadAllNotes() {
+        if !settingsLoaded {
+            println("SnapNotesManager.loadAllNotes : Settings were not loaded, loading now")
+            loadSettings()
+        }
+        
+        let did = self.checkAndAddMissingFolderAtPath(self.pathToNoteImages, addIfMissing: true)
+        self.checkAndAddMissingFolderAtPath(self.pathToNoteThumbs, addIfMissing: true)
+        
+        if let imageNamesList = self.fileManager.contentsOfDirectoryAtPath(self.pathToNoteImages, error: nil) as? [String] {
+            
+            for imageName in imageNamesList {
+                let categoryID = self.getCategoryIDFromImageName(imageName)
+                let imageFilePath = pathToNoteImages.stringByAppendingPathComponent(imageName)
+                let thumbnailFilePath = pathToNoteThumbs.stringByAppendingPathComponent(imageName)
+                
+                let note = Note(categoryID: categoryID, imageFilePath: imageFilePath, thumbnailFilePath: thumbnailFilePath)
+                self.allNotesList.append(note)
+            }
+        }
+        
+        self.allNotesListLoaded = true
+        
+        // TODO: Handle error while reading note names
+    }
+    
+    static func isAllNotesListLoaded() -> Bool {
+        return self.allNotesListLoaded
+    }
+    
+    
+    
+    // MARK: NoteFS
     
     private static var currentCategoryID: String?
     private static var currentNotesList: [Note]?
@@ -202,18 +184,18 @@ class SnapNotesManager {
     }
     
     static func loadCurrentNotesList() {
-        if allNotesList == nil {
+        if !self.isAllNotesListLoaded() {
             println("SnapNotesManager.loadCurrentNotesList : allNotes not loaded, loading now")
             self.loadAllNotes()
         }
         
-        if isEmpty(allNotesList!) {
+        if isEmpty(allNotesList) {
             self.currentNotesList = []
         } else {
             if self.currentCategoryID == nil {
                 self.currentNotesList = self.allNotesList
             } else {
-                self.currentNotesList = self.allNotesList!.filter() { ($0 as Note).categoryID == self.currentCategoryID }
+                self.currentNotesList = self.allNotesList.filter() { ($0 as Note).categoryID == self.currentCategoryID }
             }
             
             if self.currentImageIdx == nil {
@@ -272,11 +254,11 @@ class SnapNotesManager {
         var notesListForCategoryID: [Note] = []
         
         
-        if (self.allNotesList != nil) {
+        if self.isAllNotesListLoaded() {
             if (categoryID == nil) {
-                notesListForCategoryID = allNotesList!
+                notesListForCategoryID = self.allNotesList
             } else {
-                notesListForCategoryID = self.allNotesList!.filter() { ($0 as Note).categoryID == categoryID }
+                notesListForCategoryID = self.allNotesList.filter() { ($0 as Note).categoryID == categoryID }
             }
         }
         
@@ -293,11 +275,11 @@ class SnapNotesManager {
         var notesListForCategoryID: [Note] = []
         
         
-        if (self.allNotesList != nil) {
+        if !self.isAllNotesListLoaded() {
             if (categoryID == nil) {
-                notesListForCategoryID = allNotesList!
+                notesListForCategoryID = allNotesList
             } else {
-                notesListForCategoryID = self.allNotesList!.filter() { ($0 as Note).categoryID == categoryID }
+                notesListForCategoryID = self.allNotesList.filter() { ($0 as Note).categoryID == categoryID }
             }
         }
         
@@ -318,16 +300,10 @@ class SnapNotesManager {
     
     
     static func saveDataForCategoryID(data: NSData, categoryID: String, extensionString: String) {
-        let fileManager = NSFileManager.defaultManager()
-        
-        if !fileManager.fileExistsAtPath(self.saveNotesPath) {
-            fileManager.createDirectoryAtPath(saveNotesPath, withIntermediateDirectories: true, attributes: nil, error: nil)
-            // TODO: - Handle any errors creating directories
-            
-        }
+
         let timeIntervalString = "\(NSDate().timeIntervalSince1970)"
         let fileName = (timeIntervalString.stringByAppendingString("_" + categoryID)).stringByAppendingPathExtension(extensionString)
-        let filePath = saveNotesPath.stringByAppendingPathComponent(fileName!)
+        let filePath = self.pathToNoteImages.stringByAppendingPathComponent(fileName!)
         data.writeToFile(filePath, atomically: true)
         
         self.loadAllNotes()
@@ -335,19 +311,11 @@ class SnapNotesManager {
     }
     
     static func saveDataForCategoryID(sampleBuffer: CMSampleBuffer, categoryID: String) {
-        let fileManager = NSFileManager.defaultManager()
-        
-//        if !fileManager.fileExistsAtPath(self.saveNotesPath) {
-//            fileManager.createDirectoryAtPath(saveNotesPath, withIntermediateDirectories: true, attributes: nil, error: nil)
-//            // TODO: - Handle any errors creating directories
-//            
-//        }
-        
-        
+
         let timeIntervalString = "\(NSDate().timeIntervalSince1970)"
         let fileName = timeIntervalString.stringByAppendingString("_" + categoryID)
-        let filePath = saveNotesPath.stringByAppendingPathComponent(fileName).stringByAppendingPathExtension("jpg")
-        let thumbnPath = thumbnailPath.stringByAppendingPathComponent(fileName).stringByAppendingPathExtension("jpg")
+        let filePath = self.pathToNoteImages.stringByAppendingPathComponent(fileName).stringByAppendingPathExtension("jpg")
+        let thumbnPath = self.pathToNoteThumbs.stringByAppendingPathComponent(fileName).stringByAppendingPathExtension("jpg")
         var imageData = AVCaptureStillImageOutput.jpegStillImageNSDataRepresentation(sampleBuffer)
         var dataProvider = CGDataProviderCreateWithCFData(imageData)
         var cgImageRef = CGImageCreateWithJPEGDataProvider(dataProvider, nil, true, kCGRenderingIntentDefault)
@@ -370,8 +338,8 @@ class SnapNotesManager {
     }
 
     
-    static func getAllNotesCount() -> Int? {
-        return self.allNotesList?.count
+    static func getAllNotesCount() -> Int {
+        return self.allNotesList.count
     }
     
     private static func addPhotoNotesFolder() {
@@ -405,7 +373,7 @@ class SnapNotesManager {
         self.currentSnapViewMode = currentSnapViewMode.toggleMode()
     }
     
-    static func reorderAndSaveCategoriesList(newCategoriesList: [Categories]) {
+    static func reorderAndSaveCategoriesList(newCategoriesList: [Category]) {
         for i in 0...newCategoriesList.count-1 {
             newCategoriesList[i].order = i
         }

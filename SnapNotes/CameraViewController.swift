@@ -113,8 +113,9 @@ class CameraViewController: UIViewController {
                 (sampleBuffer: CMSampleBuffer!, error) in
                     if (sampleBuffer != nil) {
                         self.captureSession!.stopRunning()
-                        var imageData = AVCaptureStillImageOutput.jpegStillImageNSDataRepresentation(sampleBuffer)
-                        SnapNotesManager.saveDataForCategoryID(imageData, categoryID: categoryID, extensionString: "jpg")
+//                        var imageData = AVCaptureStillImageOutput.jpegStillImageNSDataRepresentation(sampleBuffer)
+//                        SnapNotesManager.saveDataForCategoryID(imageData, categoryID: categoryID, extensionString: "jpg")
+                        SnapNotesManager.saveDataForCategoryID(sampleBuffer, categoryID: categoryID)
                         self.captureSession!.startRunning()
                 }
             })
