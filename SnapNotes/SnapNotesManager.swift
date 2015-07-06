@@ -396,7 +396,13 @@ class SnapNotesManager {
         let randomIndex = Int(arc4random_uniform(UInt32(colorsArray.count)))
         let randomColor = "#\(colorsArray[randomIndex])99"
         return UIColor(rgba: randomColor)
-        }
+    }
+    
+    static func editCategoryNameForCategoryID(categoryID: String, newCategoryName: String) {
+        (self.categoriesList.filter({ ($0 as Category).id == categoryID }) as [Category]).first!.name = newCategoryName
+        
+        println(self.categoriesList.filter({ ($0 as Category).id == categoryID }).first!)
+    }
 
 }
 

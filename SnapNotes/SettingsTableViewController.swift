@@ -38,7 +38,7 @@ class SettingsTableViewController: UITableViewController {
         alertController.addTextFieldWithConfigurationHandler { (textField: UITextField!) in
             textField.placeholder = "Donuts"
         }
-        let action = UIAlertAction(title: "Submit", style: .Default, handler: {
+        let submitAction = UIAlertAction(title: "Submit", style: UIAlertActionStyle.Default, handler: {
             [weak self]
             (paramAction:UIAlertAction!) in
             if let textFields = alertController.textFields {
@@ -50,7 +50,9 @@ class SettingsTableViewController: UITableViewController {
                 }
             }
         })
-        alertController.addAction(action)
+        let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil)
+        alertController.addAction(submitAction)
+        alertController.addAction(cancelAction)
         self.presentViewController(alertController, animated: true, completion: nil)
         
     }
@@ -100,17 +102,46 @@ class SettingsTableViewController: UITableViewController {
         return categoriesList[indexPath.section * itemsPerSection + indexPath.item].id != uncategorizedID
     }
     
-    /*
+    
     // Override to support editing the table view.
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {
             // Delete the row from the data source
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+//            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+            println("Will Delete")
         } else if editingStyle == .Insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+            println("Will Edit")
+        }
+        
     }
-    */
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let currentCategory = self.categoriesList[indexPath.section * itemsPerSection + indexPath.item]
+        
+        let alertController = UIAlertController(title: "Edit Category", message: "Rename category", preferredStyle: .Alert)
+        alertController.addTextFieldWithConfigurationHandler { (textField: UITextField!) in
+            textField.text = currentCategory.name
+        }
+        let submitAction = UIAlertAction(title: "Submit", style: .Default, handler: {
+            [weak self]
+            (paramAction:UIAlertAction!) in
+            if let textFields = alertController.textFields {
+                let theTextFields = textFields as! [UITextField]
+                if let enteredText = theTextFields.first!.text {
+                    if enteredText != "" && enteredText != currentCategory.name {
+                        SnapNotesManager.editCategoryNameForCategoryID(currentCategory.id, newCategoryName: enteredText)
+                        self!.categoriesList = SnapNotesManager.getCategories()
+                        self!.tableView.reloadData()
+                    }
+                }
+            }
+            })
+        let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil)
+        alertController.addAction(submitAction)
+        alertController.addAction(cancelAction)
+        self.presentViewController(alertController, animated: true, completion: nil)
+    }
 
     
     // Override to support rearranging the table view.
