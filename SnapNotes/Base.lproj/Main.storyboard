@@ -295,10 +295,10 @@
         <scene sceneID="rNc-H6-MJT">
             <objects>
                 <collectionViewController storyboardIdentifier="CategoryNamesViewController" id="BL6-RD-8qd" customClass="CategoryNamesCollectionViewController" customModule="SnapNotes" customModuleProvider="target" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.84999999999999998" contentMode="scaleAspectFit" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" id="tQ6-T3-mtV">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" id="tQ6-T3-mtV">
                         <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="1" alpha="0.0" colorSpace="calibratedWhite"/>
                         <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="1" id="0ov-cL-eIS">
                             <size key="itemSize" width="99" height="99"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -315,8 +315,8 @@
                                     <subviews>
                                         <button contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" reversesTitleShadowWhenHighlighted="YES" showsTouchWhenHighlighted="YES" lineBreakMode="wordWrap" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZkC-gv-xgo">
                                             <rect key="frame" x="-23" y="-15" width="46" height="30"/>
-                                            <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803926" alpha="1" colorSpace="calibratedRGB"/>
                                             <fontDescription key="fontDescription" type="system" weight="thin" pointSize="15"/>
+                                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <state key="normal">
                                                 <attributedString key="attributedTitle">
                                                     <fragment content="Category Name">
@@ -332,7 +332,6 @@
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="ZkC-gv-xgo" firstAttribute="top" secondItem="RxY-dL-94e" secondAttribute="top" id="65S-a7-aCG"/>
                                     <constraint firstItem="ZkC-gv-xgo" firstAttribute="leading" secondItem="RxY-dL-94e" secondAttribute="leading" id="9uN-2K-vW1"/>
@@ -563,6 +562,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="2ps-vl-OmN"/>
+        <segue reference="CHe-02-zda"/>
     </inferredMetricsTieBreakers>
 </document>
