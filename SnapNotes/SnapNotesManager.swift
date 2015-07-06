@@ -158,6 +158,8 @@ class SnapNotesManager {
         self.checkAndAddMissingFolderAtPath(self.pathToNoteImages, addIfMissing: true)
         self.checkAndAddMissingFolderAtPath(self.pathToNoteThumbs, addIfMissing: true)
         
+        println(self.pathToNoteImages)
+        
         if let imageNamesList = self.fileManager.contentsOfDirectoryAtPath(self.pathToNoteImages, error: nil) as? [String] {
             
             for imageName in imageNamesList {
@@ -172,6 +174,8 @@ class SnapNotesManager {
             }
         }
         
+        println(self.allNotesList)
+        
         self.allNotesListLoaded = true
         
         // TODO: Handle error while reading note names
@@ -182,6 +186,7 @@ class SnapNotesManager {
     }
     
     static func getAllNotesCount() -> Int {
+        self.allNotesList.count
         return self.allNotesList.count
     }
     
@@ -228,10 +233,6 @@ class SnapNotesManager {
     
     static func getCurrentImageIdx() -> Int? {
         return self.currentImageIdx
-    }
-    
-    static func getCurrentNotesListCount() -> Int {
-        return self.currentNotesList!.count
     }
     
     static func setCurrentImageIdx(newCurrentImageIdx: Int) {
@@ -298,51 +299,39 @@ class SnapNotesManager {
         let filePath = self.pathToNoteImages.stringByAppendingPathComponent(fileName).stringByAppendingPathExtension("jpg")
         let thumbnPath = self.pathToNoteThumbs.stringByAppendingPathComponent(fileName).stringByAppendingPathExtension("jpg")
         
-        var imageData = AVCaptureStillImageOutput.jpegStillImageNSDataRepresentation(sampleBuffer)
-        // TODO: put this in the background
-
-//        var dataProvider = CGDataProviderCreateWithCFData(imageData)
-//        var cgImageRef = CGImageCreateWithJPEGDataProvider(dataProvider, nil, true, kCGRenderingIntentDefault)
-        
-//        var image = UIImage(CGImage: cgImageRef, scale: 0.5, orientation: UIImageOrientation.Right)
-//        var thumb = UIImage(CGImage: cgImageRef, scale: 0.01, orientation: UIImageOrientation.Right)
-//        
-//        let data = UIImageJPEGRepresentation(image, 0.5)
-//        // TODO: - better quality??
-//        let thumbData = UIImageJPEGRepresentation(thumb, 0.0)
-        
-//        if let imageSrc = CGImageSourceCreateWithData(imageData, nil) {
-//                let options = [
-//                    kCGImageSourceCreateThumbnailFromImageAlways: kCFBooleanTrue,
-//                    kCGImageSourceThumbnailMaxPixelSize: 480,
-//                    kCGImageSourceCreateThumbnailWithTransform: kCFBooleanTrue
-//                    ] as CFDictionary
-//                let thumb = CGImageSourceCreateThumbnailAtIndex(imageSrc, 0, options)
-//            
-//            }
-        
-        let image = UIImage(data: imageData)
-        imageData = nil
-        
-        dispatch_async(dispatch_get_global_queue(QOS_CLASS_UTILITY, 0), {
-            let data = UIImageJPEGRepresentation(image, 0.75)
-            data.writeToFile(filePath!, atomically: true)
-            })
-        
-        dispatch_async(dispatch_get_global_queue(QOS_CLASS_UTILITY, 0), {
-            let thumbSize = CGSizeApplyAffineTransform(image!.size, CGAffineTransformMakeScale(0.10, 0.10))
-            UIGraphicsBeginImageContextWithOptions(thumbSize, true, 0.0)
-            image?.drawInRect(CGRect(origin: CGPointZero, size: thumbSize))
-            let thumb = UIGraphicsGetImageFromCurrentImageContext()
-            UIGraphicsEndImageContext()
-            let thumbData = UIImageJPEGRepresentation(thumb, 0.8)
-            thumbData.writeToFile(thumbnPath!, atomically: true)
-            })
-        
+        dispatch_async(dispatch_get_global_queue(QOS_CLASS_DEFAULT, 0), {
+            var imageData = AVCaptureStillImageOutput.jpegStillImageNSDataRepresentation(sampleBuffer)
+            
+            let image = UIImage(data: imageData)
+            imageData = nil
+            
+            self.saveImage(fileName, image: image!, isThumbnail: true)
+            self.saveImage(fileName, image: image!, isThumbnail: false)
+        })
+    
         let newNote = Note(date: NSDate(timeIntervalSince1970: timeIntervalSince1970), categoryID: categoryID, imageFilePath: filePath!, thumbnailFilePath: thumbnPath!)
         
         self.allNotesList.append(newNote)
         
+    }
+    
+    static func saveImage(fileName: String, image: UIImage, isThumbnail: Bool) {
+        let ratio = image.size.height/image.size.width
+        var imageSize: CGSize = CGSizeMake(2160, 2160 * ratio)
+        var filePath = self.pathToNoteImages.stringByAppendingPathComponent(fileName).stringByAppendingPathExtension("jpg")
+        
+        if isThumbnail {
+            imageSize = CGSizeMake(300, 300 * ratio)
+            filePath = self.pathToNoteThumbs.stringByAppendingPathComponent(fileName).stringByAppendingPathExtension("jpg")
+        }
+        
+        UIGraphicsBeginImageContextWithOptions(imageSize, true, 0.0)
+        image.drawInRect(CGRect(origin: CGPointZero, size: imageSize))
+        let new_image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        let imgData = UIImageJPEGRepresentation(new_image, 0.75)
+        imgData.writeToFile(filePath!, atomically: true)
     }
     
     
