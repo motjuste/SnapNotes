@@ -26,6 +26,18 @@ class CategoryNamesCollectionViewController: UICollectionViewController, UIColle
 
         // Do any additional setup after loading the view.
     }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+//        let blankCount = 4 - categoriesList.count % 4
+//        println(self.categoriesList.count)
+//        for i in 1...blankCount {
+//            self.categoriesList.append(Category(id: "nil", name: " ", order: 0))
+//        }
+//        println(blankCount)
+//        println(self.categoriesList.count)
+    }
 
 
     override func didReceiveMemoryWarning() {
@@ -40,6 +52,11 @@ class CategoryNamesCollectionViewController: UICollectionViewController, UIColle
     }
     
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        let blankCount = 4 - categoriesList.count % 4
+        for i in 1...blankCount {
+            self.categoriesList.append(Category(id: "nil", name: " ", order: 0))
+        }
+        
         return categoriesList.count
     }
 
@@ -47,19 +64,21 @@ class CategoryNamesCollectionViewController: UICollectionViewController, UIColle
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as! CategoryNameCollectionViewCell
         
         let category: Category = categoriesList[indexPath.item]
+            cell.categoryNameButton?.layer.setValue(category.id, forKey: "categoryID")
+            cell.categoryNameButton?.layer.setValue(cell.categoryNameButton?.tintColor, forKey: "highlightedColor")
+            cell.categoryNameButton?.layer.setValue(UIColor.groupTableViewBackgroundColor(), forKey: "normalColor")
+            cell.categoryNameButton?.addTarget(self, action: "savePhotoForCategoryID:", forControlEvents: .TouchUpInside)
         
-//      cell.frame.size = CGSizeMake(self.collectionView!.frame.width / 4 - 4, self.collectionView!.frame.width / 4 - 4.0) // TODO: magic constant
-        cell.categoryNameButton?.layer.setValue(category.id, forKey: "categoryID")
-        cell.categoryNameButton?.layer.setValue(cell.categoryNameButton?.tintColor, forKey: "highlightedColor")
-        cell.categoryNameButton?.layer.setValue(UIColor.groupTableViewBackgroundColor(), forKey: "normalColor")
-        cell.categoryNameButton?.addTarget(self, action: "savePhotoForCategoryID:", forControlEvents: .TouchUpInside)
-        cell.categoryNameButton?.setTitle(category.name, forState: .Normal)
-        cell.categoryNameButton?.setTitleColor(cell.categoryNameButton.tintColor, forState: .Normal)
-        cell.categoryNameButton?.setTitleColor(UIColor.whiteColor(), forState: .Highlighted)
+            cell.categoryNameButton?.setAttributedTitle(NSAttributedString(string: category.name), forState: UIControlState.Normal)
+        cell.categoryNameButton?.titleLabel?.textAlignment = NSTextAlignment.Center
+        cell.categoryNameButton?.titleLabel?.adjustsFontSizeToFitWidth = true
+//            cell.categoryNameButton?.setTitleColor(cell.categoryNameButton.tintColor, forState: .Normal)
+//            cell.categoryNameButton?.setTitleColor(UIColor.whiteColor(), forState: .Highlighted)
+        if category.id == "nil" { cell.categoryNameButton?.enabled = false }
         
-//        cell.categoryNameButton?.addTarget(self, action: "highlightButton:", forControlEvents: UIControlEvents.TouchDown)
-//        cell.categoryNameButton?.addTarget(self, action: "unHightlightButton:", forControlEvents: UIControlEvents.TouchUpInside)
-        cell.categoryNameButton?.addTarget(self, action: "buttonDragged:", forControlEvents: UIControlEvents.TouchDragExit)
+            //        cell.categoryNameButton?.addTarget(self, action: "highlightButton:", forControlEvents: UIControlEvents.TouchDown)
+            //        cell.categoryNameButton?.addTarget(self, action: "unHightlightButton:", forControlEvents: UIControlEvents.TouchUpInside)
+            cell.categoryNameButton?.addTarget(self, action: "buttonDragged:", forControlEvents: UIControlEvents.TouchDragExit)
     
         return cell
     }
@@ -101,5 +120,7 @@ class CategoryNamesCollectionViewController: UICollectionViewController, UIColle
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
         return CGSizeMake(self.collectionView!.frame.width/4.0, self.collectionView!.frame.width/4.0)
     }
+    
+    
     
 }
