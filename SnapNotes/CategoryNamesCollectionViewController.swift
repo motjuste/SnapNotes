@@ -72,6 +72,9 @@ class CategoryNamesCollectionViewController: UICollectionViewController, UIColle
             cell.categoryNameButton?.setAttributedTitle(NSAttributedString(string: category.name), forState: UIControlState.Normal)
         cell.categoryNameButton?.titleLabel?.textAlignment = NSTextAlignment.Center
         cell.categoryNameButton?.titleLabel?.adjustsFontSizeToFitWidth = true
+        
+        cell.categoryNameButton?.backgroundColor = category.color
+        
 //            cell.categoryNameButton?.setTitleColor(cell.categoryNameButton.tintColor, forState: .Normal)
 //            cell.categoryNameButton?.setTitleColor(UIColor.whiteColor(), forState: .Highlighted)
         if category.id == "nil" { cell.categoryNameButton?.enabled = false }
@@ -118,7 +121,7 @@ class CategoryNamesCollectionViewController: UICollectionViewController, UIColle
     
     // MARK : - Cell sizes
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-        return CGSizeMake(self.collectionView!.frame.width/4.0, self.collectionView!.frame.width/4.0)
+        return CGSizeMake(self.collectionView!.frame.width/4.0 - 2.0, self.collectionView!.frame.width/4.0 - 2.0)
     }
     
     
