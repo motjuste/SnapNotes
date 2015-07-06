@@ -15,7 +15,7 @@
                         <viewControllerLayoutGuide type="bottom" id="OTH-MS-uLv"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="mnX-Xd-cvG">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -202,6 +202,7 @@
                             <constraint firstAttribute="trailing" secondItem="6jY-Pp-NQ3" secondAttribute="trailing" id="WFP-K4-1Uy"/>
                             <constraint firstItem="8AX-aJ-yRi" firstAttribute="top" secondItem="myZ-AH-uBZ" secondAttribute="bottom" id="XzG-Dq-Emg"/>
                             <constraint firstItem="myZ-AH-uBZ" firstAttribute="leading" secondItem="GBU-80-Z5k" secondAttribute="leading" id="aU6-KC-GQ2"/>
+                            <constraint firstItem="AwF-HS-16X" firstAttribute="top" secondItem="myZ-AH-uBZ" secondAttribute="bottom" constant="300" id="aa3-Lf-oN8"/>
                             <constraint firstAttribute="trailing" secondItem="koo-ui-uX3" secondAttribute="trailing" constant="16" id="egA-uv-6jZ"/>
                             <constraint firstItem="AwF-HS-16X" firstAttribute="top" secondItem="8AX-aJ-yRi" secondAttribute="bottom" id="fIF-TZ-dvM"/>
                             <constraint firstAttribute="trailing" secondItem="myZ-AH-uBZ" secondAttribute="trailing" id="g5m-dd-QEQ"/>
@@ -221,24 +222,25 @@
                                 <exclude reference="koo-ui-uX3"/>
                             </mask>
                             <mask key="constraints">
-                                <exclude reference="fIF-TZ-dvM"/>
+                                <exclude reference="2I2-h7-yLz"/>
+                                <exclude reference="7IJ-eY-iFU"/>
+                                <exclude reference="E3J-Vw-fTs"/>
+                                <exclude reference="WFP-K4-1Uy"/>
+                                <exclude reference="oZ3-8b-ak4"/>
                                 <exclude reference="DZn-jI-FAi"/>
                                 <exclude reference="US3-8k-Hkt"/>
                                 <exclude reference="udj-mD-K10"/>
                                 <exclude reference="vNr-ko-ZNM"/>
                                 <exclude reference="3j0-c6-J9i"/>
                                 <exclude reference="egA-uv-6jZ"/>
-                                <exclude reference="2I2-h7-yLz"/>
-                                <exclude reference="7IJ-eY-iFU"/>
-                                <exclude reference="E3J-Vw-fTs"/>
-                                <exclude reference="WFP-K4-1Uy"/>
-                                <exclude reference="oZ3-8b-ak4"/>
-                                <exclude reference="8hs-he-vgx"/>
-                                <exclude reference="XzG-Dq-Emg"/>
-                                <exclude reference="n8N-ip-6v2"/>
                                 <exclude reference="aU6-KC-GQ2"/>
                                 <exclude reference="g5m-dd-QEQ"/>
                                 <exclude reference="rpj-bF-Xkp"/>
+                                <exclude reference="8hs-he-vgx"/>
+                                <exclude reference="XzG-Dq-Emg"/>
+                                <exclude reference="n8N-ip-6v2"/>
+                                <exclude reference="aa3-Lf-oN8"/>
+                                <exclude reference="fIF-TZ-dvM"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
@@ -251,24 +253,25 @@
                                 <include reference="koo-ui-uX3"/>
                             </mask>
                             <mask key="constraints">
-                                <include reference="fIF-TZ-dvM"/>
+                                <include reference="2I2-h7-yLz"/>
+                                <include reference="7IJ-eY-iFU"/>
+                                <include reference="E3J-Vw-fTs"/>
+                                <include reference="WFP-K4-1Uy"/>
+                                <include reference="oZ3-8b-ak4"/>
                                 <exclude reference="DZn-jI-FAi"/>
                                 <include reference="US3-8k-Hkt"/>
                                 <exclude reference="udj-mD-K10"/>
                                 <include reference="vNr-ko-ZNM"/>
                                 <include reference="3j0-c6-J9i"/>
                                 <include reference="egA-uv-6jZ"/>
-                                <include reference="2I2-h7-yLz"/>
-                                <include reference="7IJ-eY-iFU"/>
-                                <include reference="E3J-Vw-fTs"/>
-                                <include reference="WFP-K4-1Uy"/>
-                                <include reference="oZ3-8b-ak4"/>
+                                <include reference="aU6-KC-GQ2"/>
+                                <include reference="g5m-dd-QEQ"/>
+                                <exclude reference="rpj-bF-Xkp"/>
                                 <include reference="8hs-he-vgx"/>
                                 <include reference="XzG-Dq-Emg"/>
                                 <include reference="n8N-ip-6v2"/>
-                                <include reference="aU6-KC-GQ2"/>
-                                <include reference="g5m-dd-QEQ"/>
-                                <include reference="rpj-bF-Xkp"/>
+                                <include reference="aa3-Lf-oN8"/>
+                                <include reference="fIF-TZ-dvM"/>
                             </mask>
                         </variation>
                     </view>
@@ -281,6 +284,7 @@
                         <outlet property="CategoryNamesContainerView" destination="myZ-AH-uBZ" id="mkz-SU-aED"/>
                         <outlet property="cameraContainerView" destination="6jY-Pp-NQ3" id="e7I-Pd-eal"/>
                         <outlet property="cameraContainerViewHeightConstraint" destination="PP5-yr-PUm" id="bb0-wN-Jvn"/>
+                        <outlet property="categoryNamesFromLayoutBottomConstraint" destination="aa3-Lf-oN8" id="81D-vD-JX7"/>
                         <outlet property="categoryNamesHeightConstraint" destination="BVO-Dd-F5I" id="acA-PC-QgA"/>
                         <outlet property="changeViewModeButton" destination="Tgy-Zb-cBm" id="snA-7T-OAq"/>
                         <outlet property="imageNotesContainerView" destination="8AX-aJ-yRi" id="05c-yc-YDS"/>
@@ -327,7 +331,6 @@
                                                     </fragment>
                                                 </attributedString>
                                             </state>
-                                            <variation key="heightClass=regular-widthClass=compact"/>
                                         </button>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>

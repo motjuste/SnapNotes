@@ -11,6 +11,8 @@ import UIKit
 var categoryNamesHeight: CGFloat = 100
 let minCameraContainerHeight: CGFloat = 50
 var maxCameraContainerHeight: CGFloat = 800 // will be set based on bounds of cameraContainer
+let minCategoryBottomFromLayoutBottom: CGFloat = 0
+var maxCategoryBottomFromLayoutBottom: CGFloat = 500 // will be changed based on bounds later
 
 class MainViewController: UIViewController {
     
@@ -53,6 +55,7 @@ class MainViewController: UIViewController {
     @IBOutlet weak var CategoryNamesContainerView: UIView!
     var categoryNamesCollectionViewController: CategoryNamesCollectionViewController?
     @IBOutlet weak var categoryNamesHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var categoryNamesFromLayoutBottomConstraint: NSLayoutConstraint!
     
     // ImageNotesContainerView
     @IBOutlet weak var imageNotesContainerView: UIView!
@@ -85,6 +88,9 @@ class MainViewController: UIViewController {
         navigationController?.navigationBarHidden = true
         
         maxCameraContainerHeight = self.view.bounds.height
+        self.cameraContainerViewHeightConstraint.constant = maxCameraContainerHeight
+        
+        maxCategoryBottomFromLayoutBottom = maxCameraContainerHeight - minCameraContainerHeight - categoryNamesHeight
         
         if categoryNamesCollectionViewController != nil {
             categoryNamesCollectionViewController?.categoriesList = SnapNotesManager.getCategories()
@@ -106,7 +112,7 @@ class MainViewController: UIViewController {
             }
             
             UIView.animateWithDuration(0.2, delay: 0.0, options: .CurveEaseOut, animations: {
-                self.cameraContainerViewHeightConstraint.constant = maxCameraContainerHeight
+                self.categoryNamesFromLayoutBottomConstraint.constant = minCategoryBottomFromLayoutBottom
                 self.view.layoutIfNeeded()
             }, completion: nil)
             
@@ -115,7 +121,7 @@ class MainViewController: UIViewController {
             camerViewController?.captureSession?.stopRunning()
             
             UIView.animateWithDuration(0.2, delay: 0.0, options: UIViewAnimationOptions.CurveEaseOut, animations: {
-                self.cameraContainerViewHeightConstraint.constant = minCameraContainerHeight
+                self.categoryNamesFromLayoutBottomConstraint.constant = maxCategoryBottomFromLayoutBottom   
                 self.view.layoutIfNeeded()
                 }, completion: (reloadNotesCollectionData))
             
