@@ -8,7 +8,7 @@
 
 import UIKit
 
-let categoryNamesHeight: CGFloat = 100
+var categoryNamesHeight: CGFloat = 100
 let minCameraContainerHeight: CGFloat = 50
 var maxCameraContainerHeight: CGFloat = 800 // will be set based on bounds of cameraContainer
 
@@ -29,6 +29,7 @@ class MainViewController: UIViewController {
         switch SnapNotesManager.currentSnapViewMode {
         case .takePicture :
             changeViewModeButton.setTitle("View Notes", forState: .Normal)
+            SnapNotesManager.setCurrentCategoryID(nil)
         case .viewNotes :
             changeViewModeButton.setTitle("Camera", forState: .Normal)
         }
@@ -51,6 +52,7 @@ class MainViewController: UIViewController {
     // CategoryNamesContainerView
     @IBOutlet weak var CategoryNamesContainerView: UIView!
     var categoryNamesCollectionViewController: CategoryNamesCollectionViewController?
+    @IBOutlet weak var categoryNamesHeightConstraint: NSLayoutConstraint!
     
     // ImageNotesContainerView
     @IBOutlet weak var imageNotesContainerView: UIView!
@@ -76,10 +78,13 @@ class MainViewController: UIViewController {
         
         super.viewWillAppear(true)
         
+        categoryNamesHeight = self.view.bounds.width / 4
+        categoryNamesHeightConstraint.constant = categoryNamesHeight
+        
         navigationController?.hidesBarsOnTap = false
         navigationController?.navigationBarHidden = true
         
-        maxCameraContainerHeight = self.view.bounds.height - categoryNamesHeight
+        maxCameraContainerHeight = self.view.bounds.height
         
         if categoryNamesCollectionViewController != nil {
             categoryNamesCollectionViewController?.categoriesList = SnapNotesManager.getCategories()
@@ -119,33 +124,25 @@ class MainViewController: UIViewController {
     }
     
     func reloadNotesCollectionData(Bool) {
-        imageNotesCollectionViewController?.collectionView?.reloadData()
+        if let categoryID = SnapNotesManager.getCurrentCategoryID() {
+            self.imageNotesCollectionViewController?.updatePathLists()
+            self.imageNotesCollectionViewController?.collectionView?.reloadData()
+        }
     }
     
     // MARK: - Save Image
     func saveImageForCategoryID(categoryID: String) {
-        
-//        let cam = self.childViewControllers.first as? CameraViewController
-//        
-//        let imageData = cam!.getImageDataToSave()
-//        SnapNotesManager.saveDataForCategoryID(imageData!, categoryID: categoryID, extensionString: "jpg")
         
         camerViewController?.saveImageForCategoryID(categoryID)
         lastPhotoButton.hidden = false
         
     }
     
-//    func changeImageNotesCategory(newCategoryID: String) {
-//        imageNotesCollectionViewController?.categoryID = newCategoryID
-//        imageNotesCollectionViewController?.collectionView?.reloadData()
-//    }
 
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-//         Get the new view controller using segue.destinationViewController.
-//         Pass the selected object to the new view controller.
         
         if let segueIdentifier = embeddedSegueIdentifiers(rawValue: segue.identifier!) {
             switch segueIdentifier {

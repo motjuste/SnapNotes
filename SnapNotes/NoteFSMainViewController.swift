@@ -26,6 +26,8 @@ class NoteFSMainViewController: UIViewController, UIPageViewControllerDataSource
         // TODO: should be moved somewhere else
 //        categoryID = nil
         
+        noteImageFilePathsList = SnapNotesManager.getImageFilePathsListForCurrentCategoryID()
+        
         createPageViewController()
         
         navigationController?.hidesBarsOnTap = true

@@ -10,7 +10,7 @@ import UIKit
 
 let reuseIdentifier = "CategoryNameCell"
 
-class CategoryNamesCollectionViewController: UICollectionViewController {
+class CategoryNamesCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
     var categoriesList: [Category] = SnapNotesManager.getCategories()
     
@@ -27,28 +27,18 @@ class CategoryNamesCollectionViewController: UICollectionViewController {
         // Do any additional setup after loading the view.
     }
 
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
-    }
-    */
 
     // MARK: UICollectionViewDataSource
 
     override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
         return 1
     }
-
-
+    
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return categoriesList.count
     }
@@ -58,6 +48,7 @@ class CategoryNamesCollectionViewController: UICollectionViewController {
         
         let category: Category = categoriesList[indexPath.item]
         
+//      cell.frame.size = CGSizeMake(self.collectionView!.frame.width / 4 - 4, self.collectionView!.frame.width / 4 - 4.0) // TODO: magic constant
         cell.categoryNameButton?.layer.setValue(category.id, forKey: "categoryID")
         cell.categoryNameButton?.layer.setValue(cell.categoryNameButton?.tintColor, forKey: "highlightedColor")
         cell.categoryNameButton?.layer.setValue(UIColor.groupTableViewBackgroundColor(), forKey: "normalColor")
@@ -82,8 +73,9 @@ class CategoryNamesCollectionViewController: UICollectionViewController {
         case .takePicture :
             parentVC.saveImageForCategoryID(categoryID)
         case .viewNotes :
-//            parentVC.changeImageNotesCategory(categoryID)
             SnapNotesManager.setCurrentCategoryID(categoryID)
+            parentVC.reloadNotesCollectionData(true)
+            
         }
     }
     
@@ -99,9 +91,15 @@ class CategoryNamesCollectionViewController: UICollectionViewController {
     
     func buttonDragged(sender: UIButton) {
         SnapNotesManager.setCurrentCategoryID(sender.layer.valueForKey("categoryID") as? String)
-        let unHighlightColor = sender.layer.valueForKey("normalColor") as! UIColor
-        sender.backgroundColor = unHighlightColor
+//        let unHighlightColor = sender.layer.valueForKey("normalColor") as! UIColor
+//        sender.backgroundColor = unHighlightColor
         let parentVC = self.parentViewController as! MainViewController
         parentVC.changeViewMode(nil)
     }
+    
+    // MARK : - Cell sizes
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+        return CGSizeMake(self.collectionView!.frame.width/4.0, self.collectionView!.frame.width/4.0)
+    }
+    
 }

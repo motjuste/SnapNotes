@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="iLP-og-Zs8">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="iLP-og-Zs8">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
@@ -15,7 +15,7 @@
                         <viewControllerLayoutGuide type="bottom" id="OTH-MS-uLv"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="mnX-Xd-cvG">
-                        <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -103,7 +103,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6jY-Pp-NQ3" userLabel="CameraContainerView">
+                            <containerView opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6jY-Pp-NQ3" userLabel="CameraContainerView">
                                 <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="500" id="PP5-yr-PUm"/>
@@ -207,10 +207,9 @@
                             <constraint firstAttribute="trailing" secondItem="myZ-AH-uBZ" secondAttribute="trailing" id="g5m-dd-QEQ"/>
                             <constraint firstItem="8AX-aJ-yRi" firstAttribute="leading" secondItem="GBU-80-Z5k" secondAttribute="leading" id="n8N-ip-6v2"/>
                             <constraint firstItem="6jY-Pp-NQ3" firstAttribute="trailing" secondItem="vD8-SS-jix" secondAttribute="trailing" constant="16" id="oZ3-8b-ak4"/>
-                            <constraint firstItem="myZ-AH-uBZ" firstAttribute="top" secondItem="6jY-Pp-NQ3" secondAttribute="bottom" id="rpj-bF-Xkp"/>
+                            <constraint firstItem="myZ-AH-uBZ" firstAttribute="bottom" secondItem="6jY-Pp-NQ3" secondAttribute="bottom" id="rpj-bF-Xkp"/>
                             <constraint firstItem="Tgy-Zb-cBm" firstAttribute="top" secondItem="RRu-bB-kSO" secondAttribute="bottom" id="udj-mD-K10"/>
                             <constraint firstItem="Tgy-Zb-cBm" firstAttribute="leading" secondItem="GBU-80-Z5k" secondAttribute="leadingMargin" id="vNr-ko-ZNM"/>
-                            <constraint firstItem="AwF-HS-16X" firstAttribute="top" secondItem="6jY-Pp-NQ3" secondAttribute="bottom" priority="999" constant="300" id="xHQ-nm-VP0"/>
                         </constraints>
                         <variation key="default">
                             <mask key="subviews">
@@ -223,7 +222,6 @@
                             </mask>
                             <mask key="constraints">
                                 <exclude reference="fIF-TZ-dvM"/>
-                                <exclude reference="xHQ-nm-VP0"/>
                                 <exclude reference="DZn-jI-FAi"/>
                                 <exclude reference="US3-8k-Hkt"/>
                                 <exclude reference="udj-mD-K10"/>
@@ -254,7 +252,6 @@
                             </mask>
                             <mask key="constraints">
                                 <include reference="fIF-TZ-dvM"/>
-                                <include reference="xHQ-nm-VP0"/>
                                 <exclude reference="DZn-jI-FAi"/>
                                 <include reference="US3-8k-Hkt"/>
                                 <exclude reference="udj-mD-K10"/>
@@ -284,6 +281,7 @@
                         <outlet property="CategoryNamesContainerView" destination="myZ-AH-uBZ" id="mkz-SU-aED"/>
                         <outlet property="cameraContainerView" destination="6jY-Pp-NQ3" id="e7I-Pd-eal"/>
                         <outlet property="cameraContainerViewHeightConstraint" destination="PP5-yr-PUm" id="bb0-wN-Jvn"/>
+                        <outlet property="categoryNamesHeightConstraint" destination="BVO-Dd-F5I" id="acA-PC-QgA"/>
                         <outlet property="changeViewModeButton" destination="Tgy-Zb-cBm" id="snA-7T-OAq"/>
                         <outlet property="imageNotesContainerView" destination="8AX-aJ-yRi" id="05c-yc-YDS"/>
                         <outlet property="lastPhotoButton" destination="vD8-SS-jix" id="7SX-N2-cog"/>
@@ -297,11 +295,11 @@
         <scene sceneID="rNc-H6-MJT">
             <objects>
                 <collectionViewController storyboardIdentifier="CategoryNamesViewController" id="BL6-RD-8qd" customClass="CategoryNamesCollectionViewController" customModule="SnapNotes" customModuleProvider="target" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" id="tQ6-T3-mtV">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.84999999999999998" contentMode="scaleAspectFit" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" id="tQ6-T3-mtV">
                         <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="1" minimumInteritemSpacing="1" id="0ov-cL-eIS">
+                        <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="1" id="0ov-cL-eIS">
                             <size key="itemSize" width="99" height="99"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
@@ -367,7 +365,7 @@
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Fr6-op-OJN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1623" y="-340"/>
+            <point key="canvasLocation" x="1623" y="-363.75"/>
         </scene>
         <!--Image Notes Collection View Controller-->
         <scene sceneID="C7W-cP-JYA">
@@ -444,7 +442,7 @@
         <!--Camera View Controller-->
         <scene sceneID="rbm-4u-nOt">
             <objects>
-                <viewController storyboardIdentifier="CameraViewController" automaticallyAdjustsScrollViewInsets="NO" id="mcn-SH-KWw" customClass="CameraViewController" customModule="SnapNotes" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CameraViewController" automaticallyAdjustsScrollViewInsets="NO" modalTransitionStyle="crossDissolve" id="mcn-SH-KWw" customClass="CameraViewController" customModule="SnapNotes" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="gii-6X-D59"/>
                         <viewControllerLayoutGuide type="bottom" id="ABt-xG-D4O"/>
@@ -453,7 +451,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="H9f-Nx-6q9" userLabel="CameraView">
+                            <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="H9f-Nx-6q9" userLabel="CameraView">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
@@ -556,6 +554,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="CHe-02-zda"/>
+        <segue reference="2ps-vl-OmN"/>
     </inferredMetricsTieBreakers>
 </document>

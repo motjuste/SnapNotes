@@ -62,7 +62,7 @@ class CameraViewController: UIViewController {
                     previewLayer!.connection?.videoOrientation = AVCaptureVideoOrientation.Portrait
                     cameraView.layer.addSublayer(previewLayer)
                     
-                    captureSession!.startRunning()
+                    startCamera()
                 }
             } else if (error != nil) {
                 println("Error in AVCaptureDeviceInput")
@@ -81,8 +81,24 @@ class CameraViewController: UIViewController {
     }
     
     override func viewWillDisappear(animated: Bool) {
-        self.captureSession!.stopRunning()
+        stopCamera()
     }
+    
+    
+    // MARK: - Camera Start/Stop
+    func startCamera() {
+        dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INTERACTIVE, 0), {
+            self.captureSession?.startRunning()
+        })
+    }
+    
+    func stopCamera() {
+        dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INTERACTIVE, 0), {
+            self.captureSession?.stopRunning()
+        })
+    }
+    
+    // MARK: - Save Image
     
     func saveImageForCategoryID(categoryID: String) {
         if let videoConnection = self.stillImageOutput!.connectionWithMediaType(AVMediaTypeVideo) {
