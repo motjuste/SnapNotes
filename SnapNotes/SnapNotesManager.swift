@@ -350,22 +350,28 @@ class SnapNotesManager {
         let filePath = self.pathToNoteImages.stringByAppendingPathComponent(fileName).stringByAppendingPathExtension("jpg")
         let thumbnPath = self.pathToNoteThumbs.stringByAppendingPathComponent(fileName).stringByAppendingPathExtension("jpg")
 
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), { [sampleBufferTh = sampleBuffer, fileNameTh = fileName] in
-            
-            var imageData = AVCaptureStillImageOutput.jpegStillImageNSDataRepresentation(sampleBufferTh)
-            
-            CMSampleBufferInvalidate(sampleBufferTh)
-            
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), {
+            var imageData = AVCaptureStillImageOutput.jpegStillImageNSDataRepresentation(sampleBuffer)
             let image = UIImage(data: imageData)
             imageData = nil
             
             dispatch_async(dispatch_get_global_queue(QOS_CLASS_UTILITY, 0), {
-                self.saveImage(fileNameTh, image: image!, isThumbnail: true)
+                let data = UIImageJPEGRepresentation(image, 0.75)
+                data.writeToFile(filePath!, atomically: true)
             })
+            
             dispatch_async(dispatch_get_global_queue(QOS_CLASS_UTILITY, 0), {
-                self.saveImage(fileNameTh, image: image!, isThumbnail: false)
-            })
+                let ratio = image!.size.height/image!.size.width
+                let thumbSize = CGSizeMake(300, 300 * ratio)
+                UIGraphicsBeginImageContextWithOptions(thumbSize, true, 0.0)
+                image?.drawInRect(CGRect(origin: CGPointZero, size: thumbSize))
+                let thumb = UIGraphicsGetImageFromCurrentImageContext()
+                UIGraphicsEndImageContext()
+                let thumbData = UIImageJPEGRepresentation(thumb, 0.8)
+                thumbData.writeToFile(thumbnPath!, atomically: true)
         })
+        })
+
 
         let newNote = Note(date: NSDate(timeIntervalSince1970: timeIntervalSince1970), categoryID: categoryID, imageFilePath: filePath!, thumbnailFilePath: thumbnPath!)
         self.count += 1
