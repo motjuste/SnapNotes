@@ -107,18 +107,35 @@ class SettingsTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {
             // Delete the row from the data source
-//            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-            println("Will Delete")
+            let saneIndexPath = indexPath.section * itemsPerSection + indexPath.row
+            let currentCategory = categoriesList[saneIndexPath] as Category
+            if currentCategory.id == "000" {
+                let alertController = UIAlertController(
+                                    title: "Sorry",
+                                    message: "Cannot delete \(currentCategory.name) as it is a default category",
+                                    preferredStyle: .Alert)
+                let cancelAction = UIAlertAction(title: "Okay", style: UIAlertActionStyle.Cancel, handler: nil)
+                alertController.addAction(cancelAction)
+                self.presentViewController(alertController, animated: true, completion: nil)
+            } else {
+                categoriesList.removeAtIndex(saneIndexPath)
+                SnapNotesManager.reorderAndSaveCategoriesList(categoriesList)
+                categoriesList = SnapNotesManager.getCategories()
+                self.tableView.reloadData()
+                // TODO: Animated deleting doesn't work?
+//                if tableView.numberOfRowsInSection(indexPath.section) == 0 {
+//                    tableView.deleteSections(NSIndexSet(index: indexPath.section), withRowAnimation: UITableViewRowAnimation.Automatic)
+//                }
+//                tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+            }
         } else if editingStyle == .Insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-            println("Will Edit")
         }
         
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let currentCategory = self.categoriesList[indexPath.section * itemsPerSection + indexPath.item]
-        dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), {
         let alertController = UIAlertController(title: "Edit Category", message: "Rename category", preferredStyle: .Alert)
         alertController.addTextFieldWithConfigurationHandler { (textField: UITextField!) in
             textField.text = currentCategory.name
@@ -141,7 +158,6 @@ class SettingsTableViewController: UITableViewController {
         alertController.addAction(submitAction)
         alertController.addAction(cancelAction)
         self.presentViewController(alertController, animated: true, completion: nil)
-        })
     }
 
     
@@ -166,20 +182,5 @@ class SettingsTableViewController: UITableViewController {
 //            return UITableViewCellEditingStyle.Delete
 //        }
 //    }
-    
-    
-    // Override to support conditional rearranging of the table view.
-    override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        return true
-    }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        
-    }
-    */
 
 }
