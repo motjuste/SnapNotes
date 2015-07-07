@@ -419,12 +419,7 @@ class SnapNotesManager {
         for i in 0...newCategoriesList.count-1 {
             newCategoriesList[i].order = i
         }
-
-        if newCategoriesList.count == categoriesList.count {
-            categoriesList = newCategoriesList
-        } else {
-            println("SnapNotesManager.reorderAnsSaveCategoriesList : count mismatch")
-        }
+        categoriesList = newCategoriesList
     }
 
     static func createNewCategoryWithName(newCategoryName: String) {
