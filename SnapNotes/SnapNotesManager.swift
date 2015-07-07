@@ -350,7 +350,7 @@ class SnapNotesManager {
         let filePath = self.pathToNoteImages.stringByAppendingPathComponent(fileName).stringByAppendingPathExtension("jpg")
         let thumbnPath = self.pathToNoteThumbs.stringByAppendingPathComponent(fileName).stringByAppendingPathExtension("jpg")
 
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), { [sampleBufferTh = sampleBuffer, fileNameTh = fileName] in
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), { [sampleBufferTh = sampleBuffer, fileNameTh = fileName] in
             
             var imageData = AVCaptureStillImageOutput.jpegStillImageNSDataRepresentation(sampleBufferTh)
             
@@ -358,9 +358,13 @@ class SnapNotesManager {
             
             let image = UIImage(data: imageData)
             imageData = nil
-
-            self.saveImage(fileNameTh, image: image!, isThumbnail: true)
-            self.saveImage(fileNameTh, image: image!, isThumbnail: false)
+            
+            dispatch_async(dispatch_get_global_queue(QOS_CLASS_UTILITY, 0), {
+                self.saveImage(fileNameTh, image: image!, isThumbnail: true)
+            })
+            dispatch_async(dispatch_get_global_queue(QOS_CLASS_UTILITY, 0), {
+                self.saveImage(fileNameTh, image: image!, isThumbnail: false)
+            })
         })
 
         let newNote = Note(date: NSDate(timeIntervalSince1970: timeIntervalSince1970), categoryID: categoryID, imageFilePath: filePath!, thumbnailFilePath: thumbnPath!)
@@ -371,7 +375,7 @@ class SnapNotesManager {
 
     static func saveImage(fileName: String, image: UIImage, isThumbnail: Bool) {
         let ratio = image.size.height/image.size.width
-        var imageSize: CGSize = CGSizeMake(2160, 2160 * ratio)
+        var imageSize: CGSize = CGSizeMake(1080, 1080 * ratio)
         var filePath = self.pathToNoteImages.stringByAppendingPathComponent(fileName).stringByAppendingPathExtension("jpg")
 
         if isThumbnail {
