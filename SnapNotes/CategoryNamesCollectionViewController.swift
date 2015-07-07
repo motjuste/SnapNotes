@@ -16,27 +16,10 @@ class CategoryNamesCollectionViewController: UICollectionViewController, UIColle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Register cell classes
-//        self.collectionView!.registerClass(CategoryNameCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
-        // !!! - Why the Fuck is this thing fucking up stuff!!?
-
-        // Do any additional setup after loading the view.
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        
-//        let blankCount = 4 - categoriesList.count % 4
-//        println(self.categoriesList.count)
-//        for i in 1...blankCount {
-//            self.categoriesList.append(Category(id: "nil", name: " ", order: 0))
-//        }
-//        println(blankCount)
-//        println(self.categoriesList.count)
     }
 
 
@@ -53,8 +36,10 @@ class CategoryNamesCollectionViewController: UICollectionViewController, UIColle
     
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         let blankCount = 4 - categoriesList.count % 4
-        for i in 1...blankCount {
-            self.categoriesList.append(Category(id: "nil", name: " ", order: 0))
+        if blankCount < 4 {
+            for i in 1...blankCount {
+                self.categoriesList.append(Category(id: "nil", name: " ", order: 0))
+            }
         }
         
         return categoriesList.count
@@ -121,9 +106,14 @@ class CategoryNamesCollectionViewController: UICollectionViewController, UIColle
     
     // MARK : - Cell sizes
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-        return CGSizeMake(self.collectionView!.frame.width/4.0 - 2.0, self.collectionView!.frame.width/4.0 - 2.0)
+//        if (indexPath.item != 0 && indexPath.item % 4 == 0) {
+//            return CGSizeMake(self.collectionView!.frame.width/4.0, self.collectionView!.frame.width/4.0 - 2.0)
+//        } else if indexPath.item == self.categoriesList.count {
+//            return CGSizeMake(self.collectionView!.frame.width/4.0 + 2.0, self.collectionView!.frame.width/4.0 - 2.0)
+//        } else {
+//            return CGSizeMake(self.collectionView!.frame.width/4.0 - 2.0, self.collectionView!.frame.width/4.0 - 2.0)
+//        }
+        return CGSizeMake(self.collectionView!.frame.width/4.0, self.collectionView!.frame.width/4.0)
     }
-    
-    
     
 }
