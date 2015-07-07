@@ -72,9 +72,17 @@ class SnapNotesManager {
     }
 
     private static func getNewCategoryID() -> String {
-        let currentMax = self.maxCategoryID.toInt()! + 1
-        self.maxCategoryID = "\(currentMax/100)\(currentMax/10)\(currentMax)"
-        // !!!- : limited to 999 - 5? categories
+        var newMax = self.maxCategoryID.toInt()! + 1
+        
+        var x = ""
+        
+        for i in [100, 10, 1] {
+            // !!!- : limited to 999 - 5? categories
+            let digit = newMax/i
+            x = x + "\(digit)"
+            newMax = newMax - digit * i
+        }
+        self.maxCategoryID = x
         return self.maxCategoryID
 
     }
@@ -167,7 +175,6 @@ class SnapNotesManager {
             "version": self.settingsVersion,
             "count": self.count,
             "categories": categoriesJSONList])
-        println(json.description)
         
         var writeError: NSError?
         json.description.writeToFile(self.pathToSettings, atomically: true, encoding: NSUTF8StringEncoding, error: &writeError)
