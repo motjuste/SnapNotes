@@ -25,13 +25,15 @@ class Category {
     let id: String
     var name: String
     var order: Int
-    var color: UIColor?
+    var color: UIColor
+    var colorString: String
 
-    init(id: String, name:String, order: Int, color: UIColor) {
+    init(id: String, name:String, order: Int, color: UIColor, colorString: String) {
         self.id = id
         self.name = name
         self.order = order
         self.color = color
+        self.colorString = colorString
     }
 
     init(id: String, name:String, order: Int) {
@@ -39,6 +41,11 @@ class Category {
         self.name = name
         self.order = order
         self.color = UIColor(rgba: "#FFFFFF00")
+        self.colorString = "FFFFFF"
+    }
+    
+    func asJSON() -> JSON {
+        return JSON(["id": self.id, "name": self.name, "order": self.order, "color": self.colorString])
     }
 }
 
@@ -82,6 +89,7 @@ class SnapNotesManager {
     private static var count = 0
     private static var settingsLoaded = false
     private static var maxCategoryID = "000"
+    private static var settingsVersion = ""
 
     static func loadSettings() {
 
@@ -102,16 +110,21 @@ class SnapNotesManager {
                 // This may mean an error in reading from the json
 //                println(jsonData["count"].rawString())
             }
+            
+            if let jversion = jsonData["version"].string {
+                self.settingsVersion = jversion
+            }
+            
 
             if let catsArray = jsonData["categories"].array {
                 for cat in catsArray {
                     let id: String? = cat["id"].string
                     let name: String? = cat["name"].string
                     let order: Int? = cat["order"].int
-                    println(("#" + cat["color"].string! + "dd"))
-                    var color = UIColor(rgba: ("#" + cat["color"].string! + "99"))
+                    let color = UIColor(rgba: ("#" + cat["color"].string! + "99"))
+                    let colorString = cat["color"].string!
 
-                    categoriesList.append(Category(id: id!, name: name!, order: order!, color: color))
+                    categoriesList.append(Category(id: id!, name: name!, order: order!, color: color, colorString: colorString))
                     if id! >= self.maxCategoryID {
                         self.maxCategoryID = id!
                     }
@@ -139,7 +152,28 @@ class SnapNotesManager {
         return self.categoriesList
     }
 
-
+    
+    // MARK: - Save Settings
+    static func saveSettings() {
+        
+        
+        var categoriesJSONList : [[String: AnyObject]] = []
+        
+        for category in self.categoriesList {
+            categoriesJSONList.append(category.asJSON().dictionaryObject!)
+        }
+        
+        var json = JSON(["name": "SnapNotes",
+            "version": self.settingsVersion,
+            "count": self.count,
+            "categories": categoriesJSONList])
+        println(json.description)
+        
+        var writeError: NSError?
+        json.description.writeToFile(self.pathToSettings, atomically: true, encoding: NSUTF8StringEncoding, error: &writeError)
+        // TODO: - handle write error when writing settings
+    }
+    
 
     // MARK: - Load All Notes
 
@@ -387,15 +421,16 @@ class SnapNotesManager {
     }
 
     static func createNewCategoryWithName(newCategoryName: String) {
-        let newCategory = Category(id: self.getNewCategoryID(), name: newCategoryName, order: self.categoriesList.count, color: getRandomCategoryColor())
+        let newColor = getRandomCategoryColor()
+        let newCategory = Category(id: self.getNewCategoryID(), name: newCategoryName, order: self.categoriesList.count, color: newColor.0, colorString: newColor.1)
         self.categoriesList.append(newCategory)
     }
 
-    private static func getRandomCategoryColor() -> UIColor {
+    private static func getRandomCategoryColor() -> (UIColor, String) {
         let colorsArray = ["F44336","E91E63","9C27B0","673AB7","3F51B5","2196F3","03A9F4","00BCD4","009688","4CAF50","8BC34A","CDDC39","FFEB3B","FFC107","FF9800","FF5722"]
         let randomIndex = Int(arc4random_uniform(UInt32(colorsArray.count)))
         let randomColor = "#\(colorsArray[randomIndex])99"
-        return UIColor(rgba: randomColor)
+        return (UIColor(rgba: randomColor), colorsArray[randomIndex])
     }
     
     static func editCategoryNameForCategoryID(categoryID: String, newCategoryName: String) {

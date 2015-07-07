@@ -118,7 +118,7 @@ class SettingsTableViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let currentCategory = self.categoriesList[indexPath.section * itemsPerSection + indexPath.item]
-        
+        dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), {
         let alertController = UIAlertController(title: "Edit Category", message: "Rename category", preferredStyle: .Alert)
         alertController.addTextFieldWithConfigurationHandler { (textField: UITextField!) in
             textField.text = currentCategory.name
@@ -141,6 +141,7 @@ class SettingsTableViewController: UITableViewController {
         alertController.addAction(submitAction)
         alertController.addAction(cancelAction)
         self.presentViewController(alertController, animated: true, completion: nil)
+        })
     }
 
     
