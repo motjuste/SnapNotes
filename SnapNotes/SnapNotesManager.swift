@@ -194,7 +194,7 @@ class SnapNotesManager {
     private static func getDateAndCategoryIDFromImageName(imageName: String) -> (NSDate, String) {
         let timestampSplitArray: [String] = imageName.componentsSeparatedByString(self.noteCategorySeparatorString)
         let timeinterval: Double = (timestampSplitArray[0] as NSString).doubleValue
-        let categoryID = timestampSplitArray[1]
+        let categoryID = timestampSplitArray[1].stringByDeletingPathExtension
 
         return (NSDate(timeIntervalSince1970: timeinterval), categoryID)
     }
@@ -209,8 +209,6 @@ class SnapNotesManager {
         self.checkAndAddMissingFolderAtPath(self.pathToNoteImages, addIfMissing: true)
         self.checkAndAddMissingFolderAtPath(self.pathToNoteThumbs, addIfMissing: true)
 
-        println(self.pathToNoteImages)
-
         if let imageNamesList = self.fileManager.contentsOfDirectoryAtPath(self.pathToNoteImages, error: nil) as? [String] {
 
             for imageName in imageNamesList {
@@ -224,8 +222,6 @@ class SnapNotesManager {
                 self.allNotesList.append(note)
             }
         }
-
-        println(self.allNotesList)
 
         self.allNotesListLoaded = true
 
@@ -299,9 +295,9 @@ class SnapNotesManager {
     }
 
     static func getImageFilePathsListForCurrentCategoryID() -> [String] {
-        if self.currentNotesList == nil {
+//        if self.currentNotesList == nil {
             self.loadCurrentNotesList()
-        }
+//        }
 
         var imageFilePathsList: [String] = []
 
@@ -314,9 +310,9 @@ class SnapNotesManager {
 
 
     static func getThumbsFilePathsListForCurrentCategoryID() -> [String] {
-        if self.currentNotesList == nil {
+//        if self.currentNotesList == nil {
             self.loadCurrentNotesList()
-        }
+//        }
 
         var thumbsFilePathsList: [String] = []
 
@@ -447,8 +443,6 @@ class SnapNotesManager {
     
     static func editCategoryNameForCategoryID(categoryID: String, newCategoryName: String) {
         (self.categoriesList.filter({ ($0 as Category).id == categoryID }) as [Category]).first!.name = newCategoryName
-        
-        println(self.categoriesList.filter({ ($0 as Category).id == categoryID }).first!)
     }
 
 }
