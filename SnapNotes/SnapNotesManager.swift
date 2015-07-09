@@ -217,12 +217,17 @@ class SnapNotesManager {
                 let categoryID = dateAndCategoryID.1
                 let imageFilePath = pathToNoteImages.stringByAppendingPathComponent(imageName)
                 let thumbnailFilePath = pathToNoteThumbs.stringByAppendingPathComponent(imageName)
-
+                
                 let note = Note(date: date, categoryID: categoryID, imageFilePath: imageFilePath, thumbnailFilePath: thumbnailFilePath)
                 self.allNotesList.append(note)
             }
         }
-
+        
+        if !allNotesList.isEmpty {
+            
+            allNotesList.sort() { ($0 as Note).date!.greaterThan(($1 as Note).date!) }
+        }
+        
         self.allNotesListLoaded = true
 
         // TODO: Handle error while reading note names
@@ -271,7 +276,11 @@ class SnapNotesManager {
     }
     
     static func getCurrentCategory() -> Category? {
-        return self.categoriesList.filter({ ($0 as Category).id == self.currentCategoryID }).first! as Category
+        if self.currentCategoryID != nil {
+            return self.categoriesList.filter({ ($0 as Category).id == self.currentCategoryID }).first! as Category
+        } else {
+            return Category(id: "nil", name: "All Notes", order: 99)
+        }
     }
 
     static func getCurrentCategoryID() -> String? {
@@ -299,8 +308,12 @@ class SnapNotesManager {
     }
     
     static func getColorForCurrentCategory() -> UIColor {
-        let currentCategory = self.categoriesList.filter({ ($0 as Category).id == self.currentCategoryID }).first! as Category
-        return UIColor(rgba: "#\(currentCategory.colorString)FF")
+        if self.currentCategoryID != nil {
+            let currentCategory = self.categoriesList.filter({ ($0 as Category).id == self.currentCategoryID }).first! as Category
+            return UIColor(rgba: "#\(currentCategory.colorString)FF")
+        } else {
+            return UIColor.blackColor()
+        }
     }
 
     static func getImageFilePathsListForCurrentCategoryID() -> [String] {
@@ -380,7 +393,7 @@ class SnapNotesManager {
 
         let newNote = Note(date: NSDate(timeIntervalSince1970: timeIntervalSince1970), categoryID: categoryID, imageFilePath: filePath!, thumbnailFilePath: thumbnPath!)
         self.count += 1
-        self.allNotesList.append(newNote)
+        self.allNotesList.insert(newNote, atIndex: 0)
 
     }
 
@@ -456,90 +469,93 @@ class SnapNotesManager {
 
 }
 
-extension UIColor {
 
-    convenience init(rgba: String) {
+// MARK: - Utility Extensions
 
-        var red:   CGFloat = 0.0
-
-        var green: CGFloat = 0.0
-
-        var blue:  CGFloat = 0.0
-
-        var alpha: CGFloat = 1.0
-
-
-
-        if rgba.hasPrefix("#") {
-
-            let index   = advance(rgba.startIndex, 1)
-
-            let hex     = rgba.substringFromIndex(index)
-
-            let scanner = NSScanner(string: hex)
-
-            var hexValue: CUnsignedLongLong = 0
-
-            if scanner.scanHexLongLong(&hexValue) {
-
-                switch (count(hex)) {
-
-                case 3:
-
-                    red   = CGFloat((hexValue & 0xF00) >> 8)       / 15.0
-
-                    green = CGFloat((hexValue & 0x0F0) >> 4)       / 15.0
-
-                    blue  = CGFloat(hexValue & 0x00F)              / 15.0
-
-                case 4:
-
-                    red   = CGFloat((hexValue & 0xF000) >> 12)     / 15.0
-
-                    green = CGFloat((hexValue & 0x0F00) >> 8)      / 15.0
-
-                    blue  = CGFloat((hexValue & 0x00F0) >> 4)      / 15.0
-
-                    alpha = CGFloat(hexValue & 0x000F)             / 15.0
-
-                case 6:
-
-                    red   = CGFloat((hexValue & 0xFF0000) >> 16)   / 255.0
-
-                    green = CGFloat((hexValue & 0x00FF00) >> 8)    / 255.0
-
-                    blue  = CGFloat(hexValue & 0x0000FF)           / 255.0
-
-                case 8:
-
-                    red   = CGFloat((hexValue & 0xFF000000) >> 24) / 255.0
-
-                    green = CGFloat((hexValue & 0x00FF0000) >> 16) / 255.0
-
-                    blue  = CGFloat((hexValue & 0x0000FF00) >> 8)  / 255.0
-
-                    alpha = CGFloat(hexValue & 0x000000FF)         / 255.0
-
-                default:
-
-                    print("Invalid RGB string, number of characters after '#' should be either 3, 4, 6 or 8")
-
-                }
-
-            } else {
-
-                println("Scan hex error")
-
-            }
-
-        } else {
-
-            print("Invalid RGB string, missing '#' as prefix")
-
-        }
-
-        self.init(red:red, green:green, blue:blue, alpha:alpha)
-
+// MARK: NSDate Extension
+extension NSDate {
+    var calendar: NSCalendar {
+        return NSCalendar(identifier: NSCalendarIdentifierGregorian)!
     }
+    
+    func after(value: Int, calendarUnit:NSCalendarUnit) -> NSDate{
+        return calendar.dateByAddingUnit(calendarUnit, value: value, toDate: self, options: NSCalendarOptions(0))!
+    }
+    
+    func minus(date: NSDate) -> NSDateComponents{
+        return calendar.components(NSCalendarUnit.CalendarUnitMinute, fromDate: self, toDate: date, options: NSCalendarOptions(0))
+    }
+    
+    func equalsTo(date: NSDate) -> Bool {
+        return self.compare(date) == NSComparisonResult.OrderedSame
+    }
+    
+    func greaterThan(date: NSDate) -> Bool {
+        return self.compare(date) == NSComparisonResult.OrderedDescending
+    }
+    
+    func lessThan(date: NSDate) -> Bool {
+        return self.compare(date) == NSComparisonResult.OrderedAscending
+    }
+    
+    
+    class func parse(dateString: String, format: String = "yyyy-MM-dd HH:mm:ss") -> NSDate{
+        var formatter = NSDateFormatter()
+        formatter.dateFormat = format
+        return formatter.dateFromString(dateString)!
+    }
+    
+    func toString(format: String = "yyyy-MM-dd HH:mm:ss") -> String{
+        var formatter = NSDateFormatter()
+        formatter.dateFormat = format
+        return formatter.stringFromDate(self)
+    }
+    
+}
 
+
+// MARK: UIColor Extension
+extension UIColor {
+    convenience init(rgba: String) {
+        var red:   CGFloat = 0.0
+        var green: CGFloat = 0.0
+        var blue:  CGFloat = 0.0
+        var alpha: CGFloat = 1.0
+        
+        if rgba.hasPrefix("#") {
+            let index   = advance(rgba.startIndex, 1)
+            let hex     = rgba.substringFromIndex(index)
+            let scanner = NSScanner(string: hex)
+            var hexValue: CUnsignedLongLong = 0
+            if scanner.scanHexLongLong(&hexValue) {
+                switch (count(hex)) {
+                case 3:
+                    red   = CGFloat((hexValue & 0xF00) >> 8)       / 15.0
+                    green = CGFloat((hexValue & 0x0F0) >> 4)       / 15.0
+                    blue  = CGFloat(hexValue & 0x00F)              / 15.0
+                case 4:
+                    red   = CGFloat((hexValue & 0xF000) >> 12)     / 15.0
+                    green = CGFloat((hexValue & 0x0F00) >> 8)      / 15.0
+                    blue  = CGFloat((hexValue & 0x00F0) >> 4)      / 15.0
+                    alpha = CGFloat(hexValue & 0x000F)             / 15.0
+                case 6:
+                    red   = CGFloat((hexValue & 0xFF0000) >> 16)   / 255.0
+                    green = CGFloat((hexValue & 0x00FF00) >> 8)    / 255.0
+                    blue  = CGFloat(hexValue & 0x0000FF)           / 255.0
+                case 8:
+                    red   = CGFloat((hexValue & 0xFF000000) >> 24) / 255.0
+                    green = CGFloat((hexValue & 0x00FF0000) >> 16) / 255.0
+                    blue  = CGFloat((hexValue & 0x0000FF00) >> 8)  / 255.0
+                    alpha = CGFloat(hexValue & 0x000000FF)         / 255.0
+                default:
+                    print("Invalid RGB string, number of characters after '#' should be either 3, 4, 6 or 8")
+                }
+            } else {
+                println("Scan hex error")
+            }
+        } else {
+            print("Invalid RGB string, missing '#' as prefix")
+        }
+        self.init(red:red, green:green, blue:blue, alpha:alpha)
+    }
 }

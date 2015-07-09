@@ -29,6 +29,9 @@ class CameraViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+//        self.captureSession = nil
+//        self.previewLayer = nil
+//        self.stillImageOutput = nil
     }
     
     override func viewWillAppear(animated: Bool) {

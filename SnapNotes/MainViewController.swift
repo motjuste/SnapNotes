@@ -26,7 +26,7 @@ class MainViewController: UIViewController, MWPhotoBrowserDelegate {
     @IBOutlet weak var changeViewModeButton: UIButton!
     
     @IBAction func changeViewMode(sender: AnyObject?) {
-        SnapNotesManager.toggleSnapViewMode()
+//        SnapNotesManager.toggleSnapViewMode()
         
 //        switch SnapNotesManager.currentSnapViewMode {
 //        case .takePicture :
@@ -43,6 +43,9 @@ class MainViewController: UIViewController, MWPhotoBrowserDelegate {
 //            // TODO: - Check this please. Change if you're paginating the categoriesNamesList
 //        }
 //        updateAllContainerViews()
+        if sender != nil {
+            SnapNotesManager.setCurrentCategoryID(nil)
+        }
         showPhotoGallery()
         
         
@@ -197,15 +200,19 @@ class MainViewController: UIViewController, MWPhotoBrowserDelegate {
         thumbPaths = SnapNotesManager.getThumbsFilePathsListForCurrentCategoryID()
         photoBrowser = MWPhotoBrowser(delegate: self)
         photoBrowser?.enableGrid = true
-        photoBrowser?.startOnGrid = true
+        photoBrowser?.startOnGrid = (SnapNotesManager.getCurrentCategoryID() != nil)
         photoBrowser?.browserColor = SnapNotesManager.getColorForCurrentCategory()
         photoBrowser?.gridColor = SnapNotesManager.getColorForCurrentCategory()
         photoBrowser?.gridTitle = SnapNotesManager.getCurrentCategory()?.name
         photoBrowser?.reloadData()
         
+        photoBrowser?.enableSwipeToDismiss = true
+        
         let navController = UINavigationController(rootViewController: photoBrowser!)
         navController.modalTransitionStyle = UIModalTransitionStyle.CoverVertical
         self.presentViewController(navController, animated: true, completion: nil)
+        
+//        self.navigationController?.pushViewController(photoBrowser!, animated: true)
     }
     
     func numberOfPhotosInPhotoBrowser(photoBrowser: MWPhotoBrowser!) -> UInt {
