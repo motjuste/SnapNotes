@@ -10,65 +10,63 @@ import UIKit
 
 let reuseIdentifier = "CategoryNameCell"
 
-class CategoryNamesCollectionViewController: UICollectionViewController {
+class CategoryNamesCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
-    var categoriesList: [Categories] = SnapNotesManager.getCategories()
+    var categoriesList: [Category] = SnapNotesManager.getCategories()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Register cell classes
-//        self.collectionView!.registerClass(CategoryNameCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
-        // !!! - Why the Fuck is this thing fucking up stuff!!?
-
-        // Do any additional setup after loading the view.
     }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+    }
+
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
-    }
-    */
-
     // MARK: UICollectionViewDataSource
 
     override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
         return 1
     }
-
-
+    
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        let blankCount = 4 - categoriesList.count % 4
+        if blankCount < 4 {
+            for i in 1...blankCount {
+                self.categoriesList.append(Category(id: "nil", name: " ", order: 0))
+            }
+        }
+        
         return categoriesList.count
     }
 
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as! CategoryNameCollectionViewCell
         
-        let category: Categories = categoriesList[indexPath.item]
+        let category: Category = categoriesList[indexPath.item]
+            cell.categoryNameButton?.layer.setValue(category.id, forKey: "categoryID")
+            cell.categoryNameButton?.layer.setValue(cell.categoryNameButton?.tintColor, forKey: "highlightedColor")
+            cell.categoryNameButton?.layer.setValue(UIColor.groupTableViewBackgroundColor(), forKey: "normalColor")
+            cell.categoryNameButton?.addTarget(self, action: "savePhotoForCategoryID:", forControlEvents: .TouchUpInside)
         
-        cell.categoryNameButton?.layer.setValue(category.id, forKey: "categoryID")
-        cell.categoryNameButton?.layer.setValue(cell.categoryNameButton?.tintColor, forKey: "highlightedColor")
-        cell.categoryNameButton?.layer.setValue(UIColor.groupTableViewBackgroundColor(), forKey: "normalColor")
-        cell.categoryNameButton?.addTarget(self, action: "savePhotoForCategoryID:", forControlEvents: .TouchUpInside)
-        cell.categoryNameButton?.setTitle(category.name, forState: .Normal)
-        cell.categoryNameButton?.setTitleColor(cell.categoryNameButton.tintColor, forState: .Normal)
-        cell.categoryNameButton?.setTitleColor(UIColor.whiteColor(), forState: .Highlighted)
+            cell.categoryNameButton?.setAttributedTitle(NSAttributedString(string: category.name), forState: UIControlState.Normal)
+        cell.categoryNameButton?.titleLabel?.textAlignment = NSTextAlignment.Center
+        cell.categoryNameButton?.titleLabel?.adjustsFontSizeToFitWidth = true
         
-//        cell.categoryNameButton?.addTarget(self, action: "highlightButton:", forControlEvents: UIControlEvents.TouchDown)
-//        cell.categoryNameButton?.addTarget(self, action: "unHightlightButton:", forControlEvents: UIControlEvents.TouchUpInside)
-        cell.categoryNameButton?.addTarget(self, action: "buttonDragged:", forControlEvents: UIControlEvents.TouchDragExit)
+        cell.categoryNameButton?.backgroundColor = category.color
+        
+//            cell.categoryNameButton?.setTitleColor(cell.categoryNameButton.tintColor, forState: .Normal)
+//            cell.categoryNameButton?.setTitleColor(UIColor.whiteColor(), forState: .Highlighted)
+        if category.id == "nil" { cell.categoryNameButton?.enabled = false }
+        
+            //        cell.categoryNameButton?.addTarget(self, action: "highlightButton:", forControlEvents: UIControlEvents.TouchDown)
+            //        cell.categoryNameButton?.addTarget(self, action: "unHightlightButton:", forControlEvents: UIControlEvents.TouchUpInside)
+            cell.categoryNameButton?.addTarget(self, action: "buttonDragged:", forControlEvents: UIControlEvents.TouchDragExit)
     
         return cell
     }
@@ -82,7 +80,9 @@ class CategoryNamesCollectionViewController: UICollectionViewController {
         case .takePicture :
             parentVC.saveImageForCategoryID(categoryID)
         case .viewNotes :
-            parentVC.changeImageNotesCategory(categoryID)
+            SnapNotesManager.setCurrentCategoryID(categoryID)
+            parentVC.reloadNotesCollectionData(true)
+            
         }
     }
     
@@ -97,42 +97,23 @@ class CategoryNamesCollectionViewController: UICollectionViewController {
     }
     
     func buttonDragged(sender: UIButton) {
-        SnapNotesManager.setCurrentCategoryID(sender.layer.valueForKey("categoryID") as! String)
-        let unHighlightColor = sender.layer.valueForKey("normalColor") as! UIColor
-        sender.backgroundColor = unHighlightColor
+        SnapNotesManager.setCurrentCategoryID(sender.layer.valueForKey("categoryID") as? String)
+//        let unHighlightColor = sender.layer.valueForKey("normalColor") as! UIColor
+//        sender.backgroundColor = unHighlightColor
         let parentVC = self.parentViewController as! MainViewController
         parentVC.changeViewMode(nil)
     }
-
-    // MARK: UICollectionViewDelegate
-
-    /*
-    // Uncomment this method to specify if the specified item should be highlighted during tracking
-    override func collectionView(collectionView: UICollectionView, shouldHighlightItemAtIndexPath indexPath: NSIndexPath) -> Bool {
-        return true
-    }
-    */
-
-    /*
-    // Uncomment this method to specify if the specified item should be selected
-    override func collectionView(collectionView: UICollectionView, shouldSelectItemAtIndexPath indexPath: NSIndexPath) -> Bool {
-        return true
-    }
-    */
-
-    /*
-    // Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
-    override func collectionView(collectionView: UICollectionView, shouldShowMenuForItemAtIndexPath indexPath: NSIndexPath) -> Bool {
-        return false
-    }
-
-    override func collectionView(collectionView: UICollectionView, canPerformAction action: Selector, forItemAtIndexPath indexPath: NSIndexPath, withSender sender: AnyObject?) -> Bool {
-        return false
-    }
-
-    override func collectionView(collectionView: UICollectionView, performAction action: Selector, forItemAtIndexPath indexPath: NSIndexPath, withSender sender: AnyObject?) {
     
+    // MARK : - Cell sizes
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+//        if (indexPath.item != 0 && indexPath.item % 4 == 0) {
+//            return CGSizeMake(self.collectionView!.frame.width/4.0, self.collectionView!.frame.width/4.0 - 2.0)
+//        } else if indexPath.item == self.categoriesList.count {
+//            return CGSizeMake(self.collectionView!.frame.width/4.0 + 2.0, self.collectionView!.frame.width/4.0 - 2.0)
+//        } else {
+//            return CGSizeMake(self.collectionView!.frame.width/4.0 - 2.0, self.collectionView!.frame.width/4.0 - 2.0)
+//        }
+        return CGSizeMake(self.collectionView!.frame.width/4.0, self.collectionView!.frame.width/4.0)
     }
-    */
-
+    
 }

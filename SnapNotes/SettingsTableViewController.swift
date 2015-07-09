@@ -14,7 +14,7 @@ let uncategorizedID = "000"
 
 class SettingsTableViewController: UITableViewController {
     
-    var categoriesList: [Categories] = SnapNotesManager.getCategories()
+    var categoriesList: [Category] = SnapNotesManager.getCategories()
 //    var newCategoryName: String?
     
     override func viewDidLoad() {
@@ -38,7 +38,7 @@ class SettingsTableViewController: UITableViewController {
         alertController.addTextFieldWithConfigurationHandler { (textField: UITextField!) in
             textField.placeholder = "Donuts"
         }
-        let action = UIAlertAction(title: "Submit", style: .Default, handler: {
+        let submitAction = UIAlertAction(title: "Submit", style: UIAlertActionStyle.Default, handler: {
             [weak self]
             (paramAction:UIAlertAction!) in
             if let textFields = alertController.textFields {
@@ -50,7 +50,9 @@ class SettingsTableViewController: UITableViewController {
                 }
             }
         })
-        alertController.addAction(action)
+        let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil)
+        alertController.addAction(submitAction)
+        alertController.addAction(cancelAction)
         self.presentViewController(alertController, animated: true, completion: nil)
         
     }
@@ -100,17 +102,63 @@ class SettingsTableViewController: UITableViewController {
         return categoriesList[indexPath.section * itemsPerSection + indexPath.item].id != uncategorizedID
     }
     
-    /*
+    
     // Override to support editing the table view.
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {
             // Delete the row from the data source
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+            let saneIndexPath = indexPath.section * itemsPerSection + indexPath.row
+            let currentCategory = categoriesList[saneIndexPath] as Category
+            if currentCategory.id == "000" {
+                let alertController = UIAlertController(
+                                    title: "Sorry",
+                                    message: "Cannot delete \(currentCategory.name) as it is a default category",
+                                    preferredStyle: .Alert)
+                let cancelAction = UIAlertAction(title: "Okay", style: UIAlertActionStyle.Cancel, handler: nil)
+                alertController.addAction(cancelAction)
+                self.presentViewController(alertController, animated: true, completion: nil)
+            } else {
+                categoriesList.removeAtIndex(saneIndexPath)
+                SnapNotesManager.reorderAndSaveCategoriesList(categoriesList)
+                categoriesList = SnapNotesManager.getCategories()
+                self.tableView.reloadData()
+                // TODO: Animated deleting doesn't work?
+//                if tableView.numberOfRowsInSection(indexPath.section) == 0 {
+//                    tableView.deleteSections(NSIndexSet(index: indexPath.section), withRowAnimation: UITableViewRowAnimation.Automatic)
+//                }
+//                tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+            }
         } else if editingStyle == .Insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+        }
+        
     }
-    */
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let currentCategory = self.categoriesList[indexPath.section * itemsPerSection + indexPath.item]
+        let alertController = UIAlertController(title: "Edit Category", message: "Rename category", preferredStyle: .Alert)
+        alertController.addTextFieldWithConfigurationHandler { (textField: UITextField!) in
+            textField.text = currentCategory.name
+        }
+        let submitAction = UIAlertAction(title: "Submit", style: .Default, handler: {
+            [weak self]
+            (paramAction:UIAlertAction!) in
+            if let textFields = alertController.textFields {
+                let theTextFields = textFields as! [UITextField]
+                if let enteredText = theTextFields.first!.text {
+                    if enteredText != "" && enteredText != currentCategory.name {
+                        SnapNotesManager.editCategoryNameForCategoryID(currentCategory.id, newCategoryName: enteredText)
+                        self!.categoriesList = SnapNotesManager.getCategories()
+                        self!.tableView.reloadData()
+                    }
+                }
+            }
+            })
+        let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil)
+        alertController.addAction(submitAction)
+        alertController.addAction(cancelAction)
+        self.presentViewController(alertController, animated: true, completion: nil)
+    }
 
     
     // Override to support rearranging the table view.
@@ -134,20 +182,5 @@ class SettingsTableViewController: UITableViewController {
 //            return UITableViewCellEditingStyle.Delete
 //        }
 //    }
-    
-    
-    // Override to support conditional rearranging of the table view.
-    override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        return true
-    }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        
-    }
-    */
 
 }

@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		112952134F14F4DE9D045AED /* libPods-SnapNotes.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2AF94E50053CA25B2B214782 /* libPods-SnapNotes.a */; };
 		200694591B27787700573CF9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200694581B27787700573CF9 /* AppDelegate.swift */; };
-		2006945B1B27787700573CF9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2006945A1B27787700573CF9 /* ViewController.swift */; };
 		2006945E1B27787700573CF9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2006945C1B27787700573CF9 /* Main.storyboard */; };
 		200694601B27787700573CF9 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2006945F1B27787700573CF9 /* Images.xcassets */; };
 		200694631B27787700573CF9 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 200694611B27787700573CF9 /* LaunchScreen.xib */; };
@@ -17,8 +17,6 @@
 		2006947C1B28931F00573CF9 /* settings.json in Resources */ = {isa = PBXBuildFile; fileRef = 2006947A1B28931F00573CF9 /* settings.json */; };
 		2006947E1B28939C00573CF9 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2006947D1B28939C00573CF9 /* SwiftyJSON.swift */; };
 		2006947F1B28939C00573CF9 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2006947D1B28939C00573CF9 /* SwiftyJSON.swift */; };
-		200694811B289BAB00573CF9 /* Categories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200694801B289BAB00573CF9 /* Categories.swift */; };
-		200694821B289BAB00573CF9 /* Categories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200694801B289BAB00573CF9 /* Categories.swift */; };
 		200694841B289C8100573CF9 /* SnapNotesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200694831B289C8100573CF9 /* SnapNotesManager.swift */; };
 		200694851B289C8100573CF9 /* SnapNotesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200694831B289C8100573CF9 /* SnapNotesManager.swift */; };
 		20173CA71B41FA1200E9348A /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20173CA61B41FA1200E9348A /* MainViewController.swift */; };
@@ -30,14 +28,10 @@
 		20314F2B1B39700700875271 /* NoteFSMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20314F2A1B39700700875271 /* NoteFSMainViewController.swift */; };
 		20314F2C1B39700700875271 /* NoteFSMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20314F2A1B39700700875271 /* NoteFSMainViewController.swift */; };
 		20314F371B3B65DD00875271 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20314F361B3B65DD00875271 /* AVFoundation.framework */; };
-		2053E67D1B319BF700E9740C /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2053E67C1B319BF700E9740C /* Note.swift */; };
-		2053E67E1B319BF700E9740C /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2053E67C1B319BF700E9740C /* Note.swift */; };
-		2053E6831B31A58800E9740C /* NSDateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2053E6821B31A58800E9740C /* NSDateExtension.swift */; };
-		2053E6841B31A58800E9740C /* NSDateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2053E6821B31A58800E9740C /* NSDateExtension.swift */; };
 		2053E6881B31AF6D00E9740C /* NoteFSContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2053E6871B31AF6D00E9740C /* NoteFSContentViewController.swift */; };
 		2053E6891B31AF6D00E9740C /* NoteFSContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2053E6871B31AF6D00E9740C /* NoteFSContentViewController.swift */; };
-		20DE63BB1B2B0883007AA0D2 /* CategoriesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20DE63BA1B2B0883007AA0D2 /* CategoriesCollectionViewCell.swift */; };
-		20DE63BC1B2B0883007AA0D2 /* CategoriesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20DE63BA1B2B0883007AA0D2 /* CategoriesCollectionViewCell.swift */; };
+		20EF56F01B4616ED000CBE0C /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20EF56EF1B4616ED000CBE0C /* SettingsTableViewController.swift */; };
+		4026F1E0FA9BD27401FC357B /* libPods-SnapNotesTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 632F0C189A967CFBF05D4E3B /* libPods-SnapNotesTests.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,10 +45,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		04B90E2A73D7C4E002FD2531 /* Pods-SnapNotes.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SnapNotes.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SnapNotes/Pods-SnapNotes.debug.xcconfig"; sourceTree = "<group>"; };
 		200694531B27787700573CF9 /* SnapNotes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SnapNotes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		200694571B27787700573CF9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		200694581B27787700573CF9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		2006945A1B27787700573CF9 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		2006945D1B27787700573CF9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		2006945F1B27787700573CF9 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		200694621B27787700573CF9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
@@ -63,7 +57,6 @@
 		2006946E1B27787700573CF9 /* SnapNotesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapNotesTests.swift; sourceTree = "<group>"; };
 		2006947A1B28931F00573CF9 /* settings.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = settings.json; sourceTree = "<group>"; };
 		2006947D1B28939C00573CF9 /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
-		200694801B289BAB00573CF9 /* Categories.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Categories.swift; sourceTree = "<group>"; };
 		200694831B289C8100573CF9 /* SnapNotesManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapNotesManager.swift; sourceTree = "<group>"; };
 		20173CA61B41FA1200E9348A /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		20173CA81B41FAC500E9348A /* CameraViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
@@ -73,10 +66,14 @@
 		20173CB01B424C9F00E9348A /* ImageNotesCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageNotesCollectionViewController.swift; sourceTree = "<group>"; };
 		20314F2A1B39700700875271 /* NoteFSMainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteFSMainViewController.swift; sourceTree = "<group>"; };
 		20314F361B3B65DD00875271 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
-		2053E67C1B319BF700E9740C /* Note.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Note.swift; sourceTree = "<group>"; };
-		2053E6821B31A58800E9740C /* NSDateExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSDateExtension.swift; sourceTree = "<group>"; };
+		204A3E151B4C8C1E00359EB5 /* SnapNotes-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SnapNotes-Bridging-Header.h"; sourceTree = "<group>"; };
 		2053E6871B31AF6D00E9740C /* NoteFSContentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteFSContentViewController.swift; sourceTree = "<group>"; };
-		20DE63BA1B2B0883007AA0D2 /* CategoriesCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoriesCollectionViewCell.swift; sourceTree = "<group>"; };
+		20EF56EF1B4616ED000CBE0C /* SettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
+		2AF94E50053CA25B2B214782 /* libPods-SnapNotes.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SnapNotes.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		632F0C189A967CFBF05D4E3B /* libPods-SnapNotesTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SnapNotesTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		75D5499CA7266A973FA624C6 /* Pods-SnapNotesTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SnapNotesTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SnapNotesTests/Pods-SnapNotesTests.debug.xcconfig"; sourceTree = "<group>"; };
+		ABEE7851CE70B3444F91FFFD /* Pods-SnapNotes.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SnapNotes.release.xcconfig"; path = "Pods/Target Support Files/Pods-SnapNotes/Pods-SnapNotes.release.xcconfig"; sourceTree = "<group>"; };
+		B76E5E4FD057D5BAD4C09336 /* Pods-SnapNotesTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SnapNotesTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SnapNotesTests/Pods-SnapNotesTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,6 +82,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				20314F371B3B65DD00875271 /* AVFoundation.framework in Frameworks */,
+				112952134F14F4DE9D045AED /* libPods-SnapNotes.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -92,6 +90,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4026F1E0FA9BD27401FC357B /* libPods-SnapNotesTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -105,6 +104,8 @@
 				200694551B27787700573CF9 /* SnapNotes */,
 				2006946B1B27787700573CF9 /* SnapNotesTests */,
 				200694541B27787700573CF9 /* Products */,
+				FBE73F11CC5B03C53AF20B45 /* Pods */,
+				3FCC471BBF2EAC7600CC32EC /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -122,18 +123,14 @@
 			children = (
 				20173CA11B41F9BF00E9348A /* SnapView */,
 				2053E6861B31AF2C00E9740C /* NoteFS */,
-				2053E6821B31A58800E9740C /* NSDateExtension.swift */,
-				20DE63BA1B2B0883007AA0D2 /* CategoriesCollectionViewCell.swift */,
-				2006947D1B28939C00573CF9 /* SwiftyJSON.swift */,
+				20EF56EE1B45FE3E000CBE0C /* Utilities */,
 				200694581B27787700573CF9 /* AppDelegate.swift */,
-				2006945A1B27787700573CF9 /* ViewController.swift */,
 				2006945C1B27787700573CF9 /* Main.storyboard */,
 				2006945F1B27787700573CF9 /* Images.xcassets */,
 				200694611B27787700573CF9 /* LaunchScreen.xib */,
 				200694561B27787700573CF9 /* Supporting Files */,
-				200694801B289BAB00573CF9 /* Categories.swift */,
 				200694831B289C8100573CF9 /* SnapNotesManager.swift */,
-				2053E67C1B319BF700E9740C /* Note.swift */,
+				204A3E151B4C8C1E00359EB5 /* SnapNotes-Bridging-Header.h */,
 			);
 			path = SnapNotes;
 			sourceTree = "<group>";
@@ -167,6 +164,7 @@
 		20173CA11B41F9BF00E9348A /* SnapView */ = {
 			isa = PBXGroup;
 			children = (
+				20EF56EF1B4616ED000CBE0C /* SettingsTableViewController.swift */,
 				20173CA61B41FA1200E9348A /* MainViewController.swift */,
 				20173CA81B41FAC500E9348A /* CameraViewController.swift */,
 				20173CAA1B42057200E9348A /* CategoryNamesCollectionViewController.swift */,
@@ -186,6 +184,34 @@
 			name = NoteFS;
 			sourceTree = "<group>";
 		};
+		20EF56EE1B45FE3E000CBE0C /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				2006947D1B28939C00573CF9 /* SwiftyJSON.swift */,
+			);
+			name = Utilities;
+			sourceTree = "<group>";
+		};
+		3FCC471BBF2EAC7600CC32EC /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				2AF94E50053CA25B2B214782 /* libPods-SnapNotes.a */,
+				632F0C189A967CFBF05D4E3B /* libPods-SnapNotesTests.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		FBE73F11CC5B03C53AF20B45 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				04B90E2A73D7C4E002FD2531 /* Pods-SnapNotes.debug.xcconfig */,
+				ABEE7851CE70B3444F91FFFD /* Pods-SnapNotes.release.xcconfig */,
+				75D5499CA7266A973FA624C6 /* Pods-SnapNotesTests.debug.xcconfig */,
+				B76E5E4FD057D5BAD4C09336 /* Pods-SnapNotesTests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -193,9 +219,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 200694721B27787700573CF9 /* Build configuration list for PBXNativeTarget "SnapNotes" */;
 			buildPhases = (
+				9FA86FC27460266BA060C07D /* Check Pods Manifest.lock */,
 				2006944F1B27787700573CF9 /* Sources */,
 				200694501B27787700573CF9 /* Frameworks */,
 				200694511B27787700573CF9 /* Resources */,
+				E383CCBF0FE91CBB5D0FE246 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -210,9 +238,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 200694751B27787700573CF9 /* Build configuration list for PBXNativeTarget "SnapNotesTests" */;
 			buildPhases = (
+				D6198B5EA334495136BE9FD4 /* Check Pods Manifest.lock */,
 				200694641B27787700573CF9 /* Sources */,
 				200694651B27787700573CF9 /* Frameworks */,
 				200694661B27787700573CF9 /* Resources */,
+				09D592960526B4727EB966F8 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -284,24 +314,83 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		09D592960526B4727EB966F8 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SnapNotesTests/Pods-SnapNotesTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9FA86FC27460266BA060C07D /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		D6198B5EA334495136BE9FD4 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		E383CCBF0FE91CBB5D0FE246 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SnapNotes/Pods-SnapNotes-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		2006944F1B27787700573CF9 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				20DE63BB1B2B0883007AA0D2 /* CategoriesCollectionViewCell.swift in Sources */,
 				20173CA71B41FA1200E9348A /* MainViewController.swift in Sources */,
+				20EF56F01B4616ED000CBE0C /* SettingsTableViewController.swift in Sources */,
 				2006947E1B28939C00573CF9 /* SwiftyJSON.swift in Sources */,
 				20173CAD1B4205EB00E9348A /* CategoryNameCollectionViewCell.swift in Sources */,
-				2053E67D1B319BF700E9740C /* Note.swift in Sources */,
 				2053E6881B31AF6D00E9740C /* NoteFSContentViewController.swift in Sources */,
 				20173CA91B41FAC500E9348A /* CameraViewController.swift in Sources */,
 				200694841B289C8100573CF9 /* SnapNotesManager.swift in Sources */,
 				20173CAF1B424C8800E9348A /* ImageNoteCollectionViewCell.swift in Sources */,
-				2053E6831B31A58800E9740C /* NSDateExtension.swift in Sources */,
 				20173CB11B424C9F00E9348A /* ImageNotesCollectionViewController.swift in Sources */,
-				200694811B289BAB00573CF9 /* Categories.swift in Sources */,
-				2006945B1B27787700573CF9 /* ViewController.swift in Sources */,
 				20173CAB1B42057200E9348A /* CategoryNamesCollectionViewController.swift in Sources */,
 				200694591B27787700573CF9 /* AppDelegate.swift in Sources */,
 				20314F2B1B39700700875271 /* NoteFSMainViewController.swift in Sources */,
@@ -314,12 +403,8 @@
 			files = (
 				2006946F1B27787700573CF9 /* SnapNotesTests.swift in Sources */,
 				2006947F1B28939C00573CF9 /* SwiftyJSON.swift in Sources */,
-				2053E6841B31A58800E9740C /* NSDateExtension.swift in Sources */,
-				200694821B289BAB00573CF9 /* Categories.swift in Sources */,
 				200694851B289C8100573CF9 /* SnapNotesManager.swift in Sources */,
 				20314F2C1B39700700875271 /* NoteFSMainViewController.swift in Sources */,
-				20DE63BC1B2B0883007AA0D2 /* CategoriesCollectionViewCell.swift in Sources */,
-				2053E67E1B319BF700E9740C /* Note.swift in Sources */,
 				2053E6891B31AF6D00E9740C /* NoteFSContentViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -439,34 +524,42 @@
 		};
 		200694731B27787700573CF9 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 04B90E2A73D7C4E002FD2531 /* Pods-SnapNotes.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = SnapNotes/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "SnapNotes/SnapNotes-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
 		200694741B27787700573CF9 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = ABEE7851CE70B3444F91FFFD /* Pods-SnapNotes.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = SnapNotes/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "SnapNotes/SnapNotes-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
 		200694761B27787700573CF9 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 75D5499CA7266A973FA624C6 /* Pods-SnapNotesTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -486,6 +579,7 @@
 		};
 		200694771B27787700573CF9 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B76E5E4FD057D5BAD4C09336 /* Pods-SnapNotesTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				FRAMEWORK_SEARCH_PATHS = (

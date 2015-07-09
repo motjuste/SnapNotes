@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>AFD97BD7-B009-4FEA-BBCC-9E6EE40EAD28</string>
+	<key>IDESourceControlProjectName</key>
+	<string>SnapNotes</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>6E17195EAA6AFB4E9344E551682B851CD838E46E</key>
+		<string>https://github.com/motjuste/SnapNotes.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>SnapNotes.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>6E17195EAA6AFB4E9344E551682B851CD838E46E</key>
+		<string>..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/motjuste/SnapNotes.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>6E17195EAA6AFB4E9344E551682B851CD838E46E</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>6E17195EAA6AFB4E9344E551682B851CD838E46E</string>
+			<key>IDESourceControlWCCName</key>
+			<string>SnapNotes</string>
+		</dict>
+	</array>
+</dict>
+</plist>
