@@ -269,6 +269,10 @@ class SnapNotesManager {
             }
         }
     }
+    
+    static func getCurrentCategory() -> Category? {
+        return self.categoriesList.filter({ ($0 as Category).id == self.currentCategoryID }).first! as Category
+    }
 
     static func getCurrentCategoryID() -> String? {
         return self.currentCategoryID
@@ -292,6 +296,11 @@ class SnapNotesManager {
             self.loadCurrentNotesList()
         }
         return self.currentNotesList!
+    }
+    
+    static func getColorForCurrentCategory() -> UIColor {
+        let currentCategory = self.categoriesList.filter({ ($0 as Category).id == self.currentCategoryID }).first! as Category
+        return UIColor(rgba: "#\(currentCategory.colorString)FF")
     }
 
     static func getImageFilePathsListForCurrentCategoryID() -> [String] {

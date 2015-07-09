@@ -39,7 +39,8 @@ class CameraViewController: UIViewController {
         
         
         if captureSession != nil {
-            captureSession?.startRunning()
+//            captureSession?.startRunning()
+            startCamera()
         } else {
             captureSession = AVCaptureSession()
             captureSession!.sessionPreset = AVCaptureSessionPresetPhoto

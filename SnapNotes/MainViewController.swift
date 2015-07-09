@@ -14,7 +14,7 @@ var maxCameraContainerHeight: CGFloat = 800 // will be set based on bounds of ca
 let minCategoryBottomFromLayoutBottom: CGFloat = 0
 var maxCategoryBottomFromLayoutBottom: CGFloat = 500 // will be changed based on bounds later
 
-class MainViewController: UIViewController {
+class MainViewController: UIViewController, MWPhotoBrowserDelegate {
     
     enum embeddedSegueIdentifiers: String {
         case showCameraController = "embeddedSegueToCameraViewController"
@@ -28,20 +28,22 @@ class MainViewController: UIViewController {
     @IBAction func changeViewMode(sender: AnyObject?) {
         SnapNotesManager.toggleSnapViewMode()
         
-        switch SnapNotesManager.currentSnapViewMode {
-        case .takePicture :
-            changeViewModeButton.setTitle("View Notes", forState: .Normal)
-            SnapNotesManager.setCurrentCategoryID(nil)
-        case .viewNotes :
-            changeViewModeButton.setTitle("Camera", forState: .Normal)
-        }
+//        switch SnapNotesManager.currentSnapViewMode {
+//        case .takePicture :
+//            changeViewModeButton.setTitle("View Notes", forState: .Normal)
+////            SnapNotesManager.setCurrentCategoryID(nil)
+//        case .viewNotes :
+//            changeViewModeButton.setTitle("Camera", forState: .Normal)
+//            camerViewController?.stopCamera()
+//        }
         
-        if SnapNotesManager.getCurrentCategoryID() == nil {
-            SnapNotesManager.setCurrentCategoryID(SnapNotesManager.getCategories().first!.id)
-
-            // TODO: - Check this please. Change if you're paginating the categoriesNamesList
-        }
-        updateAllContainerViews()
+//        if SnapNotesManager.getCurrentCategoryID() == nil {
+//            SnapNotesManager.setCurrentCategoryID(SnapNotesManager.getCategories().first!.id)
+//
+//            // TODO: - Check this please. Change if you're paginating the categoriesNamesList
+//        }
+//        updateAllContainerViews()
+        showPhotoGallery()
         
         
     }
@@ -118,13 +120,13 @@ class MainViewController: UIViewController {
             
         case .viewNotes:
             lastPhotoButton.hidden = true
-            camerViewController?.captureSession?.stopRunning()
-            
-            UIView.animateWithDuration(0.2, delay: 0.0, options: UIViewAnimationOptions.CurveEaseOut, animations: {
-                self.categoryNamesFromLayoutBottomConstraint.constant = maxCategoryBottomFromLayoutBottom   
-                self.view.layoutIfNeeded()
-                }, completion: (reloadNotesCollectionData))
-            
+//            camerViewController?.captureSession?.stopRunning()
+//            
+//            UIView.animateWithDuration(0.2, delay: 0.0, options: UIViewAnimationOptions.CurveEaseOut, animations: {
+//                self.categoryNamesFromLayoutBottomConstraint.constant = maxCategoryBottomFromLayoutBottom   
+//                self.view.layoutIfNeeded()
+//                }, completion: (reloadNotesCollectionData))
+//            
         }
         
     }
@@ -140,7 +142,7 @@ class MainViewController: UIViewController {
     func saveImageForCategoryID(categoryID: String) {
         
         camerViewController?.saveImageForCategoryID(categoryID)
-        lastPhotoButton.hidden = false
+//        lastPhotoButton.hidden = false
         
     }
     
@@ -183,6 +185,39 @@ class MainViewController: UIViewController {
     override func preferredStatusBarUpdateAnimation() -> UIStatusBarAnimation {
         return UIStatusBarAnimation.Fade
     }
-
+    
+    // MARK: - Photo Browser
+    
+    var imagePaths: [String]?
+    var thumbPaths: [String]?
+    var photoBrowser: MWPhotoBrowser?
+    
+    func showPhotoGallery() {
+        imagePaths = SnapNotesManager.getImageFilePathsListForCurrentCategoryID()
+        thumbPaths = SnapNotesManager.getThumbsFilePathsListForCurrentCategoryID()
+        photoBrowser = MWPhotoBrowser(delegate: self)
+        photoBrowser?.enableGrid = true
+        photoBrowser?.startOnGrid = true
+        photoBrowser?.browserColor = SnapNotesManager.getColorForCurrentCategory()
+        photoBrowser?.gridColor = SnapNotesManager.getColorForCurrentCategory()
+        photoBrowser?.gridTitle = SnapNotesManager.getCurrentCategory()?.name
+        photoBrowser?.reloadData()
+        
+        let navController = UINavigationController(rootViewController: photoBrowser!)
+        navController.modalTransitionStyle = UIModalTransitionStyle.CoverVertical
+        self.presentViewController(navController, animated: true, completion: nil)
+    }
+    
+    func numberOfPhotosInPhotoBrowser(photoBrowser: MWPhotoBrowser!) -> UInt {
+        return UInt(imagePaths!.count)
+    }
+    
+    func photoBrowser(photoBrowser: MWPhotoBrowser!, thumbPhotoAtIndex index: UInt) -> MWPhotoProtocol! {
+        return MWPhoto(URL: NSURL(fileURLWithPath: thumbPaths![Int(index)]))
+    }
+    
+    func photoBrowser(photoBrowser: MWPhotoBrowser!, photoAtIndex index: UInt) -> MWPhotoProtocol! {
+        return MWPhoto(URL: NSURL(fileURLWithPath: imagePaths![Int(index)]))
+    }
 
 }
