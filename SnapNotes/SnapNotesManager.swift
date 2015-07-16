@@ -416,31 +416,6 @@ class SnapNotesManager {
         imgData.writeToFile(filePath!, atomically: true)
     }
 
-
-
-    // MARK: - SnapView Modes
-
-    enum snapViewMode {
-        case takePicture
-        case viewNotes
-
-        func toggleMode() -> snapViewMode {
-            if self.hashValue == 0 {
-                return snapViewMode.viewNotes
-            } else {
-                return snapViewMode.takePicture
-            }
-        }
-    }
-
-    static var currentSnapViewMode = snapViewMode.takePicture
-
-    static func toggleSnapViewMode() {
-        self.currentSnapViewMode = currentSnapViewMode.toggleMode()
-    }
-
-
-
     // MARK: - SettingsView
 
     static func reorderAndSaveCategoriesList(newCategoriesList: [Category]) {

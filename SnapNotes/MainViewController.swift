@@ -19,31 +19,15 @@ class MainViewController: UIViewController, MWPhotoBrowserDelegate {
     enum embeddedSegueIdentifiers: String {
         case showCameraController = "embeddedSegueToCameraViewController"
         case showCategoryNamesController = "embeddedSegueToCategoryNamesCollectionViewController"
-        case showImageNotesController = "embeddedSegueToImageNotesCollectionViewController"
-        case showLastPhoto = "segueToLastPhoto"
     }
     
     @IBOutlet weak var changeViewModeButton: UIButton!
     
     @IBAction func changeViewMode(sender: AnyObject?) {
-//        SnapNotesManager.toggleSnapViewMode()
         
-//        switch SnapNotesManager.currentSnapViewMode {
-//        case .takePicture :
-//            changeViewModeButton.setTitle("View Notes", forState: .Normal)
-////            SnapNotesManager.setCurrentCategoryID(nil)
-//        case .viewNotes :
-//            changeViewModeButton.setTitle("Camera", forState: .Normal)
-//            camerViewController?.stopCamera()
-//        }
-        
-//        if SnapNotesManager.getCurrentCategoryID() == nil {
-//            SnapNotesManager.setCurrentCategoryID(SnapNotesManager.getCategories().first!.id)
-//
-//            // TODO: - Check this please. Change if you're paginating the categoriesNamesList
-//        }
-//        updateAllContainerViews()
+        // if this is not being called from the buttonDragged function
         if sender != nil {
+            // Set current category so that the last note is shown
             SnapNotesManager.setCurrentCategoryID(nil)
         }
         showPhotoGallery()
@@ -62,25 +46,6 @@ class MainViewController: UIViewController, MWPhotoBrowserDelegate {
     @IBOutlet weak var categoryNamesHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var categoryNamesFromLayoutBottomConstraint: NSLayoutConstraint!
     
-    // ImageNotesContainerView
-    @IBOutlet weak var imageNotesContainerView: UIView!
-    var imageNotesCollectionViewController: ImageNotesCollectionViewController?
-    
-    // LastPhotoButton
-    
-    @IBOutlet weak var lastPhotoButton: UIButton!
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-        
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
     
     override func viewWillAppear(animated: Bool) {
         
@@ -97,6 +62,7 @@ class MainViewController: UIViewController, MWPhotoBrowserDelegate {
         
         maxCategoryBottomFromLayoutBottom = maxCameraContainerHeight - minCameraContainerHeight - categoryNamesHeight
         
+        // If coming back from the settings view
         if categoryNamesCollectionViewController != nil {
             categoryNamesCollectionViewController?.categoriesList = SnapNotesManager.getCategories()
             categoryNamesCollectionViewController?.collectionView?.reloadData()
@@ -110,42 +76,22 @@ class MainViewController: UIViewController, MWPhotoBrowserDelegate {
     
     // Update the Container Views
     func updateAllContainerViews() {
-        switch SnapNotesManager.currentSnapViewMode {
-        case .takePicture:
-            if camerViewController != nil {
-                camerViewController?.captureSession?.startRunning()
-            }
-            
-            UIView.animateWithDuration(0.2, delay: 0.0, options: .CurveEaseOut, animations: {
-                self.categoryNamesFromLayoutBottomConstraint.constant = minCategoryBottomFromLayoutBottom
-                self.view.layoutIfNeeded()
-            }, completion: nil)
-            
-        case .viewNotes:
-            lastPhotoButton.hidden = true
-//            camerViewController?.captureSession?.stopRunning()
-//            
-//            UIView.animateWithDuration(0.2, delay: 0.0, options: UIViewAnimationOptions.CurveEaseOut, animations: {
-//                self.categoryNamesFromLayoutBottomConstraint.constant = maxCategoryBottomFromLayoutBottom   
-//                self.view.layoutIfNeeded()
-//                }, completion: (reloadNotesCollectionData))
-//            
+        
+        if camerViewController != nil {
+            camerViewController?.captureSession?.startRunning()
         }
         
-    }
-    
-    func reloadNotesCollectionData(Bool) {
-        if let categoryID = SnapNotesManager.getCurrentCategoryID() {
-            self.imageNotesCollectionViewController?.updatePathLists()
-            self.imageNotesCollectionViewController?.collectionView?.reloadData()
-        }
+        UIView.animateWithDuration(0.2, delay: 0.0, options: .CurveEaseOut, animations: {
+            self.categoryNamesFromLayoutBottomConstraint.constant = minCategoryBottomFromLayoutBottom
+            self.view.layoutIfNeeded()
+        }, completion: nil)
+        
     }
     
     // MARK: - Save Image
     func saveImageForCategoryID(categoryID: String) {
         
         camerViewController?.saveImageForCategoryID(categoryID)
-//        lastPhotoButton.hidden = false
         
     }
     
@@ -161,20 +107,6 @@ class MainViewController: UIViewController, MWPhotoBrowserDelegate {
                 camerViewController = segue.destinationViewController as? CameraViewController
             case .showCategoryNamesController:
                 categoryNamesCollectionViewController = segue.destinationViewController as? CategoryNamesCollectionViewController
-            case .showImageNotesController:
-                imageNotesCollectionViewController = segue.destinationViewController as? ImageNotesCollectionViewController
-//                switch SnapNotesManager.currentSnapViewMode {
-//                case .takePicture:
-//                    break
-//                    // TODO: Wut M8 ?
-//                case .viewNotes:
-//                    imageNotesCollectionViewController?.categoryID = categoryNamesCollectionViewController?.categoriesList.first?.id
-//                }
-            case .showLastPhoto:
-                let noteFSViewController = segue.destinationViewController as! NoteFSMainViewController
-                SnapNotesManager.setCurrentCategoryID(nil)
-                SnapNotesManager.setCurrentImageIdx(SnapNotesManager.getAllNotesCount() - 1)
-                // TODO: - Handle for no notes / optionals
             }
         }
         
