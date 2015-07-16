@@ -24,24 +24,10 @@ class MainViewController: UIViewController, MWPhotoBrowserDelegate {
     @IBOutlet weak var changeViewModeButton: UIButton!
     
     @IBAction func changeViewMode(sender: AnyObject?) {
-//        SnapNotesManager.toggleSnapViewMode()
         
-//        switch SnapNotesManager.currentSnapViewMode {
-//        case .takePicture :
-//            changeViewModeButton.setTitle("View Notes", forState: .Normal)
-////            SnapNotesManager.setCurrentCategoryID(nil)
-//        case .viewNotes :
-//            changeViewModeButton.setTitle("Camera", forState: .Normal)
-//            camerViewController?.stopCamera()
-//        }
-        
-//        if SnapNotesManager.getCurrentCategoryID() == nil {
-//            SnapNotesManager.setCurrentCategoryID(SnapNotesManager.getCategories().first!.id)
-//
-//            // TODO: - Check this please. Change if you're paginating the categoriesNamesList
-//        }
-//        updateAllContainerViews()
+        // if this is not being called from the buttonDragged function
         if sender != nil {
+            // Set current category so that the last note is shown
             SnapNotesManager.setCurrentCategoryID(nil)
         }
         showPhotoGallery()
@@ -87,6 +73,7 @@ class MainViewController: UIViewController, MWPhotoBrowserDelegate {
         
         maxCategoryBottomFromLayoutBottom = maxCameraContainerHeight - minCameraContainerHeight - categoryNamesHeight
         
+        // If coming back from the settings view
         if categoryNamesCollectionViewController != nil {
             categoryNamesCollectionViewController?.categoriesList = SnapNotesManager.getCategories()
             categoryNamesCollectionViewController?.collectionView?.reloadData()
@@ -100,27 +87,15 @@ class MainViewController: UIViewController, MWPhotoBrowserDelegate {
     
     // Update the Container Views
     func updateAllContainerViews() {
-        switch SnapNotesManager.currentSnapViewMode {
-        case .takePicture:
-            if camerViewController != nil {
-                camerViewController?.captureSession?.startRunning()
-            }
-            
-            UIView.animateWithDuration(0.2, delay: 0.0, options: .CurveEaseOut, animations: {
-                self.categoryNamesFromLayoutBottomConstraint.constant = minCategoryBottomFromLayoutBottom
-                self.view.layoutIfNeeded()
-            }, completion: nil)
-            
-        case .viewNotes:
-            
-            camerViewController?.captureSession?.stopRunning()
-//
-//            UIView.animateWithDuration(0.2, delay: 0.0, options: UIViewAnimationOptions.CurveEaseOut, animations: {
-//                self.categoryNamesFromLayoutBottomConstraint.constant = maxCategoryBottomFromLayoutBottom   
-//                self.view.layoutIfNeeded()
-//                }, completion: (reloadNotesCollectionData))
-//            
+        
+        if camerViewController != nil {
+            camerViewController?.captureSession?.startRunning()
         }
+        
+        UIView.animateWithDuration(0.2, delay: 0.0, options: .CurveEaseOut, animations: {
+            self.categoryNamesFromLayoutBottomConstraint.constant = minCategoryBottomFromLayoutBottom
+            self.view.layoutIfNeeded()
+        }, completion: nil)
         
     }
     

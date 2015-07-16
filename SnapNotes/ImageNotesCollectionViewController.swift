@@ -55,22 +55,22 @@ class ImageNotesCollectionViewController: UICollectionViewController {
     // MARK: UICollectionViewDataSource
 
     override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
-        switch SnapNotesManager.currentSnapViewMode {
-        case .takePicture:
+//        switch SnapNotesManager.currentSnapViewMode {
+//        case .takePicture:
             return 0
-        case .viewNotes:
-            return 1
-        }
+//        case .viewNotes:
+//            return 1
+//        }
     }
 
 
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        switch SnapNotesManager.currentSnapViewMode {
-        case .takePicture:
+//        switch SnapNotesManager.currentSnapViewMode {
+//        case .takePicture:
             return 0
-        case .viewNotes:
-            return notesImageFilePathList.count
-        }
+//        case .viewNotes:
+//            return notesImageFilePathList.count
+//        }
     }
 
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {

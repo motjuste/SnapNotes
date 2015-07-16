@@ -73,17 +73,8 @@ class CategoryNamesCollectionViewController: UICollectionViewController, UIColle
     
     func savePhotoForCategoryID(sender: UIButton) {
         let categoryID: String = sender.layer.valueForKey("categoryID") as! String
-        
         let parentVC = self.parentViewController as! MainViewController
-        
-        // FIXME: - Remove these things
-        switch SnapNotesManager.currentSnapViewMode {
-        case .takePicture :
-            parentVC.saveImageForCategoryID(categoryID)
-        case .viewNotes :
-            SnapNotesManager.setCurrentCategoryID(categoryID)
-            
-        }
+        parentVC.saveImageForCategoryID(categoryID)
     }
     
     func buttonDragged(sender: UIButton) {
