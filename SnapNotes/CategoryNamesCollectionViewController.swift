@@ -44,21 +44,21 @@ class CategoryNamesCollectionViewController: UICollectionViewController, UIColle
             cell.categoryNameButton?.enabled = false
             
         } else {
-            
+        
             // Set functionality for the button
             cell.categoryNameButton?.layer.setValue(category.id, forKey: "categoryID")
             cell.categoryNameButton?.addTarget(self, action: "savePhotoForCategoryID:", forControlEvents: .TouchUpInside)
             cell.categoryNameButton?.addTarget(self, action: "buttonDragged:", forControlEvents: UIControlEvents.TouchDragExit)
-            
-            // Set title of the button
-            cell.categoryNameButton?.setAttributedTitle(NSAttributedString(string: category.name), forState: UIControlState.Normal)
-            cell.categoryNameButton?.titleLabel?.textAlignment = NSTextAlignment.Center
-            cell.categoryNameButton?.titleLabel?.adjustsFontSizeToFitWidth = true
-            
-            // Set the bg-color of the button
-            cell.categoryNameButton?.backgroundColor = category.color
-            
         }
+        
+        // Set title of the button
+        cell.categoryNameButton?.setAttributedTitle(NSAttributedString(string: category.name), forState: UIControlState.Normal)
+        cell.categoryNameButton?.titleLabel?.textAlignment = NSTextAlignment.Center
+        cell.categoryNameButton?.titleLabel?.adjustsFontSizeToFitWidth = true
+        
+        // Set the bg-color of the button
+        cell.categoryNameButton?.backgroundColor = category.color
+        
     
         return cell
     }

@@ -65,9 +65,6 @@
                                     <action selector="changeViewMode:" destination="u3e-Bd-wsz" eventType="touchUpInside" id="nUw-dC-T1r"/>
                                 </connections>
                             </button>
-                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8AX-aJ-yRi">
-                                <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
-                            </containerView>
                             <button opaque="NO" alpha="0.74999999999999978" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="koo-ui-uX3" userLabel="Edit Categories Button">
                                 <rect key="frame" x="-23" y="-15" width="46" height="30"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -89,18 +86,14 @@
                         <constraints>
                             <constraint firstItem="6jY-Pp-NQ3" firstAttribute="leading" secondItem="GBU-80-Z5k" secondAttribute="leading" id="2I2-h7-yLz"/>
                             <constraint firstItem="koo-ui-uX3" firstAttribute="top" secondItem="RRu-bB-kSO" secondAttribute="bottom" constant="10" id="3j0-c6-J9i"/>
-                            <constraint firstAttribute="trailing" secondItem="8AX-aJ-yRi" secondAttribute="trailing" id="8hs-he-vgx"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Tgy-Zb-cBm" secondAttribute="trailing" constant="289" id="DZn-jI-FAi"/>
                             <constraint firstItem="6jY-Pp-NQ3" firstAttribute="top" secondItem="GBU-80-Z5k" secondAttribute="top" id="E3J-Vw-fTs"/>
                             <constraint firstItem="Tgy-Zb-cBm" firstAttribute="top" secondItem="RRu-bB-kSO" secondAttribute="bottom" constant="10" id="US3-8k-Hkt"/>
                             <constraint firstAttribute="trailing" secondItem="6jY-Pp-NQ3" secondAttribute="trailing" id="WFP-K4-1Uy"/>
-                            <constraint firstItem="8AX-aJ-yRi" firstAttribute="top" secondItem="myZ-AH-uBZ" secondAttribute="bottom" id="XzG-Dq-Emg"/>
                             <constraint firstItem="myZ-AH-uBZ" firstAttribute="leading" secondItem="GBU-80-Z5k" secondAttribute="leading" id="aU6-KC-GQ2"/>
                             <constraint firstItem="AwF-HS-16X" firstAttribute="top" secondItem="myZ-AH-uBZ" secondAttribute="bottom" constant="300" id="aa3-Lf-oN8"/>
                             <constraint firstAttribute="trailing" secondItem="koo-ui-uX3" secondAttribute="trailing" constant="16" id="egA-uv-6jZ"/>
-                            <constraint firstItem="AwF-HS-16X" firstAttribute="top" secondItem="8AX-aJ-yRi" secondAttribute="bottom" id="fIF-TZ-dvM"/>
                             <constraint firstAttribute="trailing" secondItem="myZ-AH-uBZ" secondAttribute="trailing" id="g5m-dd-QEQ"/>
-                            <constraint firstItem="8AX-aJ-yRi" firstAttribute="leading" secondItem="GBU-80-Z5k" secondAttribute="leading" id="n8N-ip-6v2"/>
                             <constraint firstItem="myZ-AH-uBZ" firstAttribute="bottom" secondItem="6jY-Pp-NQ3" secondAttribute="bottom" id="rpj-bF-Xkp"/>
                             <constraint firstItem="Tgy-Zb-cBm" firstAttribute="top" secondItem="RRu-bB-kSO" secondAttribute="bottom" id="udj-mD-K10"/>
                             <constraint firstItem="Tgy-Zb-cBm" firstAttribute="leading" secondItem="GBU-80-Z5k" secondAttribute="leadingMargin" id="vNr-ko-ZNM"/>
@@ -110,12 +103,10 @@
                                 <exclude reference="6jY-Pp-NQ3"/>
                                 <exclude reference="myZ-AH-uBZ"/>
                                 <exclude reference="Tgy-Zb-cBm"/>
-                                <exclude reference="8AX-aJ-yRi"/>
                                 <exclude reference="koo-ui-uX3"/>
                             </mask>
                             <mask key="constraints">
                                 <exclude reference="aa3-Lf-oN8"/>
-                                <exclude reference="fIF-TZ-dvM"/>
                                 <exclude reference="DZn-jI-FAi"/>
                                 <exclude reference="US3-8k-Hkt"/>
                                 <exclude reference="udj-mD-K10"/>
@@ -125,9 +116,6 @@
                                 <exclude reference="2I2-h7-yLz"/>
                                 <exclude reference="E3J-Vw-fTs"/>
                                 <exclude reference="WFP-K4-1Uy"/>
-                                <exclude reference="8hs-he-vgx"/>
-                                <exclude reference="XzG-Dq-Emg"/>
-                                <exclude reference="n8N-ip-6v2"/>
                                 <exclude reference="aU6-KC-GQ2"/>
                                 <exclude reference="g5m-dd-QEQ"/>
                                 <exclude reference="rpj-bF-Xkp"/>
@@ -138,12 +126,10 @@
                                 <include reference="6jY-Pp-NQ3"/>
                                 <include reference="myZ-AH-uBZ"/>
                                 <include reference="Tgy-Zb-cBm"/>
-                                <include reference="8AX-aJ-yRi"/>
                                 <include reference="koo-ui-uX3"/>
                             </mask>
                             <mask key="constraints">
                                 <include reference="aa3-Lf-oN8"/>
-                                <include reference="fIF-TZ-dvM"/>
                                 <exclude reference="DZn-jI-FAi"/>
                                 <include reference="US3-8k-Hkt"/>
                                 <exclude reference="udj-mD-K10"/>
@@ -153,9 +139,6 @@
                                 <include reference="2I2-h7-yLz"/>
                                 <include reference="E3J-Vw-fTs"/>
                                 <include reference="WFP-K4-1Uy"/>
-                                <include reference="8hs-he-vgx"/>
-                                <include reference="XzG-Dq-Emg"/>
-                                <include reference="n8N-ip-6v2"/>
                                 <include reference="aU6-KC-GQ2"/>
                                 <include reference="g5m-dd-QEQ"/>
                                 <exclude reference="rpj-bF-Xkp"/>
