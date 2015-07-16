@@ -15,7 +15,6 @@ let uncategorizedID = "000"
 class SettingsTableViewController: UITableViewController {
     
     var categoriesList: [Category] = SnapNotesManager.getCategories()
-//    var newCategoryName: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,6 +26,8 @@ class SettingsTableViewController: UITableViewController {
         
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
 //        self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        
+        // Our table is always in editing mode
         self.tableView.editing = true
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Add, target: self, action: Selector("addNewCategory:"))
         
@@ -65,15 +66,11 @@ class SettingsTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        // #warning Potentially incomplete method implementation.
-        // Return the number of sections.
         let minNumSections = categoriesList.count / itemsPerSection
         return categoriesList.count % itemsPerSection == 0 ? minNumSections : minNumSections + 1
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete method implementation.
-        // Return the number of rows in the section.
         let itemsLeft = categoriesList.count - itemsPerSection * section
         return itemsLeft > itemsPerSection ? itemsPerSection : itemsLeft
     }
@@ -90,13 +87,6 @@ class SettingsTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return String(section + 1)
     }
-
-    
-    // Override to support conditional editing of the table view.
-//    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-//        // Return NO if you do not want the specified item to be editable.
-//        return categoriesList[indexPath.section * itemsPerSection + indexPath.item].id != uncategorizedID
-//    }
     
     override func tableView(tableView: UITableView, shouldIndentWhileEditingRowAtIndexPath indexPath: NSIndexPath) -> Bool {
         return categoriesList[indexPath.section * itemsPerSection + indexPath.item].id != uncategorizedID
@@ -171,16 +161,4 @@ class SettingsTableViewController: UITableViewController {
         categoriesList = SnapNotesManager.getCategories()
         tableView.reloadData()
     }
-    
-    
-//    override func tableView(tableView: UITableView, editingStyleForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCellEditingStyle {
-//        if categoriesList[indexPath.section * itemsPerSection + indexPath.item].id == uncategorizedID {
-//            return UITableViewCellEditingStyle.None
-//        } else if indexPath.section == 0 && indexPath.item == 0 {
-//            return UITableViewCellEditingStyle.Insert
-//        } else {
-//            return UITableViewCellEditingStyle.Delete
-//        }
-//    }
-
 }
