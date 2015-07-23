@@ -19,6 +19,7 @@ struct Note {
     var categoryID: String?
     var imageFilePath: String?
     var thumbnailFilePath: String?
+    var selected: Bool?
 }
 
 class Category {
@@ -218,7 +219,9 @@ class SnapNotesManager {
                 let imageFilePath = pathToNoteImages.stringByAppendingPathComponent(imageName)
                 let thumbnailFilePath = pathToNoteThumbs.stringByAppendingPathComponent(imageName)
                 
-                let note = Note(date: date, categoryID: categoryID, imageFilePath: imageFilePath, thumbnailFilePath: thumbnailFilePath)
+                let note = Note(date: date, categoryID: categoryID,
+                    imageFilePath: imageFilePath, thumbnailFilePath: thumbnailFilePath,
+                    selected: false)
                 self.allNotesList.append(note)
             }
         }
@@ -391,7 +394,7 @@ class SnapNotesManager {
         })
 
 
-        let newNote = Note(date: NSDate(timeIntervalSince1970: timeIntervalSince1970), categoryID: categoryID, imageFilePath: filePath!, thumbnailFilePath: thumbnPath!)
+        let newNote = Note(date: NSDate(timeIntervalSince1970: timeIntervalSince1970), categoryID: categoryID, imageFilePath: filePath!, thumbnailFilePath: thumbnPath!, selected: false)
         self.count += 1
         self.allNotesList.insert(newNote, atIndex: 0)
 
