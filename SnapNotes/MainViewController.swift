@@ -170,11 +170,12 @@ class MainViewController: UIViewController, MWPhotoBrowserDelegate {
     
     func photoBrowser(photoBrowser: MWPhotoBrowser!, isPhotoSelectedAtIndex index: UInt) -> Bool {
 //        println(index)
-        return true
+        return notesList![Int(index)].selected!
     }
     
     func photoBrowser(photoBrowser: MWPhotoBrowser!, photoAtIndex index: UInt, selectedChanged selected: Bool) {
-        println(index)
+        notesList![Int(index)].selected! = !(notesList![Int(index)].selected!)
+//        println("\(index) : \(notesList![Int(index)].selected!)")
     }
     
     
@@ -192,6 +193,10 @@ class MainViewController: UIViewController, MWPhotoBrowserDelegate {
         // TODO: probably not need
         photoBrowser?.displaySelectionButtons = true
         
+        // TODO: Future bug; Assuming only one section in the gridView;
+        let index = indexPath.item
+        
+        notesList![index].selected = true;
         photoBrowser?.enableSelectionMode()
     }
     
