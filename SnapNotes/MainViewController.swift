@@ -139,8 +139,7 @@ class MainViewController: UIViewController, MWPhotoBrowserDelegate {
         photoBrowser?.gridTitle = SnapNotesManager.getCurrentCategory()?.name
         photoBrowser?.reloadData()
         
-        photoBrowser?.displaySelectionButtons = true
-//        photoBrowser?.displayActionButton = true
+        photoBrowser?.displaySelectionButtons = false
         
         photoBrowser?.enableSwipeToDismiss = true
         
@@ -148,7 +147,6 @@ class MainViewController: UIViewController, MWPhotoBrowserDelegate {
         navController.modalTransitionStyle = UIModalTransitionStyle.CoverVertical
         self.presentViewController(navController, animated: true, completion: nil)
         
-//        self.navigationController?.pushViewController(photoBrowser!, animated: true)
     }
     
     func numberOfPhotosInPhotoBrowser(photoBrowser: MWPhotoBrowser!) -> UInt {
@@ -172,7 +170,7 @@ class MainViewController: UIViewController, MWPhotoBrowserDelegate {
     
     func photoBrowser(photoBrowser: MWPhotoBrowser!, isPhotoSelectedAtIndex index: UInt) -> Bool {
 //        println(index)
-        return false
+        return true
     }
     
     func photoBrowser(photoBrowser: MWPhotoBrowser!, photoAtIndex index: UInt, selectedChanged selected: Bool) {
@@ -186,6 +184,15 @@ class MainViewController: UIViewController, MWPhotoBrowserDelegate {
     
     func trashGridButtonPressed(photoBrowser: MWPhotoBrowser!) {
         println("\nACTION WORKS")
+    }
+    
+    func longPressDetectedAtIndexPath(indexPath: NSIndexPath!) {
+//        println(indexPath)
+        
+        // TODO: probably not need
+        photoBrowser?.displaySelectionButtons = true
+        
+        photoBrowser?.enableSelectionMode()
     }
     
 }

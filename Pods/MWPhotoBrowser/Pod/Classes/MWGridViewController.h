@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "MWPhotoBrowser.h"
 
-@interface MWGridViewController : UICollectionViewController {
+@interface MWGridViewController : UICollectionViewController <UIGestureRecognizerDelegate> {
     UIToolbar *_toolbar;
     UIBarButtonItem *_actionButton;
 }

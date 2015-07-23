@@ -1421,6 +1421,20 @@
     [_delegate trashGridButtonPressed:self];
 }
 
+- (void)longPressedAtIndexPath:(NSIndexPath *)indexPath {
+    [_delegate longPressDetectedAtIndexPath:indexPath];
+}
+
+- (void)enableSelectionMode {
+    _gridController.selectionMode = YES;
+    [_gridController.collectionView reloadData];
+}
+
+- (void)disableSelectionMode {
+    _gridController.selectionMode = NO;
+    [_gridController.collectionView reloadData];
+}
+
 #pragma mark - Action Progress
 
 - (MBProgressHUD *)progressHUD {

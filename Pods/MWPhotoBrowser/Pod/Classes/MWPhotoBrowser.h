@@ -36,6 +36,7 @@
 - (void)photoBrowser:(MWPhotoBrowser *)photoBrowser photoAtIndex:(NSUInteger)index selectedChanged:(BOOL)selected;
 - (void)photoBrowserDidFinishModalPresentation:(MWPhotoBrowser *)photoBrowser;
 - (void)trashGridButtonPressed:(MWPhotoBrowser *)photoBrowser;
+- (void)longPressDetectedAtIndexPath:(NSIndexPath*) indexPath;
 
 @end
 
@@ -64,6 +65,9 @@
 // Reloads the photo browser and refetches data
 - (void)reloadData;
 - (void)trashButtonPressed;
+- (void)longPressedAtIndexPath: (NSIndexPath*) indexPath;
+- (void)enableSelectionMode;
+- (void)disableSelectionMode;
 
 // Set page that photo browser starts on
 - (void)setCurrentPhotoIndex:(NSUInteger)index;

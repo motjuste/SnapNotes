@@ -85,8 +85,29 @@
     
     
     // Long Press Gesture Recognizer
-
+    UILongPressGestureRecognizer *longPressRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPress:)];
+    
+    longPressRecognizer.minimumPressDuration = 0.5;  // seconds
+    longPressRecognizer.delaysTouchesBegan = YES;
+    longPressRecognizer.delegate = self;
+    [self.collectionView addGestureRecognizer:longPressRecognizer];
+    
 }
+
+- (void)handleLongPress:(UIGestureRecognizer *) gestureRecognizer {
+    if (gestureRecognizer.state == UIGestureRecognizerStateBegan) {
+        CGPoint p = [gestureRecognizer locationInView:self.collectionView];
+        
+        NSIndexPath *indexPath = [self.collectionView indexPathForItemAtPoint:p];
+        if (indexPath == nil){
+            printf("couldn't find index path\n");
+        } else {
+            printf("Long Pressed\n");
+            [_browser longPressedAtIndexPath:indexPath];
+        }
+    }
+}
+
 
 - (void)trashButtonPressed:(id)sender {
     printf("GRID :: trah button pressed");
