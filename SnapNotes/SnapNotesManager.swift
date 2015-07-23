@@ -301,9 +301,9 @@ class SnapNotesManager {
     }
 
     static func getCurrentNotesList() -> [Note] {
-        if self.currentNotesList == nil {
+//        if self.currentNotesList == nil {
             self.loadCurrentNotesList()
-        }
+//        }
         return self.currentNotesList!
     }
     
