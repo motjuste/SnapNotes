@@ -30,6 +30,7 @@ class MainViewController: UIViewController, MWPhotoBrowserDelegate {
             // Set current category so that the last note is shown
             SnapNotesManager.setCurrentCategoryID(nil)
         }
+        camerViewController?.stopCamera()
         showPhotoGallery()
         
         
@@ -123,13 +124,13 @@ class MainViewController: UIViewController, MWPhotoBrowserDelegate {
     
     // MARK: - Photo Browser
     
-    var imagePaths: [String]?
-    var thumbPaths: [String]?
+    var notesList: [Note]?
     var photoBrowser: MWPhotoBrowser?
     
     func showPhotoGallery() {
-        imagePaths = SnapNotesManager.getImageFilePathsListForCurrentCategoryID()
-        thumbPaths = SnapNotesManager.getThumbsFilePathsListForCurrentCategoryID()
+        
+        notesList = SnapNotesManager.getCurrentNotesList()
+        
         photoBrowser = MWPhotoBrowser(delegate: self)
         photoBrowser?.enableGrid = true
         photoBrowser?.startOnGrid = (SnapNotesManager.getCurrentCategoryID() != nil)
@@ -137,6 +138,9 @@ class MainViewController: UIViewController, MWPhotoBrowserDelegate {
         photoBrowser?.gridColor = SnapNotesManager.getColorForCurrentCategory()
         photoBrowser?.gridTitle = SnapNotesManager.getCurrentCategory()?.name
         photoBrowser?.reloadData()
+        
+        photoBrowser?.displaySelectionButtons = true
+//        photoBrowser?.displayActionButton = true
         
         photoBrowser?.enableSwipeToDismiss = true
         
@@ -148,15 +152,40 @@ class MainViewController: UIViewController, MWPhotoBrowserDelegate {
     }
     
     func numberOfPhotosInPhotoBrowser(photoBrowser: MWPhotoBrowser!) -> UInt {
-        return UInt(imagePaths!.count)
+        return UInt(notesList!.count)
     }
     
     func photoBrowser(photoBrowser: MWPhotoBrowser!, thumbPhotoAtIndex index: UInt) -> MWPhotoProtocol! {
-        return MWPhoto(URL: NSURL(fileURLWithPath: thumbPaths![Int(index)]))
+        return MWPhoto(URL: NSURL(fileURLWithPath: notesList![Int(index)].thumbnailFilePath!))
     }
     
     func photoBrowser(photoBrowser: MWPhotoBrowser!, photoAtIndex index: UInt) -> MWPhotoProtocol! {
-        return MWPhoto(URL: NSURL(fileURLWithPath: imagePaths![Int(index)]))
+        let photo = MWPhoto(URL: NSURL(fileURLWithPath: notesList![Int(index)].imageFilePath!))
+        let date = notesList![Int(index)].date!
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd hh:mm"
+        
+        photo.caption = "\(notesList![Int(index)].categoryID!): \(dateFormatter.stringFromDate(date) )"
+        
+        return photo
     }
-
+    
+    func photoBrowser(photoBrowser: MWPhotoBrowser!, isPhotoSelectedAtIndex index: UInt) -> Bool {
+//        println(index)
+        return false
+    }
+    
+    func photoBrowser(photoBrowser: MWPhotoBrowser!, photoAtIndex index: UInt, selectedChanged selected: Bool) {
+        println(index)
+    }
+    
+    
+//    func photoBrowser(photoBrowser: MWPhotoBrowser!, actionButtonPressedForPhotoAtIndex index: UInt) {
+//        println("action: \(index)")
+//    }
+    
+    func trashGridButtonPressed(photoBrowser: MWPhotoBrowser!) {
+        println("\nACTION WORKS")
+    }
+    
 }

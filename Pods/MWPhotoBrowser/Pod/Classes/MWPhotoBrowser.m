@@ -1416,6 +1416,11 @@
     }
 }
 
+- (void)trashButtonPressed {
+    printf("\nDelegate will be called");
+    [_delegate trashGridButtonPressed:self];
+}
+
 #pragma mark - Action Progress
 
 - (MBProgressHUD *)progressHUD {

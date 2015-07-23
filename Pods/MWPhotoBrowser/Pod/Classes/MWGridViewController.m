@@ -61,7 +61,45 @@
     [self.collectionView registerClass:[MWGridCell class] forCellWithReuseIdentifier:@"GridCell"];
     self.collectionView.alwaysBounceVertical = YES;
     self.collectionView.backgroundColor = self.gridColor;
+    
+    // Toolbar
+    _toolbar = [[UIToolbar alloc] initWithFrame:[self frameForToolbarAtOrientation:self.interfaceOrientation]];
+    _toolbar.tintColor = [UIColor whiteColor];
+    _toolbar.barTintColor = nil;
+    [_toolbar setBackgroundImage:nil forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
+    [_toolbar setBackgroundImage:nil forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsLandscapePhone];
+    _toolbar.barStyle = UIBarStyleBlackTranslucent;
+    _toolbar.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth;
+    
+    // Toolbar items
+//    UIBarButtonItem *fixedSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:self action:nil];
+//    fixedSpace.width = 32; // To balance action button
+//    UIBarButtonItem *flexSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
+    NSMutableArray *items = [[NSMutableArray alloc] init];
+    
+    // Action Button
+    _actionButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash target:self action:@selector(trashButtonPressed:)];
+    
+    [items addObject:_actionButton];
+    [_toolbar setItems:items];
+    
+    
+    // Long Press Gesture Recognizer
+
 }
+
+- (void)trashButtonPressed:(id)sender {
+    printf("GRID :: trah button pressed");
+    [_browser trashButtonPressed];
+}
+
+- (CGRect)frameForToolbarAtOrientation:(UIInterfaceOrientation)orientation {
+    CGFloat height = 44;
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone &&
+        UIInterfaceOrientationIsLandscape(orientation)) height = 32;
+    return CGRectIntegral(CGRectMake(0, self.view.bounds.size.height - height, self.view.bounds.size.width, height));
+}
+
 
 - (void)viewWillDisappear:(BOOL)animated {
     // Cancel outstanding loading
@@ -76,7 +114,9 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     self.collectionView.backgroundColor = self.gridColor;
+    [self.view addSubview:_toolbar];
     [super viewWillAppear:animated];
+    
 }
 
 - (void)viewWillLayoutSubviews {
