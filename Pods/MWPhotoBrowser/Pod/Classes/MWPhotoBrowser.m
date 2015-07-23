@@ -1428,11 +1428,13 @@
 - (void)enableSelectionMode {
     _gridController.selectionMode = YES;
     [_gridController.collectionView reloadData];
+    [_gridController setGridControlsHidden:NO animated:YES permanent:YES];
 }
 
 - (void)disableSelectionMode {
     _gridController.selectionMode = NO;
     [_gridController.collectionView reloadData];
+    [_gridController setGridControlsHidden:YES animated:YES permanent:YES];
 }
 
 #pragma mark - Action Progress

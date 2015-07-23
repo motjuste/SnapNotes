@@ -83,6 +83,7 @@
     [items addObject:_actionButton];
     [_toolbar setItems:items];
     
+    [self setGridControlsHidden:!_selectionMode animated:NO permanent:YES];
     
     // Long Press Gesture Recognizer
     UILongPressGestureRecognizer *longPressRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPress:)];
@@ -120,6 +121,34 @@
         UIInterfaceOrientationIsLandscape(orientation)) height = 32;
     return CGRectIntegral(CGRectMake(0, self.view.bounds.size.height - height, self.view.bounds.size.width, height));
 }
+
+- (void)setGridControlsHidden:(BOOL)hidden animated:(BOOL)animated permanent:(BOOL)permanent {
+    
+    // Animations & positions
+    CGFloat animatonOffset = 20;
+    CGFloat animationDuration = (animated ? 0.35 : 0);
+    
+    // Toolbar, nav bar and captions
+    // Pre-appear animation positions for sliding
+    if (!hidden && animated) {
+        
+        // Toolbar
+        _toolbar.frame = CGRectOffset([self frameForToolbarAtOrientation:self.interfaceOrientation], 0, animatonOffset);
+        
+    }
+    [UIView animateWithDuration:animationDuration animations:^(void) {
+        
+        CGFloat alpha = hidden ? 0 : 1;
+        
+        // Toolbar
+        _toolbar.frame = [self frameForToolbarAtOrientation:self.interfaceOrientation];
+        if (hidden) _toolbar.frame = CGRectOffset(_toolbar.frame, 0, animatonOffset);
+        _toolbar.alpha = alpha;
+    } completion:^(BOOL finished) {}];
+}
+
+
+
 
 
 - (void)viewWillDisappear:(BOOL)animated {

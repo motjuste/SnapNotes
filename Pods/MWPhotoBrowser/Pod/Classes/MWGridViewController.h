@@ -20,5 +20,6 @@
 @property (nonatomic) UIColor* gridColor;
 
 - (void)adjustOffsetsAsRequired;
+- (void)setGridControlsHidden:(BOOL)hidden animated:(BOOL)animated permanent:(BOOL)permanent;
 
 @end
