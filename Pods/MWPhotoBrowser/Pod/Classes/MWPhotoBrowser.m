@@ -1422,7 +1422,9 @@
 }
 
 - (void)longPressedAtIndexPath:(NSIndexPath *)indexPath {
-    [_delegate longPressDetectedAtIndexPath:indexPath];
+    if (!_displaySelectionButtons) {
+        [_delegate longPressDetectedAtIndexPath:indexPath];
+    }
 }
 
 - (void)enableSelectionMode {

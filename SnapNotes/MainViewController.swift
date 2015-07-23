@@ -175,7 +175,12 @@ class MainViewController: UIViewController, MWPhotoBrowserDelegate {
     
     func photoBrowser(photoBrowser: MWPhotoBrowser!, photoAtIndex index: UInt, selectedChanged selected: Bool) {
         notesList![Int(index)].selected! = !(notesList![Int(index)].selected!)
-//        println("\(index) : \(notesList![Int(index)].selected!)")
+        
+        // As long as there is one note selected, stay in selection mode, else change
+        if (notesList!.filter() { ($0 as Note).selected! }).count < 1 {
+            photoBrowser?.displaySelectionButtons = false
+            photoBrowser.disableSelectionMode()
+        }
     }
     
     
@@ -196,7 +201,7 @@ class MainViewController: UIViewController, MWPhotoBrowserDelegate {
         // TODO: Future bug; Assuming only one section in the gridView;
         let index = indexPath.item
         
-        notesList![index].selected = true;
+        notesList![index].selected = true
         photoBrowser?.enableSelectionMode()
     }
     
