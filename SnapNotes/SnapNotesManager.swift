@@ -418,6 +418,23 @@ class SnapNotesManager {
         let imgData = UIImageJPEGRepresentation(new_image, 0.75)
         imgData.writeToFile(filePath!, atomically: true)
     }
+    
+    // MARK: - Delete notes
+    
+    static func deleteNotes(notesToBeDeleted: [Note]) {
+        dispatch_async(dispatch_get_global_queue(QOS_CLASS_UTILITY, 0), {
+            // TODO: - proabably multiple dispatches per file??
+            for note in notesToBeDeleted {
+                self.fileManager.removeItemAtPath(note.imageFilePath!, error: nil)
+                self.fileManager.removeItemAtPath(note.thumbnailFilePath!, error: nil)
+                // TODO: - handle errors while deleting files
+                
+            }
+            self.allNotesList.removeAll(keepCapacity: true)
+            self.loadAllNotes()
+
+        })
+    }
 
     // MARK: - SettingsView
 

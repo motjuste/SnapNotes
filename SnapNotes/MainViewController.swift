@@ -178,8 +178,7 @@ class MainViewController: UIViewController, MWPhotoBrowserDelegate {
         
         // As long as there is one note selected, stay in selection mode, else change
         if (notesList!.filter() { ($0 as Note).selected! }).count < 1 {
-            photoBrowser?.displaySelectionButtons = false
-            photoBrowser.disableSelectionMode()
+            disablePhotoBrowserSelectionMode()
         }
     }
     
@@ -189,11 +188,20 @@ class MainViewController: UIViewController, MWPhotoBrowserDelegate {
 //    }
     
     func trashGridButtonPressed(photoBrowser: MWPhotoBrowser!) {
-        println("\nACTION WORKS")
+
+        let notesToBeDeleted = notesList!.filter() { ($0 as Note).selected! }
+        let newNotesList = notesList!.filter() { !($0 as Note).selected! }
+        
+        // TODO: - Show warning
+        SnapNotesManager.deleteNotes(notesToBeDeleted)
+        notesList?.removeAll(keepCapacity: false)
+        notesList? = newNotesList
+        
+        disablePhotoBrowserSelectionMode()
+        photoBrowser?.reloadData()
     }
     
     func longPressDetectedAtIndexPath(indexPath: NSIndexPath!) {
-//        println(indexPath)
         
         // TODO: probably not need
         photoBrowser?.displaySelectionButtons = true
@@ -203,6 +211,11 @@ class MainViewController: UIViewController, MWPhotoBrowserDelegate {
         
         notesList![index].selected = true
         photoBrowser?.enableSelectionMode()
+    }
+    
+    func disablePhotoBrowserSelectionMode() {
+        photoBrowser?.displaySelectionButtons = false
+        photoBrowser?.disableSelectionMode()
     }
     
 }
