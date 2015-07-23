@@ -44,12 +44,14 @@ class CategoryNamesCollectionViewController: UICollectionViewController, UIColle
             cell.categoryNameButton?.enabled = false
             
         } else {
+            
+            cell.categoryNameButton?.enabled = true
+        }
         
             // Set functionality for the button
             cell.categoryNameButton?.layer.setValue(category.id, forKey: "categoryID")
             cell.categoryNameButton?.addTarget(self, action: "savePhotoForCategoryID:", forControlEvents: .TouchUpInside)
             cell.categoryNameButton?.addTarget(self, action: "buttonDragged:", forControlEvents: UIControlEvents.TouchDragExit)
-        }
         
         // Set title of the button
         cell.categoryNameButton?.setAttributedTitle(NSAttributedString(string: category.name), forState: UIControlState.Normal)
