@@ -56,27 +56,23 @@
                                     <segue destination="BL6-RD-8qd" kind="embed" identifier="embeddedSegueToCategoryNamesCollectionViewController" id="L13-iu-H6Q"/>
                                 </connections>
                             </containerView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tgy-Zb-cBm">
-                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
-                                <state key="normal" title="View Notes">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            <button opaque="NO" alpha="0.49999999999999961" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tgy-Zb-cBm">
+                                <rect key="frame" x="-87" y="-32" width="175" height="32"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <size key="titleShadowOffset" width="1" height="1"/>
+                                <state key="normal" title="Recent" image="arrow-left">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
                                     <action selector="changeViewMode:" destination="u3e-Bd-wsz" eventType="touchUpInside" id="nUw-dC-T1r"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" alpha="0.74999999999999978" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="koo-ui-uX3" userLabel="Edit Categories Button">
-                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <state key="normal">
+                            <button opaque="NO" alpha="0.44999999999999996" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="koo-ui-uX3" userLabel="Edit Categories Button">
+                                <rect key="frame" x="-16" y="-16" width="32" height="32"/>
+                                <state key="normal" image="editCategoriesIcon">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBound" value="YES"/>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                        <integer key="value" value="15"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <segue destination="IJH-MQ-3B3" kind="show" identifier="segueToSettingsTableView" id="VHt-KM-2ix"/>
                                 </connections>
@@ -302,10 +298,10 @@
             </objects>
             <point key="canvasLocation" x="1239" y="-664"/>
         </scene>
-        <!--SettingsTableView-->
+        <!--Edit Categories-->
         <scene sceneID="RDR-Te-ShJ">
             <objects>
-                <tableViewController title="SettingsTableView" extendedLayoutIncludesOpaqueBars="YES" id="IJH-MQ-3B3" customClass="SettingsTableViewController" customModule="SnapNotes" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController title="Edit Categories" extendedLayoutIncludesOpaqueBars="YES" id="IJH-MQ-3B3" customClass="SettingsTableViewController" customModule="SnapNotes" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" dataMode="prototypes" style="grouped" separatorStyle="singleLineEtched" allowsSelectionDuringEditing="YES" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="2vz-WK-HMC">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -341,10 +337,10 @@
             </objects>
             <point key="canvasLocation" x="1851" y="-428"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Edit Categories-->
         <scene sceneID="2tC-ZY-Cpg">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="iLP-og-Zs8" sceneMemberID="viewController">
+                <navigationController title="Edit Categories" automaticallyAdjustsScrollViewInsets="NO" id="iLP-og-Zs8" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="igi-v6-yrq">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -360,4 +356,8 @@
             <point key="canvasLocation" x="-289.5" y="-427.5"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="arrow-left" width="18" height="32"/>
+        <image name="editCategoriesIcon" width="34" height="33"/>
+    </resources>
 </document>
