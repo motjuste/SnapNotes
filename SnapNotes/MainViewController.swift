@@ -48,9 +48,8 @@ class MainViewController: UIViewController, MWPhotoBrowserDelegate {
     @IBOutlet weak var categoryNamesFromLayoutBottomConstraint: NSLayoutConstraint!
     
     
+    
     override func viewWillAppear(animated: Bool) {
-        
-        super.viewWillAppear(true)
         
         categoryNamesHeight = self.view.bounds.width / 4
         categoryNamesHeightConstraint.constant = categoryNamesHeight
@@ -69,6 +68,7 @@ class MainViewController: UIViewController, MWPhotoBrowserDelegate {
             categoryNamesCollectionViewController?.collectionView?.reloadData()
         }
         
+        super.viewWillAppear(true)
         updateAllContainerViews()
         
         
@@ -90,9 +90,9 @@ class MainViewController: UIViewController, MWPhotoBrowserDelegate {
     }
     
     // MARK: - Save Image
-    func saveImageForCategoryID(categoryID: String) {
+    func saveImageForCategoryID(categoryID: String, positionIndex: Int) {
         
-        camerViewController?.saveImageForCategoryID(categoryID)
+        camerViewController?.saveImageForCategoryID(categoryID, positionIndex: positionIndex)
         
     }
     
@@ -137,7 +137,7 @@ class MainViewController: UIViewController, MWPhotoBrowserDelegate {
         photoBrowser?.browserColor = SnapNotesManager.getColorForCurrentCategory()
         photoBrowser?.gridColor = SnapNotesManager.getColorForCurrentCategory()
         photoBrowser?.gridTitle = SnapNotesManager.getCurrentCategory()?.name
-        photoBrowser?.reloadData()
+//        photoBrowser?.reloadData()
         
         photoBrowser?.displaySelectionButtons = false
         
@@ -161,9 +161,9 @@ class MainViewController: UIViewController, MWPhotoBrowserDelegate {
         let photo = MWPhoto(URL: NSURL(fileURLWithPath: notesList![Int(index)].imageFilePath!))
         let date = notesList![Int(index)].date!
         let dateFormatter = NSDateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd hh:mm"
+        dateFormatter.dateFormat = "MMMM d, yyyy h:mm a"
         
-        photo.caption = "\(notesList![Int(index)].categoryID!): \(dateFormatter.stringFromDate(date) )"
+        photo.caption = "\(SnapNotesManager.getCategoryByID(notesList![Int(index)].categoryID!).name): \(dateFormatter.stringFromDate(date))"
         
         return photo
     }
@@ -178,8 +178,12 @@ class MainViewController: UIViewController, MWPhotoBrowserDelegate {
         
         // As long as there is one note selected, stay in selection mode, else change
         if (notesList!.filter() { ($0 as Note).selected! }).count < 1 {
-            disablePhotoBrowserSelectionMode()
+            photoBrowser?.displaySelectionButtons = false
+            photoBrowser?.disableSelectionMode()
         }
+        
+//        photoBrowser?.reloadData()
+        
     }
     
     
@@ -197,8 +201,9 @@ class MainViewController: UIViewController, MWPhotoBrowserDelegate {
         notesList?.removeAll(keepCapacity: false)
         notesList? = newNotesList
         
-        disablePhotoBrowserSelectionMode()
+        photoBrowser?.displaySelectionButtons = false
         photoBrowser?.reloadData()
+        photoBrowser?.disableSelectionMode()
     }
     
     func longPressDetectedAtIndexPath(indexPath: NSIndexPath!) {
@@ -212,10 +217,4 @@ class MainViewController: UIViewController, MWPhotoBrowserDelegate {
         notesList![index].selected = true
         photoBrowser?.enableSelectionMode()
     }
-    
-    func disablePhotoBrowserSelectionMode() {
-        photoBrowser?.displaySelectionButtons = false
-        photoBrowser?.disableSelectionMode()
-    }
-    
 }
