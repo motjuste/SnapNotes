@@ -50,6 +50,7 @@ class CategoryNamesCollectionViewController: UICollectionViewController, UIColle
         
             // Set functionality for the button
             cell.categoryNameButton?.layer.setValue(category.id, forKey: "categoryID")
+            cell.categoryNameButton?.layer.setValue(indexPath.item % 4, forKey: "positionIndex")
             cell.categoryNameButton?.addTarget(self, action: "savePhotoForCategoryID:", forControlEvents: .TouchUpInside)
             cell.categoryNameButton?.addTarget(self, action: "buttonDragged:", forControlEvents: UIControlEvents.TouchDragExit)
         
@@ -75,8 +76,10 @@ class CategoryNamesCollectionViewController: UICollectionViewController, UIColle
     
     func savePhotoForCategoryID(sender: UIButton) {
         let categoryID: String = sender.layer.valueForKey("categoryID") as! String
+        let positionIndex = sender.layer.valueForKey("positionIndex") as! Int
+        
         let parentVC = self.parentViewController as! MainViewController
-        parentVC.saveImageForCategoryID(categoryID)
+        parentVC.saveImageForCategoryID(categoryID, positionIndex: positionIndex)
     }
     
     func buttonDragged(sender: UIButton) {

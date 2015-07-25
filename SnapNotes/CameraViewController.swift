@@ -12,6 +12,8 @@ import AVFoundation
 class CameraViewController: UIViewController {
     
     @IBOutlet weak var cameraView: UIView!
+    var captureFeedbackView: UIView?
+    var doubleArrowImageView: UIImageView!
     
     var captureSession: AVCaptureSession?
     var stillImageOutput: AVCaptureStillImageOutput?
@@ -23,6 +25,12 @@ class CameraViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        cameraView.backgroundColor = UIColor.blackColor()
+        
+        captureFeedbackView = UIView()
+        captureFeedbackView!.frame = cameraView.frame
+        captureFeedbackView!.backgroundColor = UIColor.whiteColor()
+        captureFeedbackView!.alpha = 0
         
     }
 
@@ -39,8 +47,7 @@ class CameraViewController: UIViewController {
         
 //        navigationController?.hidesBarsOnTap = false
 //        navigationController?.navigationBarHidden = true
-        
-        
+        captureFeedbackView!.alpha = 0
         if captureSession != nil {
 //            captureSession?.startRunning()
             startCamera()
@@ -65,6 +72,14 @@ class CameraViewController: UIViewController {
                     previewLayer!.videoGravity = AVLayerVideoGravityResizeAspectFill
                     previewLayer!.connection?.videoOrientation = AVCaptureVideoOrientation.Portrait
                     cameraView.layer.addSublayer(previewLayer)
+                    cameraView.addSubview(captureFeedbackView!)
+                    
+                    doubleArrowImageView = UIImageView(frame: CGRectMake(0.0, (cameraView.frame.height - cameraView.frame.width/2.0), cameraView.frame.width/4.0, cameraView.frame.width/4.0))
+                    let doubleArrowImage = UIImage(named: "dragUpIcon.png")
+                    doubleArrowImageView.image = doubleArrowImage!.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)
+                    doubleArrowImageView!.alpha = 0
+                    
+                    cameraView.addSubview(doubleArrowImageView)
                     
                     startCamera()
                 }
@@ -104,15 +119,28 @@ class CameraViewController: UIViewController {
     
     // MARK: - Save Image
     
-    func saveImageForCategoryID(categoryID: String) {
+    func saveImageForCategoryID(categoryID: String, positionIndex: Int) {
         if let videoConnection = self.stillImageOutput!.connectionWithMediaType(AVMediaTypeVideo) {
+            self.captureFeedbackView!.alpha = 1
+            self.doubleArrowImageView!.frame.origin.y = (cameraView.frame.height - cameraView.frame.width/2.0)
+            self.doubleArrowImageView!.frame.origin.x = cameraView.frame.width/4.0 * CGFloat(positionIndex)
+            self.doubleArrowImageView!.tintColor = SnapNotesManager.getCategoryByID(categoryID).color
+            self.doubleArrowImageView!.alpha = 1
+            
+            UIView.animateWithDuration(0.70, animations: {
+                self.captureFeedbackView!.alpha = 0
+            })
+            
+            UIView.animateWithDuration(0.50, animations: {
+                self.doubleArrowImageView!.alpha = 0
+                self.doubleArrowImageView!.frame.origin.y -= 40.0
+            } , completion: nil)
+            
             videoConnection.videoOrientation = AVCaptureVideoOrientation.Portrait
             self.stillImageOutput!.captureStillImageAsynchronouslyFromConnection(videoConnection, completionHandler: {
                 (sampleBuffer: CMSampleBuffer!, error) in
                     if (sampleBuffer != nil) {
-                        self.captureSession!.stopRunning()
                         SnapNotesManager.saveDataForCategoryID(sampleBuffer, categoryID: categoryID)
-                        self.captureSession!.startRunning()
                 }
             })
             
