@@ -85,7 +85,7 @@ class SettingsTableViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return String(section + 1)
+        return "Page \(section + 1)"
     }
     
     override func tableView(tableView: UITableView, shouldIndentWhileEditingRowAtIndexPath indexPath: NSIndexPath) -> Bool {
@@ -99,10 +99,11 @@ class SettingsTableViewController: UITableViewController {
             // Delete the row from the data source
             let saneIndexPath = indexPath.section * itemsPerSection + indexPath.row
             let currentCategory = categoriesList[saneIndexPath] as Category
-            if currentCategory.id == "000" {
+            let notesCount = (SnapNotesManager.getNotesByID(currentCategory.id)).count
+            if notesCount > 0 {
                 let alertController = UIAlertController(
-                                    title: "Sorry",
-                                    message: "Cannot delete \(currentCategory.name) as it is a default category",
+                                    title: "Error",
+                                    message: "You must delete all (\(notesCount)) images in \(currentCategory.name)",
                                     preferredStyle: .Alert)
                 let cancelAction = UIAlertAction(title: "Okay", style: UIAlertActionStyle.Cancel, handler: nil)
                 alertController.addAction(cancelAction)
@@ -126,7 +127,7 @@ class SettingsTableViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let currentCategory = self.categoriesList[indexPath.section * itemsPerSection + indexPath.item]
-        let alertController = UIAlertController(title: "Edit Category", message: "Rename category", preferredStyle: .Alert)
+        let alertController = UIAlertController(title: "Rename Category", message: "...", preferredStyle: .Alert)
         alertController.addTextFieldWithConfigurationHandler { (textField: UITextField!) in
             textField.text = currentCategory.name
         }
