@@ -160,6 +160,11 @@ class SnapNotesManager {
     static func getCategories() -> [Category] {
         return self.categoriesList
     }
+    
+    static func getCategoryByID(categoryID: String) -> Category {
+        // TODO: - Error handling; what if filtered result is empty?
+        return (self.categoriesList.filter({ ($0 as Category).id == categoryID }).first!)
+    }
 
     
     // MARK: - Save Settings
@@ -278,6 +283,22 @@ class SnapNotesManager {
         }
     }
     
+    static func getNotesByID(categoryID: String?) -> [Note] {
+        var notesList: [Note] = []
+        
+        if !self.isAllNotesListLoaded() {
+            println("SnapNotesManager.loadCurrentNotesList : allNotes not loaded, loading now")
+            self.loadAllNotes()
+        }
+            if categoryID == nil {
+                notesList = self.allNotesList
+            } else {
+                notesList = self.allNotesList.filter() { ($0 as Note).categoryID == categoryID }
+            }
+            
+        return notesList
+    }
+    
     static func getCurrentCategory() -> Category? {
         if self.currentCategoryID != nil {
             return self.categoriesList.filter({ ($0 as Category).id == self.currentCategoryID }).first! as Category
@@ -304,10 +325,7 @@ class SnapNotesManager {
     }
 
     static func getCurrentNotesList() -> [Note] {
-//        if self.currentNotesList == nil {
-            self.loadCurrentNotesList()
-//        }
-        return self.currentNotesList!
+        return self.getNotesByID(self.currentCategoryID)
     }
     
     static func getColorForCurrentCategory() -> UIColor {
