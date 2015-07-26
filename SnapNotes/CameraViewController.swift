@@ -20,11 +20,11 @@ class CameraViewController: UIViewController {
     var previewLayer: AVCaptureVideoPreviewLayer?
     
     var previewLayerBoundsSet = false
+    var cameraAuthorized = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        
         cameraView.backgroundColor = UIColor.blackColor()
         
         captureFeedbackView = UIView()
@@ -33,23 +33,13 @@ class CameraViewController: UIViewController {
         captureFeedbackView!.alpha = 0
         
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-//        self.captureSession = nil
-//        self.previewLayer = nil
-//        self.stillImageOutput = nil
-    }
     
     override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-        
-//        navigationController?.hidesBarsOnTap = false
-//        navigationController?.navigationBarHidden = true
+        self.cameraAuthorized = AVCaptureDevice.authorizationStatusForMediaType(AVMediaTypeVideo) == AVAuthorizationStatus.Authorized
+        authorizeCamera()
         captureFeedbackView!.alpha = 0
+        if cameraAuthorized {
         if captureSession != nil {
-//            captureSession?.startRunning()
             startCamera()
         } else {
             captureSession = AVCaptureSession()
@@ -88,11 +78,14 @@ class CameraViewController: UIViewController {
             }
             
         }
+        }
+        
+        super.viewWillAppear(animated)
     }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        if !previewLayerBoundsSet {
+        if !previewLayerBoundsSet && cameraAuthorized {
             // set frame of preview layer only once
             previewLayer!.frame = cameraView.bounds
             previewLayerBoundsSet = true
@@ -100,26 +93,41 @@ class CameraViewController: UIViewController {
     }
     
     override func viewWillDisappear(animated: Bool) {
-        stopCamera()
+        if cameraAuthorized { stopCamera() }
     }
     
+    func authorizeCamera() {
+        if (!cameraAuthorized) {
+            let alertController = UIAlertController(
+                title: "Could not access camera!",
+                message: "This application does not have permission to use camera. Please update your privacy settings.",
+                preferredStyle: .Alert)
+            let okayAction = UIAlertAction(title: "Okay", style: UIAlertActionStyle.Cancel, handler: nil)
+            alertController.addAction(okayAction)
+            self.parentViewController!.presentViewController(alertController, animated: true, completion: nil)
+        }
+	}
+
     
     // MARK: - Camera Start/Stop
     func startCamera() {
+        if cameraAuthorized {
         dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INTERACTIVE, 0), {
             self.captureSession?.startRunning()
-        })
+        })}
     }
     
     func stopCamera() {
+        if cameraAuthorized {
         dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INTERACTIVE, 0), {
             self.captureSession?.stopRunning()
-        })
+        })}
     }
     
     // MARK: - Save Image
     
     func saveImageForCategoryID(categoryID: String, positionIndex: Int) {
+        if cameraAuthorized {
         if let videoConnection = self.stillImageOutput!.connectionWithMediaType(AVMediaTypeVideo) {
             self.captureFeedbackView!.alpha = 1
             self.doubleArrowImageView!.frame.origin.y = (cameraView.frame.height - cameraView.frame.width/2.0)
@@ -145,7 +153,7 @@ class CameraViewController: UIViewController {
             })
             
         }
-
+        }
     }
 
 }
