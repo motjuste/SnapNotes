@@ -1437,6 +1437,7 @@
     _gridController.selectionMode = NO;
     [_gridController.collectionView reloadData];
     [_gridController setGridControlsHidden:YES animated:YES permanent:YES];
+    _toolbar.alpha = 0;
 }
 
 #pragma mark - Action Progress

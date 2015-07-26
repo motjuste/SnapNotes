@@ -169,7 +169,6 @@ class MainViewController: UIViewController, MWPhotoBrowserDelegate {
     }
     
     func photoBrowser(photoBrowser: MWPhotoBrowser!, isPhotoSelectedAtIndex index: UInt) -> Bool {
-//        println(index)
         return notesList![Int(index)].selected!
     }
     
@@ -181,9 +180,6 @@ class MainViewController: UIViewController, MWPhotoBrowserDelegate {
             photoBrowser?.displaySelectionButtons = false
             photoBrowser?.disableSelectionMode()
         }
-        
-//        photoBrowser?.reloadData()
-        
     }
     
     
@@ -202,8 +198,8 @@ class MainViewController: UIViewController, MWPhotoBrowserDelegate {
         notesList? = newNotesList
         
         photoBrowser?.displaySelectionButtons = false
-        photoBrowser?.reloadData()
         photoBrowser?.disableSelectionMode()
+        photoBrowser?.reloadData()
     }
     
     func longPressDetectedAtIndexPath(indexPath: NSIndexPath!) {
