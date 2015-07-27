@@ -170,7 +170,7 @@ class MainViewController: UIViewController, MWPhotoBrowserDelegate {
         let dateFormatter = NSDateFormatter()
         dateFormatter.dateFormat = "MMMM d, yyyy h:mm a"
         
-        photo.caption = "\(SnapNotesManager.getCategoryByID(notesList![Int(index)].categoryID!).name): \(dateFormatter.stringFromDate(date))"
+        photo.caption = "\(SnapNotesManager.getCategoryByID(notesList![Int(index)].categoryID!).name)\n\(dateFormatter.stringFromDate(date))"
         
         return photo
     }
