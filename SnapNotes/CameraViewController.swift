@@ -153,6 +153,8 @@ class CameraViewController: UIViewController {
             })
             
         }
+        } else {
+            authorizeCamera()
         }
     }
 
