@@ -101,11 +101,13 @@ class MainViewController: UIViewController, MWPhotoBrowserDelegate {
             camerViewController?.captureSession?.startRunning()
         }
         
-        UIView.animateWithDuration(0.2, delay: 0.0, options: .CurveEaseOut, animations: {
-            self.categoryNamesFromLayoutBottomConstraint.constant = minCategoryBottomFromLayoutBottom
-            self.view.layoutIfNeeded()
-        }, completion: nil)
+//        UIView.animateWithDuration(0.2, delay: 0.0, options: .CurveEaseOut, animations: {
+//            self.categoryNamesFromLayoutBottomConstraint.constant = minCategoryBottomFromLayoutBottom
+//            self.view.layoutIfNeeded()
+//        }, completion: nil)
+        // TODO: - replace from bottom to top
         
+        self.categoryNamesFromLayoutBottomConstraint.constant = minCategoryBottomFromLayoutBottom
     }
     
     // MARK: - Save Image
@@ -158,10 +160,10 @@ class MainViewController: UIViewController, MWPhotoBrowserDelegate {
         
         if currentCategory?.id == "nil" {
             photoBrowser?.startOnGrid = false
-            photoBrowser?.setCurrentPhotoIndex(UInt(notesList!.count - 1))
+            if notesList!.count > 0 {photoBrowser?.setCurrentPhotoIndex(UInt(notesList!.count - 1))}
+            // By default, the currentPhotoIndex will be zero
         } else {
             photoBrowser?.startOnGrid = true
-            photoBrowser?.setCurrentPhotoIndex(0)
         }
         photoBrowser?.browserColor = UIColor(rgba: "#\(currentCategory!.colorString)FF")
         photoBrowser?.gridColor = UIColor(rgba: "#\(currentCategory!.colorString)FF")
