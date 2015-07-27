@@ -52,17 +52,10 @@ class MainViewController: UIViewController, MWPhotoBrowserDelegate {
     
     
     override func viewWillAppear(animated: Bool) {
-        
-        categoryNamesHeight = self.view.bounds.width / 4
-        categoryNamesHeightConstraint.constant = categoryNamesHeight
+        super.viewWillAppear(true)
         
         navigationController?.hidesBarsOnTap = false
         navigationController?.navigationBarHidden = true
-        
-        maxCameraContainerHeight = self.view.bounds.height
-        self.cameraContainerViewHeightConstraint.constant = maxCameraContainerHeight
-        
-        maxCategoryBottomFromLayoutBottom = maxCameraContainerHeight - minCameraContainerHeight - categoryNamesHeight
         
         // If coming back from the settings view
         if categoryNamesCollectionViewController != nil {
@@ -70,8 +63,19 @@ class MainViewController: UIViewController, MWPhotoBrowserDelegate {
             categoryNamesCollectionViewController?.collectionView?.reloadData()
         }
         
-        super.viewWillAppear(true)
+        layoutStuffToSize(self.view.bounds.size)
         updateAllContainerViews()
+    }
+    
+    func layoutStuffToSize(size: CGSize) {
+        categoryNamesHeight = size.width / 4
+        categoryNamesHeightConstraint.constant = categoryNamesHeight
+        
+        maxCameraContainerHeight = size.height
+        self.cameraContainerViewHeightConstraint.constant = maxCameraContainerHeight
+        
+        maxCategoryBottomFromLayoutBottom = maxCameraContainerHeight - minCameraContainerHeight - categoryNamesHeight
+
     }
     
     override func viewDidLoad() {
@@ -212,12 +216,19 @@ class MainViewController: UIViewController, MWPhotoBrowserDelegate {
     }
     
     func photoBrowser(photoBrowser: MWPhotoBrowser!, trashButtonPressedForPhotoAtIndex index: UInt) {
-        let notesToBeDeleted = [notesList![Int(index)]]
-        notesList?.removeAtIndex(Int(index))
         
-        // TODO: - Show warning before deletion?
-        SnapNotesManager.deleteNotes(notesToBeDeleted)
-        photoBrowser?.reloadData()
+        let alertController = UIAlertController(title: "Delete this note?", message: "Only this note will be deleted", preferredStyle: .Alert)
+        let submitAction = UIAlertAction(title: "Yes", style: .Default, handler: {
+            [](paramAction:UIAlertAction!) in
+                let notesToBeDeleted = [self.notesList![Int(index)]]
+                self.notesList?.removeAtIndex(Int(index))
+                SnapNotesManager.deleteNotes(notesToBeDeleted)
+                photoBrowser?.reloadData()
+            })
+        let cancelAction = UIAlertAction(title: "No", style: UIAlertActionStyle.Cancel, handler: nil)
+        alertController.addAction(submitAction)
+        alertController.addAction(cancelAction)
+        photoBrowser!.presentViewController(alertController, animated: true, completion: nil)
     }
     
     func trashGridButtonPressed(photoBrowser: MWPhotoBrowser!) {
