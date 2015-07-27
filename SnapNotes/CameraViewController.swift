@@ -36,48 +36,50 @@ class CameraViewController: UIViewController {
     
     override func viewWillAppear(animated: Bool) {
         self.cameraAuthorized = AVCaptureDevice.authorizationStatusForMediaType(AVMediaTypeVideo) == AVAuthorizationStatus.Authorized
-        authorizeCamera()
+        
         captureFeedbackView!.alpha = 0
+        
         if cameraAuthorized {
-        if captureSession != nil {
-            startCamera()
-        } else {
-            captureSession = AVCaptureSession()
-            captureSession!.sessionPreset = AVCaptureSessionPresetPhoto
-            
-            var backCamera = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeVideo)
-            
-            var error: NSError?
-            var input = AVCaptureDeviceInput(device: backCamera, error: &error)
-            
-            if error == nil && captureSession!.canAddInput(input) {
-                captureSession!.addInput(input)
+            if captureSession != nil {
+                startCamera()
+            } else {
+                captureSession = AVCaptureSession()
+                captureSession!.sessionPreset = AVCaptureSessionPresetPhoto
                 
-                stillImageOutput = AVCaptureStillImageOutput()
-                stillImageOutput!.outputSettings = [AVVideoCodecKey: AVVideoCodecJPEG]
-                if captureSession!.canAddOutput(stillImageOutput) {
-                    captureSession!.addOutput(stillImageOutput)
+                var backCamera = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeVideo)
+                
+                var error: NSError?
+                var input = AVCaptureDeviceInput(device: backCamera, error: &error)
+                
+                if error == nil && captureSession!.canAddInput(input) {
+                    captureSession!.addInput(input)
                     
-                    previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
-                    previewLayer!.videoGravity = AVLayerVideoGravityResizeAspectFill
-                    previewLayer!.connection?.videoOrientation = AVCaptureVideoOrientation.Portrait
-                    cameraView.layer.addSublayer(previewLayer)
-                    cameraView.addSubview(captureFeedbackView!)
-                    
-                    doubleArrowImageView = UIImageView(frame: CGRectMake(0.0, (cameraView.frame.height - cameraView.frame.width/2.0), cameraView.frame.width/4.0, cameraView.frame.width/4.0))
-                    let doubleArrowImage = UIImage(named: "dragUpIcon.png")
-                    doubleArrowImageView.image = doubleArrowImage!.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)
-                    doubleArrowImageView!.alpha = 0
-                    
-                    cameraView.addSubview(doubleArrowImageView)
-                    
-                    startCamera()
+                    stillImageOutput = AVCaptureStillImageOutput()
+                    stillImageOutput!.outputSettings = [AVVideoCodecKey: AVVideoCodecJPEG]
+                    if captureSession!.canAddOutput(stillImageOutput) {
+                        captureSession!.addOutput(stillImageOutput)
+                        
+                        previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
+                        previewLayer!.videoGravity = AVLayerVideoGravityResizeAspectFill
+                        previewLayer!.connection?.videoOrientation = AVCaptureVideoOrientation.Portrait
+                        cameraView.layer.addSublayer(previewLayer)
+                        cameraView.addSubview(captureFeedbackView!)
+                        
+                        doubleArrowImageView = UIImageView(frame: CGRectMake(0.0, (cameraView.frame.height - cameraView.frame.width/2.0), cameraView.frame.width/4.0, cameraView.frame.width/4.0))
+                        let doubleArrowImage = UIImage(named: "dragUpIcon.png")
+                        doubleArrowImageView.image = doubleArrowImage!.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)
+                        doubleArrowImageView!.alpha = 0
+                        
+                        cameraView.addSubview(doubleArrowImageView)
+                        
+                        startCamera()
+                    }
+                } else if (error != nil) {
+                    println("Error in AVCaptureDeviceInput")
                 }
-            } else if (error != nil) {
-                println("Error in AVCaptureDeviceInput")
             }
-            
-        }
+        } else {
+            authorizeCamera()
         }
         
         super.viewWillAppear(animated)
