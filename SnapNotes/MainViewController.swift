@@ -81,10 +81,16 @@ class MainViewController: UIViewController, MWPhotoBrowserDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        screenEdgeGestureRecognizer = UIScreenEdgePanGestureRecognizer(target: self, action: "changeViewMode:")
+        screenEdgeGestureRecognizer = UIScreenEdgePanGestureRecognizer(target: self, action: "handleEdgeGesture:")
         screenEdgeGestureRecognizer.edges = .Left
         self.view.addGestureRecognizer(screenEdgeGestureRecognizer)
         
+    }
+    
+    func handleEdgeGesture(sender: UIGestureRecognizer) {
+        if sender.state == UIGestureRecognizerState.Ended {
+            self.changeViewMode(sender)
+        }
     }
     
     
@@ -92,7 +98,6 @@ class MainViewController: UIViewController, MWPhotoBrowserDelegate {
     func updateAllContainerViews() {
         
         if camerViewController != nil {
-            let x = camerViewController?.captureSession?.running
             camerViewController?.captureSession?.startRunning()
         }
         
@@ -145,7 +150,6 @@ class MainViewController: UIViewController, MWPhotoBrowserDelegate {
     let transitionManager = TransitionManager()
     
     func showPhotoGallery() {
-        
         notesList = SnapNotesManager.getCurrentNotesList()
         currentCategory = SnapNotesManager.getCurrentCategory()
         
@@ -162,7 +166,6 @@ class MainViewController: UIViewController, MWPhotoBrowserDelegate {
         photoBrowser?.browserColor = UIColor(rgba: "#\(currentCategory!.colorString)FF")
         photoBrowser?.gridColor = UIColor(rgba: "#\(currentCategory!.colorString)FF")
         photoBrowser?.gridTitle = currentCategory?.name
-//        photoBrowser?.reloadData()
         
         photoBrowser?.displaySelectionButtons = false
         
@@ -183,6 +186,9 @@ class MainViewController: UIViewController, MWPhotoBrowserDelegate {
     func photoBrowserDidFinishModalPresentation(photoBrowser: MWPhotoBrowser!) {
         self.dismissViewControllerAnimated(true, completion: nil)
         navController = nil
+        notesList = nil
+        currentCategory = nil
+        self.photoBrowser = nil
     }
     
     func numberOfPhotosInPhotoBrowser(photoBrowser: MWPhotoBrowser!) -> UInt {
