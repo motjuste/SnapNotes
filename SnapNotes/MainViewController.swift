@@ -133,7 +133,14 @@ class MainViewController: UIViewController, MWPhotoBrowserDelegate {
         
         photoBrowser = MWPhotoBrowser(delegate: self)
         photoBrowser?.enableGrid = true
-        photoBrowser?.startOnGrid = (SnapNotesManager.getCurrentCategoryID() != nil)
+        
+        if SnapNotesManager.getCurrentCategoryID() == nil {
+            photoBrowser?.startOnGrid = false
+            photoBrowser?.setCurrentPhotoIndex(UInt(notesList!.count - 1))
+        } else {
+            photoBrowser?.startOnGrid = true
+            photoBrowser?.setCurrentPhotoIndex(0)
+        }
         photoBrowser?.browserColor = SnapNotesManager.getColorForCurrentCategory()
         photoBrowser?.gridColor = SnapNotesManager.getColorForCurrentCategory()
         photoBrowser?.gridTitle = SnapNotesManager.getCurrentCategory()?.name

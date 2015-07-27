@@ -214,6 +214,10 @@ class SnapNotesManager {
 
         self.checkAndAddMissingFolderAtPath(self.pathToNoteImages, addIfMissing: true)
         self.checkAndAddMissingFolderAtPath(self.pathToNoteThumbs, addIfMissing: true)
+        
+//        println("============================\n counts")
+//        println((self.fileManager.contentsOfDirectoryAtPath(self.pathToNoteImages, error: nil))?.count)
+//        println((self.fileManager.contentsOfDirectoryAtPath(self.pathToNoteThumbs, error: nil))?.count)
 
         if let imageNamesList = self.fileManager.contentsOfDirectoryAtPath(self.pathToNoteImages, error: nil) as? [String] {
 
@@ -292,6 +296,8 @@ class SnapNotesManager {
         }
             if categoryID == nil {
                 notesList = self.allNotesList
+                // sort notes in reverse chronological order
+                notesList.sort() { !($0 as Note).date!.greaterThan(($1 as Note).date!) }
             } else {
                 notesList = self.allNotesList.filter() { ($0 as Note).categoryID == categoryID }
             }
