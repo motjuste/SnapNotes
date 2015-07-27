@@ -24,6 +24,7 @@
 		20173CAB1B42057200E9348A /* CategoryNamesCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20173CAA1B42057200E9348A /* CategoryNamesCollectionViewController.swift */; };
 		20173CAD1B4205EB00E9348A /* CategoryNameCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20173CAC1B4205EB00E9348A /* CategoryNameCollectionViewCell.swift */; };
 		20314F371B3B65DD00875271 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20314F361B3B65DD00875271 /* AVFoundation.framework */; };
+		206D287C1B665C9E00F4C72E /* TransitionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 206D287B1B665C9E00F4C72E /* TransitionManager.swift */; };
 		20EF56F01B4616ED000CBE0C /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20EF56EF1B4616ED000CBE0C /* SettingsTableViewController.swift */; };
 		4026F1E0FA9BD27401FC357B /* libPods-SnapNotesTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 632F0C189A967CFBF05D4E3B /* libPods-SnapNotesTests.a */; };
 /* End PBXBuildFile section */
@@ -58,6 +59,7 @@
 		20173CAC1B4205EB00E9348A /* CategoryNameCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryNameCollectionViewCell.swift; sourceTree = "<group>"; };
 		20314F361B3B65DD00875271 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		204A3E151B4C8C1E00359EB5 /* SnapNotes-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SnapNotes-Bridging-Header.h"; sourceTree = "<group>"; };
+		206D287B1B665C9E00F4C72E /* TransitionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransitionManager.swift; sourceTree = "<group>"; };
 		20EF56EF1B4616ED000CBE0C /* SettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		2AF94E50053CA25B2B214782 /* libPods-SnapNotes.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SnapNotes.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		632F0C189A967CFBF05D4E3B /* libPods-SnapNotesTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SnapNotesTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -158,6 +160,7 @@
 				20173CA81B41FAC500E9348A /* CameraViewController.swift */,
 				20173CAA1B42057200E9348A /* CategoryNamesCollectionViewController.swift */,
 				20173CAC1B4205EB00E9348A /* CategoryNameCollectionViewCell.swift */,
+				206D287B1B665C9E00F4C72E /* TransitionManager.swift */,
 			);
 			name = SnapView;
 			sourceTree = "<group>";
@@ -366,6 +369,7 @@
 				20173CAD1B4205EB00E9348A /* CategoryNameCollectionViewCell.swift in Sources */,
 				20173CA91B41FAC500E9348A /* CameraViewController.swift in Sources */,
 				200694841B289C8100573CF9 /* SnapNotesManager.swift in Sources */,
+				206D287C1B665C9E00F4C72E /* TransitionManager.swift in Sources */,
 				20173CAB1B42057200E9348A /* CategoryNamesCollectionViewController.swift in Sources */,
 				200694591B27787700573CF9 /* AppDelegate.swift in Sources */,
 			);
