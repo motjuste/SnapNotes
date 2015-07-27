@@ -294,15 +294,15 @@ class SnapNotesManager {
         let fileName = timeIntervalString.stringByAppendingString("_" + categoryID)
         let filePath = self.pathToNoteImages.stringByAppendingPathComponent(fileName).stringByAppendingPathExtension("jpg")
         let thumbnPath = self.pathToNoteThumbs.stringByAppendingPathComponent(fileName).stringByAppendingPathExtension("jpg")
-
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), {
+        
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), { [fp = filePath!, tp = thumbnPath!] in
             var imageData = AVCaptureStillImageOutput.jpegStillImageNSDataRepresentation(sampleBuffer)
-            let image = UIImage(data: imageData)
+            var image = UIImage(data: imageData)
             imageData = nil
             
-            dispatch_async(dispatch_get_global_queue(QOS_CLASS_UTILITY, 0), {
-                let data = UIImageJPEGRepresentation(image, 0.75)
-                data.writeToFile(filePath!, atomically: true)
+            dispatch_async(dispatch_get_global_queue(QOS_CLASS_UTILITY, 0), { [im = image] in
+                let data = UIImageJPEGRepresentation(im, 0.8)
+                data.writeToFile(fp, atomically: true)
             })
             
             dispatch_async(dispatch_get_global_queue(QOS_CLASS_UTILITY, 0), {
@@ -312,8 +312,9 @@ class SnapNotesManager {
                 image?.drawInRect(CGRect(origin: CGPointZero, size: thumbSize))
                 let thumb = UIGraphicsGetImageFromCurrentImageContext()
                 UIGraphicsEndImageContext()
+                image = nil
                 let thumbData = UIImageJPEGRepresentation(thumb, 0.8)
-                thumbData.writeToFile(thumbnPath!, atomically: true)
+                thumbData.writeToFile(tp, atomically: true)
         })
         })
 
@@ -321,7 +322,6 @@ class SnapNotesManager {
         let newNote = Note(date: NSDate(timeIntervalSince1970: timeIntervalSince1970), categoryID: categoryID, imageFilePath: filePath!, thumbnailFilePath: thumbnPath!, selected: false)
         self.count += 1
         self.allNotesList.insert(newNote, atIndex: 0)
-
     }
     
     // MARK: - Delete notes
