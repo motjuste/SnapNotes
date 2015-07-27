@@ -794,6 +794,8 @@
                 [_pagingScrollView addSubview:selectedButton];
                 page.selectedButton = selectedButton;
                 selectedButton.selected = [self photoIsSelectedAtIndex:index];
+                page.selectedButton.enabled = NO;
+                page.selectedButton.hidden = YES;
             }
             
 		}
