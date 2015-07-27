@@ -189,10 +189,14 @@ class MainViewController: UIViewController, MWPhotoBrowserDelegate {
         }
     }
     
-    
-//    func photoBrowser(photoBrowser: MWPhotoBrowser!, actionButtonPressedForPhotoAtIndex index: UInt) {
-//        println("action: \(index)")
-//    }
+    func photoBrowser(photoBrowser: MWPhotoBrowser!, trashButtonPressedForPhotoAtIndex index: UInt) {
+        let notesToBeDeleted = [notesList![Int(index)]]
+        notesList?.removeAtIndex(Int(index))
+        
+        // TODO: - Show warning before deletion?
+        SnapNotesManager.deleteNotes(notesToBeDeleted)
+        photoBrowser?.reloadData()
+    }
     
     func trashGridButtonPressed(photoBrowser: MWPhotoBrowser!) {
 

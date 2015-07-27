@@ -236,12 +236,14 @@
     fixedSpace.width = 32; // To balance action button
     UIBarButtonItem *flexSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
     NSMutableArray *items = [[NSMutableArray alloc] init];
-
-    // Left button - Grid
-    if (_enableGrid) {
-        hasItems = YES;
-        [items addObject:[[UIBarButtonItem alloc] initWithImage:[UIImage imageForResourcePath:@"MWPhotoBrowser.bundle/UIBarButtonItemGrid" ofType:@"png" inBundle:[NSBundle bundleForClass:[self class]]] style:UIBarButtonItemStylePlain target:self action:@selector(showGridAnimated)]];
+    
+    // Left - Action
+    if (_actionButton && !(!hasItems && !self.navigationItem.rightBarButtonItem)) {
+        [items addObject:_actionButton];
     } else {
+        // We're not showing the toolbar so try and show in top right
+        if (_actionButton)
+            self.navigationItem.rightBarButtonItem = _actionButton;
         [items addObject:fixedSpace];
     }
 
@@ -257,15 +259,9 @@
         [items addObject:flexSpace];
     }
 
-    // Right - Action
-    if (_actionButton && !(!hasItems && !self.navigationItem.rightBarButtonItem)) {
-        [items addObject:_actionButton];
-    } else {
-        // We're not showing the toolbar so try and show in top right
-        if (_actionButton)
-            self.navigationItem.rightBarButtonItem = _actionButton;
-        [items addObject:fixedSpace];
-    }
+    // Right button - Grid
+    hasItems = YES;
+    [items addObject:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash target:self action:@selector(trashPageViewButtonPressed:)]];
 
     // Toolbar visibility
     [_toolbar setItems:items];
@@ -1419,8 +1415,12 @@
 }
 
 - (void)trashButtonPressed {
-    printf("\nDelegate will be called");
     [_delegate trashGridButtonPressed:self];
+}
+
+- (void)trashPageViewButtonPressed:(id)sender {
+    printf("PAGEVIEW :: trash button pressed");
+    [self.delegate photoBrowser:self trashButtonPressedForPhotoAtIndex:_currentPageIndex];
 }
 
 - (void)longPressedAtIndexPath:(NSIndexPath *)indexPath {
