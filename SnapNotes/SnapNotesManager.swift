@@ -327,18 +327,22 @@ class SnapNotesManager {
     // MARK: - Delete notes
     
     static func deleteNotes(notesToBeDeleted: [Note]) {
-        dispatch_async(dispatch_get_global_queue(QOS_CLASS_UTILITY, 0), {
-            // TODO: - proabably multiple dispatches per file??
-            for note in notesToBeDeleted {
-                self.fileManager.removeItemAtPath(note.imageFilePath!, error: nil)
-                self.fileManager.removeItemAtPath(note.thumbnailFilePath!, error: nil)
-                // TODO: - handle errors while deleting files
-                
-            }
+        
+        var dispatch_deletionGroup = dispatch_group_create()
+        
+        dispatch_apply(notesToBeDeleted.count, dispatch_get_global_queue(QOS_CLASS_UTILITY, 0), {
+            i in
+            let note = notesToBeDeleted[i]
+            dispatch_group_enter(dispatch_deletionGroup)
+            self.fileManager.removeItemAtPath(note.imageFilePath!, error: nil)
+            self.fileManager.removeItemAtPath(note.thumbnailFilePath!, error: nil)
+            dispatch_group_leave(dispatch_deletionGroup)
+        })
+        
+        dispatch_group_notify(dispatch_deletionGroup, dispatch_get_global_queue(QOS_CLASS_UTILITY, 0), {
             self.allNotesList.removeAll(keepCapacity: true)
             self.allNotesListLoaded = false
             self.loadAllNotes()
-
         })
     }
 
