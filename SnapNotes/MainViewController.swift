@@ -36,6 +36,8 @@ class MainViewController: UIViewController, MWPhotoBrowserDelegate {
         
     }
     
+    var screenEdgeGestureRecognizer: UIScreenEdgePanGestureRecognizer!
+    
     // CameraContainerView
     @IBOutlet weak var cameraContainerView: UIView!
     var camerViewController: CameraViewController?
@@ -70,7 +72,14 @@ class MainViewController: UIViewController, MWPhotoBrowserDelegate {
         
         super.viewWillAppear(true)
         updateAllContainerViews()
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
         
+        screenEdgeGestureRecognizer = UIScreenEdgePanGestureRecognizer(target: self, action: "changeViewMode:")
+        screenEdgeGestureRecognizer.edges = .Left
+        self.view.addGestureRecognizer(screenEdgeGestureRecognizer)
         
     }
     
@@ -126,6 +135,8 @@ class MainViewController: UIViewController, MWPhotoBrowserDelegate {
     
     var notesList: [Note]?
     var photoBrowser: MWPhotoBrowser?
+    var navController: UINavigationController?
+    let transitionManager = TransitionManager()
     
     func showPhotoGallery() {
         
@@ -150,10 +161,21 @@ class MainViewController: UIViewController, MWPhotoBrowserDelegate {
         
         photoBrowser?.enableSwipeToDismiss = true
         
-        let navController = UINavigationController(rootViewController: photoBrowser!)
-        navController.modalTransitionStyle = UIModalTransitionStyle.CoverVertical
-        self.presentViewController(navController, animated: true, completion: nil)
+        navController = UINavigationController(rootViewController: photoBrowser!)
         
+        if SnapNotesManager.getCurrentCategoryID() == nil {
+            navController!.transitioningDelegate = transitionManager
+        } else {
+            navController!.modalTransitionStyle = UIModalTransitionStyle.CoverVertical
+        }
+        
+        self.presentViewController(navController!, animated: true, completion: nil)
+        
+    }
+    
+    func photoBrowserDidFinishModalPresentation(photoBrowser: MWPhotoBrowser!) {
+        self.dismissViewControllerAnimated(true, completion: nil)
+        navController = nil
     }
     
     func numberOfPhotosInPhotoBrowser(photoBrowser: MWPhotoBrowser!) -> UInt {
