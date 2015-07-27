@@ -92,6 +92,7 @@ class MainViewController: UIViewController, MWPhotoBrowserDelegate {
     func updateAllContainerViews() {
         
         if camerViewController != nil {
+            let x = camerViewController?.captureSession?.running
             camerViewController?.captureSession?.startRunning()
         }
         
@@ -138,6 +139,7 @@ class MainViewController: UIViewController, MWPhotoBrowserDelegate {
     // MARK: - Photo Browser
     
     var notesList: [Note]?
+    var currentCategory: Category?
     var photoBrowser: MWPhotoBrowser?
     var navController: UINavigationController?
     let transitionManager = TransitionManager()
@@ -145,20 +147,21 @@ class MainViewController: UIViewController, MWPhotoBrowserDelegate {
     func showPhotoGallery() {
         
         notesList = SnapNotesManager.getCurrentNotesList()
+        currentCategory = SnapNotesManager.getCurrentCategory()
         
         photoBrowser = MWPhotoBrowser(delegate: self)
         photoBrowser?.enableGrid = true
         
-        if SnapNotesManager.getCurrentCategoryID() == nil {
+        if currentCategory?.id == "nil" {
             photoBrowser?.startOnGrid = false
             photoBrowser?.setCurrentPhotoIndex(UInt(notesList!.count - 1))
         } else {
             photoBrowser?.startOnGrid = true
             photoBrowser?.setCurrentPhotoIndex(0)
         }
-        photoBrowser?.browserColor = SnapNotesManager.getColorForCurrentCategory()
-        photoBrowser?.gridColor = SnapNotesManager.getColorForCurrentCategory()
-        photoBrowser?.gridTitle = SnapNotesManager.getCurrentCategory()?.name
+        photoBrowser?.browserColor = UIColor(rgba: "#\(currentCategory!.colorString)FF")
+        photoBrowser?.gridColor = UIColor(rgba: "#\(currentCategory!.colorString)FF")
+        photoBrowser?.gridTitle = currentCategory?.name
 //        photoBrowser?.reloadData()
         
         photoBrowser?.displaySelectionButtons = false
@@ -167,7 +170,7 @@ class MainViewController: UIViewController, MWPhotoBrowserDelegate {
         
         navController = UINavigationController(rootViewController: photoBrowser!)
         
-        if SnapNotesManager.getCurrentCategoryID() == nil {
+        if currentCategory?.id == "nil" {
             navController!.transitioningDelegate = transitionManager
         } else {
             navController!.modalTransitionStyle = UIModalTransitionStyle.CoverVertical

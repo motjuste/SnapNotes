@@ -170,7 +170,6 @@ class SnapNotesManager {
     // MARK: - Save Settings
     static func saveSettings() {
         
-        
         var categoriesJSONList : [[String: AnyObject]] = []
         
         for category in self.categoriesList {
@@ -236,7 +235,6 @@ class SnapNotesManager {
         }
         
         if !allNotesList.isEmpty {
-            
             allNotesList.sort() { ($0 as Note).date!.greaterThan(($1 as Note).date!) }
         }
         
@@ -249,42 +247,20 @@ class SnapNotesManager {
         return self.allNotesListLoaded
     }
 
-    static func getAllNotesCount() -> Int {
-        self.allNotesList.count
-        return self.allNotesList.count
-    }
-
-
-
     // MARK: - NoteFS and Notes Preview
 
     private static var currentCategoryID: String?
-    private static var currentNotesList: [Note]?
-    private static var currentImageIdx: Int?
-
-    static func isCurrentNotesListLoaded() -> Bool {
-        return currentNotesList != nil
-    }
-
-    static func loadCurrentNotesList() {
-        if !self.isAllNotesListLoaded() {
-            println("SnapNotesManager.loadCurrentNotesList : allNotes not loaded, loading now")
-            self.loadAllNotes()
-        }
-
-        if isEmpty(allNotesList) {
-            self.currentNotesList = []
+    
+    static func getCurrentCategory() -> Category? {
+        if self.currentCategoryID != nil {
+            return self.categoriesList.filter({ ($0 as Category).id == self.currentCategoryID }).first! as Category
         } else {
-            if self.currentCategoryID == nil {
-                self.currentNotesList = self.allNotesList
-            } else {
-                self.currentNotesList = self.allNotesList.filter() { ($0 as Note).categoryID == self.currentCategoryID }
-            }
-
-            if self.currentImageIdx == nil {
-                self.currentImageIdx = 0
-            }
+            return Category(id: "nil", name: "All Notes", order: 99)
         }
+    }
+    
+    static func setCurrentCategoryID(newCategoryID: String?) {
+        self.currentCategoryID = newCategoryID
     }
     
     static func getNotesByID(categoryID: String?) -> [Note] {
@@ -304,88 +280,12 @@ class SnapNotesManager {
             
         return notesList
     }
-    
-    static func getCurrentCategory() -> Category? {
-        if self.currentCategoryID != nil {
-            return self.categoriesList.filter({ ($0 as Category).id == self.currentCategoryID }).first! as Category
-        } else {
-            return Category(id: "nil", name: "All Notes", order: 99)
-        }
-    }
-
-    static func getCurrentCategoryID() -> String? {
-        return self.currentCategoryID
-    }
-
-    static func setCurrentCategoryID(newCategoryID: String?) {
-        self.currentCategoryID = newCategoryID
-    }
-
-    static func getCurrentImageIdx() -> Int? {
-        return self.currentImageIdx
-    }
-
-    static func setCurrentImageIdx(newCurrentImageIdx: Int) {
-        self.currentImageIdx = newCurrentImageIdx
-        self.loadCurrentNotesList()
-    }
 
     static func getCurrentNotesList() -> [Note] {
         return self.getNotesByID(self.currentCategoryID)
     }
-    
-    static func getColorForCurrentCategory() -> UIColor {
-        if self.currentCategoryID != nil {
-            let currentCategory = self.categoriesList.filter({ ($0 as Category).id == self.currentCategoryID }).first! as Category
-            return UIColor(rgba: "#\(currentCategory.colorString)FF")
-        } else {
-            return UIColor.blackColor()
-        }
-    }
-
-    static func getImageFilePathsListForCurrentCategoryID() -> [String] {
-//        if self.currentNotesList == nil {
-            self.loadCurrentNotesList()
-//        }
-
-        var imageFilePathsList: [String] = []
-
-        for note in self.currentNotesList! {
-            imageFilePathsList.append(note.imageFilePath!)
-        }
-
-        return imageFilePathsList
-    }
-
-
-    static func getThumbsFilePathsListForCurrentCategoryID() -> [String] {
-//        if self.currentNotesList == nil {
-            self.loadCurrentNotesList()
-//        }
-
-        var thumbsFilePathsList: [String] = []
-
-        for note in self.currentNotesList! {
-            thumbsFilePathsList.append(note.thumbnailFilePath!)
-        }
-
-        return thumbsFilePathsList
-    }
-
-
 
     // MARK: - Save image Notes
-
-    static func saveDataForCategoryID(data: NSData, categoryID: String, extensionString: String) {
-
-        let timeIntervalString = "\(NSDate().timeIntervalSince1970)"
-        let fileName = (timeIntervalString.stringByAppendingString("_" + categoryID)).stringByAppendingPathExtension(extensionString)
-        let filePath = self.pathToNoteImages.stringByAppendingPathComponent(fileName!)
-        data.writeToFile(filePath, atomically: true)
-
-        self.loadAllNotes()
-
-    }
 
     static func saveDataForCategoryID(sampleBuffer: CMSampleBuffer, categoryID: String) {
 
@@ -423,25 +323,6 @@ class SnapNotesManager {
         self.allNotesList.insert(newNote, atIndex: 0)
 
     }
-
-    static func saveImage(fileName: String, image: UIImage, isThumbnail: Bool) {
-        let ratio = image.size.height/image.size.width
-        var imageSize: CGSize = CGSizeMake(1080, 1080 * ratio)
-        var filePath = self.pathToNoteImages.stringByAppendingPathComponent(fileName).stringByAppendingPathExtension("jpg")
-
-        if isThumbnail {
-            imageSize = CGSizeMake(300, 300 * ratio)
-            filePath = self.pathToNoteThumbs.stringByAppendingPathComponent(fileName).stringByAppendingPathExtension("jpg")
-        }
-
-        UIGraphicsBeginImageContextWithOptions(imageSize, true, 0.0)
-        image.drawInRect(CGRect(origin: CGPointZero, size: imageSize))
-        let new_image = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-
-        let imgData = UIImageJPEGRepresentation(new_image, 0.75)
-        imgData.writeToFile(filePath!, atomically: true)
-    }
     
     // MARK: - Delete notes
     
@@ -455,6 +336,7 @@ class SnapNotesManager {
                 
             }
             self.allNotesList.removeAll(keepCapacity: true)
+            self.allNotesListLoaded = false
             self.loadAllNotes()
 
         })
