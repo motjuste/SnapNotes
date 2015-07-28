@@ -327,7 +327,7 @@ class SnapNotesManager {
     // MARK: - Delete notes
     
     static func deleteNotes(notesToBeDeleted: [Note]) {
-        
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
         var dispatch_deletionGroup = dispatch_group_create()
         
         dispatch_apply(notesToBeDeleted.count, dispatch_get_global_queue(QOS_CLASS_UTILITY, 0), {
@@ -343,6 +343,7 @@ class SnapNotesManager {
             self.allNotesList.removeAll(keepCapacity: true)
             self.allNotesListLoaded = false
             self.loadAllNotes()
+        })
         })
     }
 
