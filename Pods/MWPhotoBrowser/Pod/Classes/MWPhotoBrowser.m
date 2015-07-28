@@ -122,7 +122,9 @@
 	// Release any cached data, images, etc that aren't in use.
     [self releaseAllUnderlyingPhotos:YES];
 	[_recycledPages removeAllObjects];
-	
+    
+    [[SDImageCache sharedImageCache] clearDisk];
+    
 	// Releases the view if it doesn't have a superview.
     [super didReceiveMemoryWarning];
 	
@@ -1419,7 +1421,6 @@
 }
 
 - (void)trashPageViewButtonPressed:(id)sender {
-    printf("PAGEVIEW :: trash button pressed");
     [self.delegate photoBrowser:self trashButtonPressedForPhotoAtIndex:_currentPageIndex];
 }
 
