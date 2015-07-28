@@ -107,7 +107,6 @@
         if (indexPath == nil){
             printf("couldn't find index path\n");
         } else {
-            printf("Long Pressed\n");
             [_browser longPressedAtIndexPath:indexPath];
         }
     }
@@ -115,7 +114,6 @@
 
 
 - (void)trashButtonPressed:(id)sender {
-    printf("GRID :: trah button pressed");
     [_browser trashButtonPressed];
 }
 
