@@ -164,8 +164,10 @@ class MainViewController: UIViewController, MWPhotoBrowserDelegate {
         navController = UINavigationController(rootViewController: photoBrowser!)
         
         if currentCategory?.id == "nil" {
+            // transition animation from left
             navController!.transitioningDelegate = transitionManager
         } else {
+            // transition animation from bottom
             navController!.modalTransitionStyle = UIModalTransitionStyle.CoverVertical
         }
         

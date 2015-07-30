@@ -36,11 +36,11 @@ class CameraViewController: UIViewController {
     
     override func viewWillAppear(animated: Bool) {
         self.cameraAuthorized = AVCaptureDevice.authorizationStatusForMediaType(AVMediaTypeVideo) == AVAuthorizationStatus.Authorized
+        authorizeCamera()
         
         captureFeedbackView!.alpha = 0
-        authorizeCamera()
             
-            // Start or setup and start camera view
+            // Setup and/or start camera view
             
             if captureSession != nil {
                 startCamera()

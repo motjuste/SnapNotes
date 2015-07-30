@@ -160,7 +160,6 @@ class SnapNotesManager {
     }
     
     static func getCategoryByID(categoryID: String) -> Category {
-        // TODO: - Error handling; what if filtered result is empty?
         return (self.categoriesList.filter({ ($0 as Category).id == categoryID }).first!)
     }
 
@@ -238,7 +237,7 @@ class SnapNotesManager {
         return self.allNotesListLoaded
     }
 
-    // MARK: - NoteFS and Notes Preview
+    // MARK: - PhotoBrowser
 
     private static var currentCategoryID: String?
     
