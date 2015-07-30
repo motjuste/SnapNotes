@@ -38,8 +38,10 @@ class CameraViewController: UIViewController {
         self.cameraAuthorized = AVCaptureDevice.authorizationStatusForMediaType(AVMediaTypeVideo) == AVAuthorizationStatus.Authorized
         
         captureFeedbackView!.alpha = 0
-        
-        if cameraAuthorized {
+        authorizeCamera()
+            
+            // Start or setup and start camera view
+            
             if captureSession != nil {
                 startCamera()
             } else {
@@ -78,9 +80,6 @@ class CameraViewController: UIViewController {
                     println("Error in AVCaptureDeviceInput")
                 }
             }
-        } else {
-            authorizeCamera()
-        }
         
         super.viewWillAppear(animated)
     }
@@ -88,6 +87,7 @@ class CameraViewController: UIViewController {
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         if !previewLayerBoundsSet && cameraAuthorized {
+            
             // set frame of preview layer only once
             previewLayer!.frame = cameraView.bounds
             previewLayerBoundsSet = true

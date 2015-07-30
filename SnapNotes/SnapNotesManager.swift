@@ -106,7 +106,6 @@ class SnapNotesManager {
         if !self.checkAndAddMissingFolderAtPath(pathToSettings, addIfMissing: false) {
             var writeError: NSError?
             fileManager.copyItemAtPath(self.bundlePathToSettings!, toPath: self.pathToSettings, error: &writeError)
-            // TODO: - Handle write error
         }
 
         var readError: NSError?
@@ -148,7 +147,6 @@ class SnapNotesManager {
 //                println(jsonData["categories"].rawString())
             }
         } else {
-            // TODO: handle error when loading settings.json
 //            println("some Error: SnapNoteManager.loadSettings")
         }
     }
@@ -183,7 +181,6 @@ class SnapNotesManager {
         
         var writeError: NSError?
         json.description.writeToFile(self.pathToSettings, atomically: true, encoding: NSUTF8StringEncoding, error: &writeError)
-        // TODO: - handle write error when writing settings
     }
     
 
@@ -213,10 +210,6 @@ class SnapNotesManager {
 
         self.checkAndAddMissingFolderAtPath(self.pathToNoteImages, addIfMissing: true)
         self.checkAndAddMissingFolderAtPath(self.pathToNoteThumbs, addIfMissing: true)
-        
-//        println("============================\n counts")
-//        println((self.fileManager.contentsOfDirectoryAtPath(self.pathToNoteImages, error: nil))?.count)
-//        println((self.fileManager.contentsOfDirectoryAtPath(self.pathToNoteThumbs, error: nil))?.count)
 
         if let imageNamesList = self.fileManager.contentsOfDirectoryAtPath(self.pathToNoteImages, error: nil) as? [String] {
 
@@ -239,8 +232,6 @@ class SnapNotesManager {
         }
         
         self.allNotesListLoaded = true
-
-        // TODO: Handle error while reading note names
     }
 
     static func isAllNotesListLoaded() -> Bool {

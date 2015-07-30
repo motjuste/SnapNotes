@@ -24,13 +24,14 @@ class MainViewController: UIViewController, MWPhotoBrowserDelegate {
     @IBOutlet weak var changeViewModeButton: UIButton!
     
     @IBAction func changeViewMode(sender: AnyObject?) {
+        // This Function shows the Gallery, based on the currentCategoryID
         
         // if this is not being called from the buttonDragged function
         if sender != nil {
             // Set current category so that the last note is shown
             SnapNotesManager.setCurrentCategoryID(nil)
         }
-        camerViewController?.stopCamera()
+        cameraViewController?.stopCamera()
         showPhotoGallery()
         
         
@@ -40,7 +41,7 @@ class MainViewController: UIViewController, MWPhotoBrowserDelegate {
     
     // CameraContainerView
     @IBOutlet weak var cameraContainerView: UIView!
-    var camerViewController: CameraViewController?
+    var cameraViewController: CameraViewController?
     @IBOutlet weak var cameraContainerViewHeightConstraint: NSLayoutConstraint!
     
     // CategoryNamesContainerView
@@ -64,7 +65,6 @@ class MainViewController: UIViewController, MWPhotoBrowserDelegate {
         }
         
         layoutStuffToSize(self.view.bounds.size)
-        updateAllContainerViews()
     }
     
     func layoutStuffToSize(size: CGSize) {
@@ -75,7 +75,12 @@ class MainViewController: UIViewController, MWPhotoBrowserDelegate {
         self.cameraContainerViewHeightConstraint.constant = maxCameraContainerHeight
         
         maxCategoryBottomFromLayoutBottom = maxCameraContainerHeight - minCameraContainerHeight - categoryNamesHeight
-
+        
+        if cameraViewController != nil {
+            cameraViewController?.captureSession?.startRunning()
+        }
+        
+        self.categoryNamesFromLayoutBottomConstraint.constant = minCategoryBottomFromLayoutBottom
     }
     
     override func viewDidLoad() {
@@ -93,27 +98,10 @@ class MainViewController: UIViewController, MWPhotoBrowserDelegate {
         }
     }
     
-    
-    // Update the Container Views
-    func updateAllContainerViews() {
-        
-        if camerViewController != nil {
-            camerViewController?.captureSession?.startRunning()
-        }
-        
-//        UIView.animateWithDuration(0.2, delay: 0.0, options: .CurveEaseOut, animations: {
-//            self.categoryNamesFromLayoutBottomConstraint.constant = minCategoryBottomFromLayoutBottom
-//            self.view.layoutIfNeeded()
-//        }, completion: nil)
-        // TODO: - replace from bottom to top
-        
-        self.categoryNamesFromLayoutBottomConstraint.constant = minCategoryBottomFromLayoutBottom
-    }
-    
     // MARK: - Save Image
     func saveImageForCategoryID(categoryID: String, positionIndex: Int) {
         
-        camerViewController?.saveImageForCategoryID(categoryID, positionIndex: positionIndex)
+        cameraViewController?.saveImageForCategoryID(categoryID, positionIndex: positionIndex)
         
     }
     
@@ -126,7 +114,7 @@ class MainViewController: UIViewController, MWPhotoBrowserDelegate {
         if let segueIdentifier = embeddedSegueIdentifiers(rawValue: segue.identifier!) {
             switch segueIdentifier {
             case .showCameraController:
-                camerViewController = segue.destinationViewController as? CameraViewController
+                cameraViewController = segue.destinationViewController as? CameraViewController
             case .showCategoryNamesController:
                 categoryNamesCollectionViewController = segue.destinationViewController as? CategoryNamesCollectionViewController
             }
@@ -247,7 +235,6 @@ class MainViewController: UIViewController, MWPhotoBrowserDelegate {
         let notesToBeDeleted = notesList!.filter() { ($0 as Note).selected! }
         let newNotesList = notesList!.filter() { !($0 as Note).selected! }
         
-        // TODO: - Show warning
         SnapNotesManager.deleteNotes(notesToBeDeleted)
         notesList?.removeAll(keepCapacity: false)
         notesList? = newNotesList
@@ -259,7 +246,7 @@ class MainViewController: UIViewController, MWPhotoBrowserDelegate {
     
     func longPressDetectedAtIndexPath(indexPath: NSIndexPath!) {
         
-        // TODO: probably not need
+        // TODO: probably not needed
         photoBrowser?.displaySelectionButtons = true
         
         // TODO: Future bug; Assuming only one section in the gridView;

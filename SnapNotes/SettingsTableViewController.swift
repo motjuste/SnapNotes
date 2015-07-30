@@ -18,14 +18,8 @@ class SettingsTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
         
         navigationController?.navigationBarHidden = false
-        
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-//        self.navigationItem.rightBarButtonItem = self.editButtonItem()
         
         // Our table is always in editing mode
         self.tableView.editing = true
@@ -56,11 +50,6 @@ class SettingsTableViewController: UITableViewController {
         alertController.addAction(cancelAction)
         self.presentViewController(alertController, animated: true, completion: nil)
         
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 
     // MARK: - Table view data source
@@ -113,14 +102,7 @@ class SettingsTableViewController: UITableViewController {
                 SnapNotesManager.reorderAndSaveCategoriesList(categoriesList)
                 categoriesList = SnapNotesManager.getCategories()
                 self.tableView.reloadData()
-                // TODO: Animated deleting doesn't work?
-//                if tableView.numberOfRowsInSection(indexPath.section) == 0 {
-//                    tableView.deleteSections(NSIndexSet(index: indexPath.section), withRowAnimation: UITableViewRowAnimation.Automatic)
-//                }
-//                tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
             }
-        } else if editingStyle == .Insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }
         
     }

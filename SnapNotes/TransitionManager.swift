@@ -36,15 +36,8 @@ class TransitionManager: NSObject, UIViewControllerAnimatedTransitioning, UIView
         container.addSubview(toView)
         container.addSubview(fromView)
         
-        // get the duration of the animation
-        // DON'T just type '0.5s' -- the reason why won't make sense until the next post
-        // but for now it's important to just follow this approach
         let duration = self.transitionDuration(transitionContext)
         
-        // perform the animation!
-        // for this example, just slid both fromView and toView to the left at the same time
-        // meaning fromView is pushed off the screen and toView slides into view
-        // we also use the block animation usingSpringWithDamping for a little bounce
         UIView.animateWithDuration(duration, animations: {
             
             if self.presenting {
@@ -70,7 +63,6 @@ class TransitionManager: NSObject, UIViewControllerAnimatedTransitioning, UIView
     // MARK: UIViewControllerTransitioningDelegate protocol methods
     
     // return the animataor when presenting a viewcontroller
-    // remmeber that an animator (or animation controller) is any object that aheres to the UIViewControllerAnimatedTransitioning protocol
     func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         self.presenting = true
         return self
